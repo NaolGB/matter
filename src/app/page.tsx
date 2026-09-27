@@ -1,20 +1,5 @@
 import Link from "next/link";
-import { Key, Mark, Section, Spec, Wrap } from "@/components/site";
-import {
-  BucketStack,
-  CapacityTable,
-  ControlToggle,
-  DayTimeline,
-  EstimateRow,
-  GateNote,
-  LiveActivityCard,
-  MacWindow,
-  MenuBarStrip,
-  NoteMock,
-  QuickPanel,
-  ReviewFigure,
-  StandupMock,
-} from "@/components/mocks";
+import { Key, Mark, Section, Shot, Spec, Wrap } from "@/components/site";
 
 const schedulerRules = [
   ["Never in the past.", "On today, nothing movable lands before now."],
@@ -94,7 +79,11 @@ export default function Home() {
           </div>
         </Wrap>
         <Wrap className="mt-[clamp(3.5rem,7vw,6rem)]">
-          <MacWindow />
+          <Shot
+            label="The Tasks board"
+            capture="The main window on Tasks: the page icons and the work bucket in the sidebar, the capacity chip, and both columns of the board."
+            className="shadow-[0_40px_90px_-30px_rgb(0_0_0/0.25)]"
+          />
           <p className="mx-auto mt-5 max-w-[60ch] text-center text-[13px] leading-relaxed text-ink-muted">
             The board. Today grouped by tag, Upcoming by day, the work in progress in the bucket at
             the foot of the sidebar, and the day’s headroom beside it.
@@ -142,8 +131,18 @@ export default function Home() {
         lede="Set your active day and a focus cap once. Budget is the smaller of the cap and the room the day has left after your personal events, counted from now rather than from midnight. The chip in the sidebar reads out free time in green, or the overage in orange."
       >
         <div className="reveal mt-12 grid gap-4 md:grid-cols-2">
-          <CapacityTable band />
-          <GateNote band />
+          <Shot
+            band
+            aspect="4 / 3"
+            label="The capacity chip, hovered"
+            capture="The All day and From now table behind the chip: worked, planned, free and budget."
+          />
+          <Shot
+            band
+            aspect="4 / 3"
+            label="The today gate"
+            capture="The task editor refusing an estimate: the Doesn’t fit today line and the Move to button."
+          />
         </div>
         <Spec
           band
@@ -199,9 +198,12 @@ export default function Home() {
               </p>
             </li>
           </ol>
-          <div className="reveal">
-            <DayTimeline />
-          </div>
+          <Shot
+            className="reveal"
+            aspect="4 / 5"
+            label="The Calendar page, daily view"
+            capture="A day with events from a feed, a placed task, a pinned one and a running one, with the now line."
+          />
         </div>
       </Section>
 
@@ -211,10 +213,18 @@ export default function Home() {
         title="Drag a task onto the bucket. The clock starts."
         lede="The work bucket sits at the foot of the sidebar on every page. Drop a task or a meeting on it and a session opens. The card counts down against the estimate and keeps going past zero, because time owed is the useful reading."
       >
-        <div className="reveal mt-12 grid gap-6 md:grid-cols-[300px_1fr] md:items-start">
-          <BucketStack />
+        <div className="reveal mt-12 grid gap-6 md:grid-cols-[320px_1fr] md:items-start">
+          <Shot
+            aspect="4 / 3"
+            label="The work bucket"
+            capture="Two open sessions stacked in the bucket, the front card counting down with Pause and Complete."
+          />
           <div className="space-y-4">
-            <MenuBarStrip />
+            <Shot
+              aspect="16 / 4"
+              label="The menu bar"
+              capture="The status item: the mark, the session count and the countdown."
+            />
             <p className="text-[0.95rem] leading-relaxed text-ink-muted">
               The menu bar shows how many sessions are open and the countdown of the one furthest
               along, so the clock is in view with the window closed.
@@ -255,10 +265,13 @@ export default function Home() {
         title="It learns how long your work really takes."
         lede="Every finished task with tracked time teaches the tag it carries. Once a tag has eight of them, a new task with that tag starts at the length such tasks usually run, offered as a chip you can take or leave."
       >
-        <div className="reveal mt-12 grid gap-10 md:grid-cols-[360px_1fr] md:items-center md:gap-14">
-          <div className="text-ink">
-            <EstimateRow />
-          </div>
+        <div className="reveal mt-12 grid gap-10 md:grid-cols-[380px_1fr] md:items-center md:gap-14">
+          <Shot
+            band
+            aspect="16 / 9"
+            label="An estimate with the Usually chip"
+            capture="The task editor’s estimate field beside the chip that calibration offers."
+          />
           <div className="space-y-5 text-[1.02rem] leading-relaxed text-band-muted">
             <p>
               Book 30 minutes on a tag that usually runs longer and the editor says so. On a tag
@@ -351,9 +364,12 @@ export default function Home() {
         lede="Notes is a list on the left and an editor on the right, with folders and a search that reads titles and bodies. Every line is a block."
       >
         <div className="reveal mt-12 grid gap-8 md:grid-cols-[1fr_1fr] md:items-start">
-          <div className="text-ink">
-            <NoteMock />
-          </div>
+          <Shot
+            band
+            aspect="4 / 3"
+            label="A note in the block editor"
+            capture="A note with a heading, bullets, a checked item, inline code and a date chip."
+          />
           <dl className="space-y-5 text-[0.98rem] leading-relaxed">
             <div>
               <dt className="font-semibold text-band-ink">Blocks</dt>
@@ -402,9 +418,12 @@ export default function Home() {
         title="One entry a day. Four prompts. A north star."
         lede="Standup is a daily log built for a quick check-in with yourself. Each day has the same four sections, written in the same editor as Notes, and a streak that counts the days you wrote."
       >
-        <div className="reveal mt-12">
-          <StandupMock />
-        </div>
+        <Shot
+          className="reveal mt-12"
+          aspect="16 / 9"
+          label="A day in Standup"
+          capture="The four prompts with something written under each, the north star and the list of days in the sidebar."
+        />
         <p className="reveal mt-8 max-w-[60ch] text-[1.02rem] leading-relaxed text-ink-muted">
           The north star is one standing note beside every day, edited in place. A blank today does
           not break the streak; two blank days do.
@@ -417,9 +436,12 @@ export default function Home() {
         title="Did it fit? The week’s answer."
         lede="The capacity chip asks whether the day fits. Click it and the week review asks whether it did: tracked time against planned time, by tag and by day, for this week, last week or the last 30 days."
       >
-        <div className="reveal mt-12">
-          <ReviewFigure />
-        </div>
+        <Shot
+          className="reveal mt-12"
+          aspect="16 / 9"
+          label="The week review"
+          capture="The drawer on This week: the columns by day with the planned marks, the rows by tag, switches and the longest block."
+        />
         <Spec
           className="mt-4"
           items={[
@@ -455,9 +477,12 @@ export default function Home() {
         lede="The menu bar item opens a small panel: one field, the day, an estimate and a tag. Type fri 3pm and it is understood. The pill says what is left today, and a task that does not fit is added with the soonest day that would take it."
       >
         <div className="reveal mt-12 grid gap-10 md:grid-cols-[380px_1fr] md:items-center md:gap-14">
-          <div className="text-ink">
-            <QuickPanel />
-          </div>
+          <Shot
+            band
+            aspect="4 / 5"
+            label="The quick panel"
+            capture="The menu bar panel with a task typed in, the duplicate note, the day and tag chips, and the Now list."
+          />
           <div className="space-y-5 text-[1.02rem] leading-relaxed text-band-muted">
             <p>
               The same duplicate check, the same calibration chip and the same capacity gate as the
@@ -478,12 +503,22 @@ export default function Home() {
         title="The phone is a working surface."
         lede="One app, one store, synced through your own iCloud. On the iPhone the same tasks, sessions and notes arrive, and the parts you reach for in a corridor work without opening anything."
       >
-        <div className="reveal mt-12 flex flex-wrap items-start gap-6">
-          <LiveActivityCard />
-          <div className="flex flex-wrap gap-3">
-            <ControlToggle />
-            <ControlToggle running />
-          </div>
+        <div className="reveal mt-12 grid gap-4 sm:grid-cols-3">
+          <Shot
+            aspect="9 / 16"
+            label="Lock Screen"
+            capture="A running session as a Live Activity, counting down, with Pause and Done."
+          />
+          <Shot
+            aspect="9 / 16"
+            label="Control Center"
+            capture="The timer toggle, once reading Start next and once Running."
+          />
+          <Shot
+            aspect="9 / 16"
+            label="Home Screen"
+            capture="The Now, Today and Streak widgets."
+          />
         </div>
         <Spec
           className="mt-12"

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 /** The three-legged stool mark, traced from Brand/duka_app_icon_bw_centered.svg. */
@@ -195,5 +196,66 @@ export function Key({ children }: { children: ReactNode }) {
     <kbd className="rounded-[5px] border border-hairline bg-track px-1.5 py-0.5 font-sans text-[0.85em] text-ink">
       {children}
     </kbd>
+  );
+}
+
+/**
+ * A screenshot slot. Until the real capture exists it draws a labelled frame that
+ * says what to shoot; pass `src` (and the image's pixel size) to show the picture.
+ */
+export function Shot({
+  label,
+  capture,
+  aspect = "16 / 10",
+  src,
+  width = 1600,
+  height = 1000,
+  band = false,
+  className = "",
+}: {
+  label: string;
+  capture?: string;
+  aspect?: string;
+  src?: string;
+  width?: number;
+  height?: number;
+  band?: boolean;
+  className?: string;
+}) {
+  if (src) {
+    return (
+      <figure className={className}>
+        <Image
+          src={src}
+          alt={label}
+          width={width}
+          height={height}
+          sizes="(min-width: 980px) 980px, 100vw"
+          className={`h-auto w-full rounded-[14px] border ${
+            band ? "border-band-hairline" : "border-hairline"
+          }`}
+        />
+      </figure>
+    );
+  }
+  return (
+    <figure
+      role="img"
+      aria-label={`Screenshot placeholder: ${label}`}
+      className={`flex w-full flex-col items-center justify-center rounded-[14px] border border-dashed px-6 text-center ${
+        band
+          ? "border-band-hairline bg-band-card text-band-muted"
+          : "border-hairline bg-track text-ink-muted"
+      } ${className}`}
+      style={{ aspectRatio: aspect }}
+    >
+      <span className="text-[11px] font-semibold uppercase tracking-[0.12em]">Screenshot</span>
+      <span className={`mt-2 text-[15px] font-medium ${band ? "text-band-ink" : "text-ink"}`}>
+        {label}
+      </span>
+      {capture && (
+        <span className="mt-1.5 max-w-[34ch] text-[12.5px] leading-relaxed">{capture}</span>
+      )}
+    </figure>
   );
 }
