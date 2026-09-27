@@ -1,17 +1,26 @@
 @import "tailwindcss";
 
-/* Tokens are Matter's app palette (DukaPalette, DukaKit/AppCore), converted to hex.
-   The design is monochrome: emphasis is ink, not a brand hue. The single exception is
-   --running, which marks work that is running right now and nothing else. */
+/* Surfaces and ink are Matter's app palette (DukaPalette, DukaKit/AppCore).
+   The design stays monochrome: --running is the only hue, and it marks work
+   that is running, the same restriction the Swift file documents. */
 :root {
   --base: #ffffff;
   --card: #fefdfb;
   --track: #f2f1ef;
   --ink: #161615;
   --ink-muted: rgb(22 22 21 / 0.62);
-  --ink-label: #f9f8f6;
+  --ink-faint: rgb(22 22 21 / 0.4);
   --hairline: rgb(22 22 21 / 0.12);
   --running: #007aff;
+
+  /* The alternating full-bleed band. Light borrows inkProminent and the label
+     that is built to read on it; dark drops below the base instead. */
+  --band: #161615;
+  --band-ink: #f9f8f6;
+  --band-muted: rgb(249 248 246 / 0.66);
+  --band-hairline: rgb(249 248 246 / 0.16);
+
+  --chrome: rgb(255 255 255 / 0.72);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,9 +30,16 @@
     --track: #1b1a19;
     --ink: #f1f0ec;
     --ink-muted: rgb(241 240 236 / 0.62);
-    --ink-label: #191816;
+    --ink-faint: rgb(241 240 236 / 0.4);
     --hairline: rgb(241 240 236 / 0.14);
     --running: #0a84ff;
+
+    --band: #171615;
+    --band-ink: #f1f0ec;
+    --band-muted: rgb(241 240 236 / 0.62);
+    --band-hairline: rgb(241 240 236 / 0.14);
+
+    --chrome: rgb(33 31 30 / 0.72);
   }
 }
 
@@ -33,15 +49,60 @@
   --color-track: var(--track);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
-  --color-ink-label: var(--ink-label);
+  --color-ink-faint: var(--ink-faint);
   --color-hairline: var(--hairline);
   --color-running: var(--running);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-band: var(--band);
+  --color-band-ink: var(--band-ink);
+  --color-band-muted: var(--band-muted);
+  --color-band-hairline: var(--band-hairline);
+  --color-chrome: var(--chrome);
+
+  /* SF on Apple hardware, which is who this app is for. Inter carries the
+     same proportions everywhere else. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   background: var(--base);
   color: var(--ink);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll-driven, so there is no JavaScript and nothing to hydrate. Browsers
+   without view timelines simply render everything in place. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
