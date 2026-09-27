@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 /* Surfaces and ink are Matter's app palette (DukaPalette, DukaKit/AppCore).
-   The design stays monochrome: --running is the only hue, and it marks work
-   that is running, the same restriction the Swift file documents. */
+   The design stays monochrome. --running is the one hue the app allows itself,
+   for work that is running; --free and --over are the system green and orange
+   the capacity chip uses. Nothing else on the page carries colour except a
+   user's own tag and feed colours inside the mocks. */
 :root {
   --base: #ffffff;
   --card: #fefdfb;
@@ -12,6 +14,8 @@
   --ink-faint: rgb(22 22 21 / 0.4);
   --hairline: rgb(22 22 21 / 0.12);
   --running: #007aff;
+  --free: #34c759;
+  --over: #ff9500;
 
   /* The alternating full-bleed band. Light borrows inkProminent and the label
      that is built to read on it; dark drops below the base instead. */
@@ -19,6 +23,7 @@
   --band-ink: #f9f8f6;
   --band-muted: rgb(249 248 246 / 0.66);
   --band-hairline: rgb(249 248 246 / 0.16);
+  --band-card: rgb(249 248 246 / 0.06);
 
   --chrome: rgb(255 255 255 / 0.72);
 }
@@ -33,11 +38,14 @@
     --ink-faint: rgb(241 240 236 / 0.4);
     --hairline: rgb(241 240 236 / 0.14);
     --running: #0a84ff;
+    --free: #30d158;
+    --over: #ff9f0a;
 
     --band: #171615;
     --band-ink: #f1f0ec;
     --band-muted: rgb(241 240 236 / 0.62);
     --band-hairline: rgb(241 240 236 / 0.14);
+    --band-card: rgb(241 240 236 / 0.05);
 
     --chrome: rgb(33 31 30 / 0.72);
   }
@@ -52,10 +60,13 @@
   --color-ink-faint: var(--ink-faint);
   --color-hairline: var(--hairline);
   --color-running: var(--running);
+  --color-free: var(--free);
+  --color-over: var(--over);
   --color-band: var(--band);
   --color-band-ink: var(--band-ink);
   --color-band-muted: var(--band-muted);
   --color-band-hairline: var(--band-hairline);
+  --color-band-card: var(--band-card);
   --color-chrome: var(--chrome);
 
   /* SF on Apple hardware, which is who this app is for. Inter carries the
@@ -67,7 +78,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -76,6 +87,13 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes reveal {
