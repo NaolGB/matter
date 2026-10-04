@@ -7,10 +7,6 @@
     "text": "Full",
     "find": "return \"Full\""
   },
-  "over": {
-    "text": "Over 45m",
-    "find": "return \"Over \\("
-  },
   "prompt": {
     "text": "What needs doing?",
     "find": "What needs doing?"
@@ -90,26 +86,6 @@
   "start": {
     "text": "Getting started",
     "find": "\"Getting started\""
-  },
-  "chipPush": {
-    "text": "Push to tomorrow",
-    "find": "\"Push to tomorrow\""
-  },
-  "chipKeep": {
-    "text": "Keep it for today",
-    "find": "Keep it for today"
-  },
-  "chipStart": {
-    "text": "Start session",
-    "find": "\"Start session\""
-  },
-  "chipRecurs": {
-    "text": "What recurs?",
-    "find": "What recurs?"
-  },
-  "chipFind": {
-    "text": "Quick find tasks…",
-    "find": "Quick find tasks…"
   },
   "phone": {
     "text": "Tap + to add a task.",

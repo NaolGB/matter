@@ -34,7 +34,7 @@ const answers = [
   {
     question: "Do I need the Mac app to use the iPhone app?",
     answer:
-      "No. The iPhone app keeps its own copy of your tasks, calendar and notes and works on its own. The guide below is written for the Mac, so a few steps name controls the phone lays out differently.",
+      "No. The iPhone app keeps its own copy of your tasks, calendar, notes and daily log, and works on its own. The guide below is written for the Mac, so a few steps name controls the phone lays out differently.",
   },
   {
     question: "What does Matter need?",

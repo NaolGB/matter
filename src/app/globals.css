@@ -60,14 +60,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The chips of app text round the hero number. Each wears a soft tint of one of the app's
-   tag colours (--hue), mixed into the page so it holds in light and dark alike. On load a
-   chip flies in from its own side, then settles into a slow drift. The entrance moves
-   `translate` and the drift moves `transform`, so the two never fight over one property. */
+/* The tasks in the air. They stream in from all round the add-task field and vanish into
+   it. Each wears a soft tint of one of the app's tag colours (--hue), mixed into the page so
+   it holds in light and dark alike. The layer is anchored on the centre of the field, so a
+   task's own centre lands exactly there. `transform` does that centring, `rotate` the tilt,
+   and the flight is on `translate` and `scale`, so none of them has to know about the rest.
+   Shown only where there is room and where motion is welcome. */
+.stream {
+  display: none;
+  --R: max(46vw, 540px);
+}
+
 .chip {
   background: color-mix(in srgb, var(--hue) 14%, var(--base));
   color: color-mix(in srgb, var(--hue) 42%, var(--ink));
-  transform: rotate(var(--r, 0deg));
+  transform: translate(-50%, -50%);
+  /* The top-left corner is the anchor, and so the centre of the task once the line above
+     has shifted it. Turning and shrinking about that point keeps the centre on the target. */
+  transform-origin: 0 0;
+  rotate: var(--r, 0deg);
+  opacity: 0;
+  transition: background-color 0.2s ease;
+}
+
+.chip:hover {
+  background: color-mix(in srgb, var(--hue) 26%, var(--base));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,28 +92,58 @@ body {
     background: color-mix(in srgb, var(--hue) 24%, var(--base));
     color: color-mix(in srgb, var(--hue) 55%, var(--ink));
   }
+
+  .chip:hover {
+    background: color-mix(in srgb, var(--hue) 36%, var(--base));
+  }
 }
 
-@keyframes fly-in {
-  from {
-    translate: var(--from, -40vw) 0;
+/* A task that has been taken leaves the air until its bearing comes round again. !important,
+   because the stream is animating opacity and an animation outranks an ordinary rule. */
+.chip[data-gone="true"] {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* The distant ones are only there to be seen. */
+.chip[data-far="true"] {
+  pointer-events: none;
+}
+
+/* One flight: out on the circle, in to the field. The flight is the first 55% of the cycle
+   and the rest is the wait before the next one. A task gathers speed as it goes, like
+   something being drawn in, so there is no slow landing: it lingers out in the gutter, where
+   it can be read and caught, then is a faint dot by the time it crosses the words, and gone
+   as it reaches the field. */
+@keyframes stream {
+  0% {
+    translate: calc(var(--R) * var(--cx)) calc(var(--R) * var(--cy));
     opacity: 0;
+    scale: var(--size, 1);
+    animation-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
+  }
+  5% {
+    opacity: var(--strength, 1);
+  }
+  24% {
+    scale: var(--size, 1);
+  }
+  26% {
+    opacity: var(--strength, 1);
+  }
+  34% {
+    scale: calc(var(--size, 1) * 0.4);
+    opacity: calc(var(--strength, 1) * 0.5);
   }
   55% {
-    opacity: 1;
-  }
-  to {
     translate: 0 0;
-    opacity: 1;
+    opacity: 0;
+    scale: 0.18;
   }
-}
-
-@keyframes drift {
-  from {
-    transform: translateY(0) rotate(var(--r, 0deg));
-  }
-  to {
-    transform: translateY(-10px) rotate(var(--r, 0deg));
+  100% {
+    translate: 0 0;
+    opacity: 0;
+    scale: 0.18;
   }
 }
 
@@ -126,10 +173,19 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 64rem) {
+    .stream {
+      display: block;
+    }
+  }
+
   .chip {
-    animation:
-      fly-in 1.1s cubic-bezier(0.2, 1.15, 0.3, 1) var(--in, 0s) both,
-      drift 7s ease-in-out calc(var(--in, 0s) + 1.1s) infinite alternate;
+    animation: stream var(--dur, 6s) var(--delay, 0s) infinite backwards;
+  }
+
+  /* Easy to catch: a task holds still under the pointer. */
+  .chip:hover {
+    animation-play-state: paused;
   }
 
   @supports (animation-timeline: view()) {

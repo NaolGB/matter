@@ -1,28 +1,11 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { site } from "@/config";
-import { CapacityDemo } from "@/components/CapacityDemo";
-import { Mark, Shot, Statement, StoreStatus, Wrap } from "@/components/site";
+import { Hero } from "@/components/Hero";
+import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
-
-/* The hues are swatches from the app's tag palette (DukaPalette.tagPalette). Two chips carry a
-   state and keep the app's colour for it: Over in orange, Full in grey. The rest are there to
-   draw the eye. Each flies in from its own side (--from), a beat after the one before (--in). */
-const chips: { text: string; style: CSSProperties }[] = [
-  { text: lines.usually.text, style: { left: "6%", top: 72, "--r": "-7deg", "--hue": "#0A84FF", "--from": "-45vw", "--in": "0.15s" } as CSSProperties },
-  { text: lines.full.text, style: { right: "12%", top: 64, "--r": "-4deg", "--hue": "#8E8E93", "--from": "45vw", "--in": "0.25s" } as CSSProperties },
-  { text: lines.chipPush.text, style: { left: "9%", top: 330, "--r": "5deg", "--hue": "#5E5CE6", "--from": "-45vw", "--in": "0.35s" } as CSSProperties },
-  { text: lines.chipKeep.text, style: { right: "5%", top: 318, "--r": "8deg", "--hue": "#30D158", "--from": "45vw", "--in": "0.45s" } as CSSProperties },
-  { text: lines.chipStart.text, style: { left: "4%", top: 432, "--r": "6deg", "--hue": "#40C8E0", "--from": "-45vw", "--in": "0.55s" } as CSSProperties },
-  { text: lines.over.text, style: { right: "12%", top: 420, "--r": "-6deg", "--hue": "#FF9F0A", "--from": "45vw", "--in": "0.65s" } as CSSProperties },
-  { text: lines.chipRecurs.text, style: { left: "11%", top: 528, "--r": "-5deg", "--hue": "#FF375F", "--from": "-45vw", "--in": "0.75s" } as CSSProperties },
-  { text: lines.chipFind.text, style: { right: "6%", top: 520, "--r": "4deg", "--hue": "#BF5AF2", "--from": "45vw", "--in": "0.85s" } as CSSProperties },
-];
-
-const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
 const cards = [
   {
@@ -70,7 +53,7 @@ const devices = [
   },
   {
     name: "Matter for iPhone",
-    body: "Tasks, Calendar and Notes, and a widget for the room left in your day.",
+    body: "Tasks, Calendar, Notes and Standup, and a widget for the room left in your day.",
     requires: site.iphoneRequirement,
   },
 ];
@@ -91,63 +74,7 @@ function Arrow() {
 export default function Home() {
   return (
     <main className="flex-1">
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-[clamp(3.5rem,8vw,6rem)] pb-[clamp(3.5rem,8vw,6rem)]">
-        <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-          {chips.map((chip) => (
-            <span
-              key={chip.text}
-              style={chip.style}
-              className="chip absolute whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium"
-            >
-              {chip.text}
-            </span>
-          ))}
-        </div>
-
-        <Wrap className="relative text-center">
-          <div className="flex flex-col items-center gap-2">
-            <Mark size={46} />
-            <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-muted">Matter</p>
-          </div>
-          <div className="mt-5">
-            <CapacityDemo>
-              <h1 className="mt-5 text-[clamp(1.3rem,2.6vw,1.75rem)] tracking-[-0.015em]">
-                Plan the day you actually have
-              </h1>
-              <p className="mx-auto mt-3 max-w-[46ch] text-pretty text-[clamp(1rem,1.6vw,1.125rem)] leading-[1.5] text-ink-muted">
-                Matter is a planner for Mac and iPhone that knows how much a day holds. When the
-                plan stops fitting, it says so and offers the next day that will.
-              </p>
-              <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] text-ink-muted">
-                {facts.map((fact, index) => (
-                  <li key={fact} className="flex items-center gap-2">
-                    {index > 0 && <span aria-hidden className="text-ink-faint">·</span>}
-                    {fact}
-                  </li>
-                ))}
-              </ul>
-            </CapacityDemo>
-          </div>
-          <p className="mt-2">
-            <StoreStatus />
-          </p>
-        </Wrap>
-
-        {/* The Mac and the iPhone together. The phone stands in front, on a ring of page colour. */}
-        <Wrap className="mt-[clamp(3rem,6vw,4.5rem)]">
-          <div className="relative mx-auto max-w-[900px] pb-[7%] pr-[10%] sm:pr-[12%]">
-            <Shot
-              label="The Mac app"
-              capture="Tasks, with the capacity reading 2h 10m free and Loafy at home in the sidebar."
-              className="rounded-[18px] pr-[32%] sm:pr-6"
-            />
-            <div className="absolute bottom-0 right-0 w-[27%] min-w-[104px] rounded-[26px] bg-base p-[5px] sm:w-[21%]">
-              <Shot label="The iPhone app" aspect="9 / 19" compact className="rounded-[22px]" />
-            </div>
-          </div>
-        </Wrap>
-      </section>
+      <Hero />
 
       {/* The bento */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
@@ -237,7 +164,7 @@ export default function Home() {
             className="rise mt-12 rounded-[20px]"
           />
           <p className="mx-auto mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-ink-muted">
-            Tasks, Calendar and Notes on the iPhone, in step with the Mac. On the Home Screen, a
+            Tasks, Calendar, Notes and Standup on the iPhone, in step with the Mac. On the Home Screen, a
             widget shows the room left in your day beside Loafy’s house.
           </p>
         </Wrap>
