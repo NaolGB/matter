@@ -8,16 +8,18 @@ import { Mark, Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
 
-const chips: { text: string; style: CSSProperties; quiet?: boolean }[] = [
-  // Kept clear of the band the number sits in, so nothing runs under it at any width.
-  { text: lines.usually.text, style: { left: "6%", top: 72, "--r": "-7deg", "--d": "0s" } as CSSProperties },
-  { text: lines.chipPush.text, style: { left: "9%", top: 330, "--r": "5deg", "--d": "-2s" } as CSSProperties },
-  { text: lines.chipStart.text, style: { left: "4%", top: 432, "--r": "6deg", "--d": "-4s" } as CSSProperties },
-  { text: lines.chipRecurs.text, style: { left: "11%", top: 528, "--r": "-5deg", "--d": "-1s" } as CSSProperties, quiet: true },
-  { text: lines.full.text, style: { right: "12%", top: 64, "--r": "-4deg", "--d": "-3s" } as CSSProperties },
-  { text: lines.chipKeep.text, style: { right: "5%", top: 318, "--r": "8deg", "--d": "-5s" } as CSSProperties },
-  { text: lines.over.text, style: { right: "12%", top: 420, "--r": "-6deg", "--d": "-1.5s" } as CSSProperties },
-  { text: lines.chipFind.text, style: { right: "6%", top: 520, "--r": "4deg", "--d": "-3.5s" } as CSSProperties, quiet: true },
+/* The hues are swatches from the app's tag palette (DukaPalette.tagPalette). Two chips carry a
+   state and keep the app's colour for it: Over in orange, Full in grey. The rest are there to
+   draw the eye. Each flies in from its own side (--from), a beat after the one before (--in). */
+const chips: { text: string; style: CSSProperties }[] = [
+  { text: lines.usually.text, style: { left: "6%", top: 72, "--r": "-7deg", "--hue": "#0A84FF", "--from": "-45vw", "--in": "0.15s" } as CSSProperties },
+  { text: lines.full.text, style: { right: "12%", top: 64, "--r": "-4deg", "--hue": "#8E8E93", "--from": "45vw", "--in": "0.25s" } as CSSProperties },
+  { text: lines.chipPush.text, style: { left: "9%", top: 330, "--r": "5deg", "--hue": "#5E5CE6", "--from": "-45vw", "--in": "0.35s" } as CSSProperties },
+  { text: lines.chipKeep.text, style: { right: "5%", top: 318, "--r": "8deg", "--hue": "#30D158", "--from": "45vw", "--in": "0.45s" } as CSSProperties },
+  { text: lines.chipStart.text, style: { left: "4%", top: 432, "--r": "6deg", "--hue": "#40C8E0", "--from": "-45vw", "--in": "0.55s" } as CSSProperties },
+  { text: lines.over.text, style: { right: "12%", top: 420, "--r": "-6deg", "--hue": "#FF9F0A", "--from": "45vw", "--in": "0.65s" } as CSSProperties },
+  { text: lines.chipRecurs.text, style: { left: "11%", top: 528, "--r": "-5deg", "--hue": "#FF375F", "--from": "-45vw", "--in": "0.75s" } as CSSProperties },
+  { text: lines.chipFind.text, style: { right: "6%", top: 520, "--r": "4deg", "--hue": "#BF5AF2", "--from": "45vw", "--in": "0.85s" } as CSSProperties },
 ];
 
 const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
@@ -96,9 +98,7 @@ export default function Home() {
             <span
               key={chip.text}
               style={chip.style}
-              className={`chip absolute whitespace-nowrap rounded-[10px] bg-wash px-3 py-1.5 text-[13px] ${
-                chip.quiet ? "text-ink-faint" : "text-ink-muted"
-              }`}
+              className="chip absolute whitespace-nowrap rounded-[10px] px-3 py-1.5 text-[13px] font-medium"
             >
               {chip.text}
             </span>

@@ -75,7 +75,13 @@ export function CapacityDemo({ children }: { children?: ReactNode }) {
         aria-live="polite"
         className="text-[clamp(3.6rem,13vw,8.5rem)] font-normal leading-[0.95] tracking-[-0.05em]"
       >
-        {free === 0 ? lines.full.text : `${minutes(free)} free`}
+        {free === 0 ? (
+          <span className="text-ink-muted">{lines.full.text}</span>
+        ) : (
+          <>
+            {minutes(free)} <span className="text-free">free</span>
+          </>
+        )}
       </p>
 
       {children}
