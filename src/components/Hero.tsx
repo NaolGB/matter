@@ -4,11 +4,12 @@ import { useRef, useState, type CSSProperties } from "react";
 import lines from "@/content/app-lines.json";
 import { Mark, Shot, StoreStatus, Wrap } from "@/components/site";
 
-/* The hero, live. The day starts with 2h 10m free. A few example tasks lie either side of the
-   add-task field: click one, or type your own, and it goes on the day the way the app's editor
-   would put it there. One that fits takes its minutes off the number. One that does not is
-   refused, with the next day offered instead. Every string the app would say comes from
-   app-lines.json; the tasks themselves are examples. Nothing here moves. */
+/* The hero, live. The day starts with 2h 10m free. Example tasks lie round the add-task field
+   in rows, all pointing at it and fainter the further out they are: click one, or type your
+   own, and it goes on the day the way the app's editor would put it there. One that fits takes
+   its minutes off the number. One that does not is refused, with the next day offered instead.
+   Every string the app would say comes from app-lines.json; the tasks themselves are examples.
+   Nothing here moves. */
 
 const START = 130;
 const ESTIMATES = [15, 30, 45, 60, 120];
@@ -21,20 +22,94 @@ type ChipStyle = CSSProperties & { [key: `--${string}`]: string };
    Each wears a soft tint of a tag colour (the app's DukaPalette.tagPalette), as a tagged task
    does on the board.
 
-   They lie in the two gutters beside the field and are placed from the centre of the field, so
-   they keep clear of the words at any width. `y` is how far the task's centre sits below the
-   field's centre, `out` how far across the gutter it sits (0 is against the column, 1 is the far
-   side), `turn` its tilt in degrees. */
-const tasks: { name: string; length: number; hue: string; side: "left" | "right"; y: number; out: number; turn: number }[] = [
-  { name: "Week review", length: 45, hue: "#0A84FF", side: "left", y: -172, out: 0.6, turn: -5 },
-  { name: "Call the bank", length: 15, hue: "#FF375F", side: "left", y: -84, out: 0.1, turn: 4 },
-  { name: "Write the report", length: 120, hue: "#5E5CE6", side: "left", y: 8, out: 0.85, turn: -3 },
-  { name: "Book flights", length: 30, hue: "#40C8E0", side: "left", y: 100, out: 0.35, turn: 6 },
-  { name: "Draft the proposal", length: 60, hue: "#30D158", side: "right", y: -150, out: 0.25, turn: 5 },
-  { name: "Water the plants", length: 15, hue: "#FF9F0A", side: "right", y: -58, out: 0.9, turn: -6 },
-  { name: "Clear the inbox", length: 30, hue: "#BF5AF2", side: "right", y: 36, out: 0.05, turn: 3 },
-  { name: "Prepare the slides", length: 60, hue: "#FFD60A", side: "right", y: 128, out: 0.6, turn: -4 },
+   They lie round the add-task field and every one points at it. Each sits on a ray from the
+   centre of the field: `bearing` is the ray's direction in degrees, clockwise from east with
+   south down the page, so 180 is due left, 270 straight up and 360 due right, and `reach` is
+   how far out the task's centre is, in px. The rays fan over the left, the top and the right.
+   The quarter that points down is left empty, because the screenshots are there, and so is the
+   ray straight up, where the mark is.
+
+   There are three rows. The first hugs the words and is at full strength. The second sits
+   between the rays of the first, further out and fainter, and the third is further and fainter
+   again, so the whole thing thins out with distance. The layout is fixed in px round the field,
+   so a wider window simply shows more of it and the edge of the window cuts off the rest. A
+   task in an outer row waits for a window wide enough to show a good part of it (`from`): a
+   sliver at the edge looks like a mistake.
+
+   Placing from the field, not from the edges of the section, is what keeps the tasks clear of
+   the words at any width. */
+const tint = {
+  blue: "#0A84FF",
+  pink: "#FF375F",
+  green: "#30D158",
+  orange: "#FF9F0A",
+  indigo: "#5E5CE6",
+  teal: "#40C8E0",
+  purple: "#BF5AF2",
+  yellow: "#FFD60A",
+  brown: "#AC8E68",
+};
+
+/** How strongly each row is drawn: the opacity of its tasks. */
+const strengths = ["1", "0.5", "0.24"];
+
+/** The narrowest window a task is drawn in. Whole class names, so Tailwind finds them. */
+const shownFrom = {
+  1200: "hidden min-[1200px]:block",
+  1280: "hidden xl:block",
+  1500: "hidden min-[1500px]:block",
+};
+
+const tasks: {
+  name: string;
+  length: number;
+  hue: string;
+  bearing: number;
+  reach: number;
+  row: 0 | 1 | 2;
+  from?: keyof typeof shownFrom;
+}[] = [
+  // The first row, clockwise from the lower left. These eight are the ones the keyboard reaches.
+  { name: "Write the report", length: 120, hue: tint.indigo, bearing: 170, reach: 392, row: 0 },
+  { name: "Call the bank", length: 15, hue: tint.pink, bearing: 194, reach: 388, row: 0 },
+  { name: "Week review", length: 45, hue: tint.blue, bearing: 217, reach: 485, row: 0 },
+  { name: "Book flights", length: 30, hue: tint.teal, bearing: 240, reach: 525, row: 0 },
+  { name: "Walk the dog", length: 30, hue: tint.orange, bearing: 300, reach: 525, row: 0 },
+  { name: "Clear the inbox", length: 30, hue: tint.purple, bearing: 323, reach: 485, row: 0 },
+  { name: "Draft the proposal", length: 60, hue: tint.green, bearing: 346, reach: 392, row: 0 },
+  { name: "Prepare the slides", length: 60, hue: tint.yellow, bearing: 10, reach: 388, row: 0 },
+  // The second row, between the rays of the first.
+  { name: "Order groceries", length: 15, hue: tint.green, bearing: 158, reach: 604, row: 1, from: 1200 },
+  { name: "Fix the login bug", length: 45, hue: tint.orange, bearing: 182, reach: 584, row: 1, from: 1200 },
+  { name: "Read the contract", length: 30, hue: tint.brown, bearing: 205.5, reach: 618, row: 1, from: 1200 },
+  { name: "Pay rent", length: 15, hue: tint.purple, bearing: 228.5, reach: 610, row: 1 },
+  { name: "Go for a run", length: 30, hue: tint.blue, bearing: 311.5, reach: 612, row: 1 },
+  { name: "Send the invoice", length: 15, hue: tint.pink, bearing: 334.5, reach: 618, row: 1, from: 1200 },
+  { name: "Outline chapter 3", length: 45, hue: tint.indigo, bearing: 358, reach: 584, row: 1, from: 1200 },
+  { name: "Water the plants", length: 15, hue: tint.teal, bearing: 22, reach: 604, row: 1, from: 1200 },
+  // The third row, on the rays of the first again.
+  { name: "Renew the passport", length: 30, hue: tint.pink, bearing: 146, reach: 800, row: 2, from: 1280 },
+  { name: "Plan the offsite", length: 60, hue: tint.teal, bearing: 170, reach: 792, row: 2, from: 1500 },
+  { name: "Review the budget", length: 45, hue: tint.green, bearing: 194, reach: 800, row: 2, from: 1500 },
+  { name: "Tidy the desk", length: 15, hue: tint.orange, bearing: 217, reach: 812, row: 2, from: 1280 },
+  { name: "Book the dentist", length: 15, hue: tint.yellow, bearing: 323, reach: 812, row: 2, from: 1280 },
+  { name: "Update the roadmap", length: 30, hue: tint.blue, bearing: 346, reach: 800, row: 2, from: 1500 },
+  { name: "Pick up the parcel", length: 15, hue: tint.purple, bearing: 10, reach: 792, row: 2, from: 1500 },
+  { name: "Back up the laptop", length: 15, hue: tint.indigo, bearing: 34, reach: 800, row: 2, from: 1280 },
 ];
+
+/** Where a task's centre goes, measured from the centre of the field, and how far to turn the
+    task so it lies along its ray. It is turned whichever way keeps the text upright: a task on
+    the left reads towards the field, one on the right reads away from it. Whole pixels, so the
+    server and the browser agree on them. */
+function place(bearing: number, reach: number) {
+  const radians = (bearing * Math.PI) / 180;
+  return {
+    left: Math.round(Math.cos(radians) * reach),
+    top: Math.round(Math.sin(radians) * reach),
+    turn: bearing > 270 ? bearing - 360 : bearing > 90 ? bearing - 180 : bearing,
+  };
+}
 
 /** Minutes the way the app says them: 45m, 2h, 2h 15m (CapacityFormat.minutes). */
 function minutes(value: number) {
@@ -232,21 +307,27 @@ export function Hero() {
             )}
           </div>
 
-          {/* The example tasks, on wide screens only: there is no gutter to lay them in on a
+          {/* The example tasks, on wide screens only: there is no room round the field on a
               phone. The list is a point on the centre of the field (26px is half the field's
               height) and each task is placed from it. It comes last in the form, so the
-              keyboard reaches the field first. */}
-          <ul aria-label="Example tasks" className="tasks absolute left-1/2 top-[26px] hidden size-0 lg:block">
+              keyboard reaches the field first. The outer rows are more of the same, drawn
+              fainter, so they are for the pointer only: eight tasks are enough for the keyboard
+              and a screen reader. */}
+          <ul aria-label="Example tasks" className="absolute left-1/2 top-[26px] hidden size-0 lg:block">
             {tasks.map((task, index) => {
-              const chipStyle: ChipStyle = { "--hue": task.hue, "--r": `${task.turn}deg` };
+              const { left, top, turn } = place(task.bearing, task.reach);
+              const outer = task.row > 0;
+              const chipStyle: ChipStyle = { "--hue": task.hue, "--r": `${turn}deg`, "--strength": strengths[task.row] };
               return (
                 <li
                   key={task.name}
-                  className="absolute -translate-y-1/2"
-                  style={{ top: task.y, [task.side === "left" ? "right" : "left"]: `calc(288px + var(--spread) * ${task.out})` }}
+                  aria-hidden={outer || undefined}
+                  className={`absolute -translate-x-1/2 -translate-y-1/2 ${task.from ? shownFrom[task.from] : ""}`}
+                  style={{ left, top }}
                 >
                   <button
                     type="button"
+                    tabIndex={outer ? -1 : undefined}
                     disabled={taken.includes(index)}
                     onClick={() => commit(task.name, task.length, index)}
                     style={chipStyle}

@@ -60,18 +60,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The example tasks beside the add-task field. Each wears a soft tint of one of the app's tag
-   colours (--hue), mixed into the page so it holds in light and dark alike, and lies at a
-   slight tilt (--r). --spread is how far across its gutter a task may sit: next to nothing where
-   the gutter is only just wide enough, more as the screen widens. */
-.tasks {
-  --spread: clamp(0px, 50vw - 500px, 180px);
-}
-
+/* The example tasks round the add-task field. Each wears a soft tint of one of the app's tag
+   colours (--hue), mixed into the page so it holds in light and dark alike, and is turned (--r)
+   to lie along its own line to the field. The rows further out are drawn fainter (--strength);
+   one of those comes up to full strength under the pointer. */
 .chip {
   background: color-mix(in srgb, var(--hue) 14%, var(--base));
   color: color-mix(in srgb, var(--hue) 42%, var(--ink));
   rotate: var(--r, 0deg);
+  opacity: var(--strength, 1);
   transition:
     background-color 0.2s ease,
     opacity 0.2s ease,
@@ -80,6 +77,7 @@ body {
 
 .chip:hover {
   background: color-mix(in srgb, var(--hue) 26%, var(--base));
+  opacity: 1;
 }
 
 @media (prefers-color-scheme: dark) {
