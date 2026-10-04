@@ -1,71 +1,55 @@
-import type { ReactNode } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { site } from "@/config";
 
-/** The three-legged stool mark, traced from Brand/duka_app_icon_bw_centered.svg. */
-export function Mark({ className = "" }: { className?: string }) {
+/* The logo comes as artwork for a light ground and artwork for a dark one (Brand/Matter).
+   <picture> lets the browser choose, so there is no script and no flash. */
+
+export function Mark({ size = 22, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg viewBox="-40 -15 80 72" aria-hidden className={className} fill="none">
-      <ellipse cx="0" cy="0" rx="34" ry="11" fill="currentColor" />
-      <path
-        d="M-18 6 C-24 22 -30 38 -33 52 M18 6 C24 22 30 38 33 52 M0 9 C-1 24 -1 38 0 52"
-        stroke="currentColor"
-        strokeWidth="7"
-        strokeLinecap="round"
+    <picture>
+      <source srcSet="/brand/mark-on-dark.png" media="(prefers-color-scheme: dark)" />
+      <img src="/brand/mark-on-light.png" alt="" width={size} height={size} className={className} />
+    </picture>
+  );
+}
+
+export function Wordmark({ height = 44, className = "" }: { height?: number; className?: string }) {
+  const width = Math.round((height * 796) / 216);
+  return (
+    <picture>
+      <source srcSet="/brand/wordmark-on-dark.png" media="(prefers-color-scheme: dark)" />
+      <img
+        src="/brand/wordmark-on-light.png"
+        alt="Matter"
+        width={width}
+        height={height}
+        className={className}
       />
-    </svg>
+    </picture>
   );
 }
 
-export function Wrap({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`mx-auto w-full max-w-[980px] px-5 sm:px-6 ${className}`}>
-      {children}
-    </div>
-  );
+export function Wrap({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`mx-auto w-full max-w-[980px] px-5 sm:px-6 ${className}`}>{children}</div>;
 }
-
-const navLinks = [
-  { label: "Tasks", href: "/#tasks" },
-  { label: "Capacity", href: "/#capacity" },
-  { label: "Time", href: "/#time" },
-  { label: "Calendar", href: "/#calendar" },
-  { label: "Notes", href: "/#notes" },
-  { label: "iPhone", href: "/#iphone" },
-  { label: "Privacy", href: "/#privacy" },
-  { label: "Guide", href: "/guide" },
-];
 
 export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-chrome backdrop-blur-xl backdrop-saturate-150">
-      <Wrap className="flex h-12 items-center gap-6">
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2 text-[15px] font-semibold tracking-tight"
-        >
-          <Mark className="h-[18px] w-[20px]" />
+      <Wrap className="flex h-12 items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
+          <Mark size={22} />
           Matter
         </Link>
-        <nav className="no-scrollbar min-w-0 flex-1 overflow-x-auto">
-          <ul className="flex items-center justify-start gap-5 whitespace-nowrap pr-2 text-[12px] text-ink-muted sm:justify-end sm:gap-7 sm:pr-0">
-            {navLinks.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="transition-colors hover:text-ink"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <nav className="flex items-center gap-6 text-[13px] text-ink-muted">
+          <Link href="/support" className="transition-colors hover:text-ink">
+            Support
+          </Link>
+          <Link href="/privacy" className="transition-colors hover:text-ink">
+            Privacy
+          </Link>
         </nav>
       </Wrap>
     </header>
@@ -75,27 +59,24 @@ export function Nav() {
 export function Footer() {
   return (
     <footer className="border-t border-hairline py-10">
-      <Wrap className="flex flex-col gap-6 text-[12px] leading-relaxed text-ink-muted sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex flex-col gap-1">
-          <p className="flex items-center gap-2 text-ink">
-            <Mark className="h-[14px] w-[16px]" />
-            <span className="font-semibold">Matter</span>
-            <span className="text-ink-faint">Version 1.0</span>
-          </p>
-          <p>Coming to the App Store. One app for macOS and iOS, sold as a single purchase.</p>
-          <p className="text-ink-faint">
-            Requires macOS 26. The iPhone app requires iOS 26.5.
-          </p>
-        </div>
+      <Wrap className="flex flex-col gap-4 text-[12px] leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+        <p className="flex items-center gap-2">
+          <Mark size={16} />
+          <span className="font-semibold text-ink">Matter</span>
+          <span className="text-ink-faint">Version {site.version}</span>
+        </p>
+        <p className="text-ink-faint">
+          Requires {site.macRequirement}. The iPhone app requires {site.iphoneRequirement}.
+        </p>
         <ul className="flex gap-5">
           <li>
-            <Link href="/guide" className="hover:text-ink">
-              User Guide
+            <Link href="/support" className="hover:text-ink">
+              Support
             </Link>
           </li>
           <li>
             <Link href="/privacy" className="hover:text-ink">
-              Privacy Policy
+              Privacy
             </Link>
           </li>
         </ul>
@@ -104,98 +85,52 @@ export function Footer() {
   );
 }
 
-/** A page section with the display heading and a short lede. */
-export function Section({
-  id,
-  title,
-  lede,
-  children,
-  band = false,
-  center = false,
-}: {
-  id?: string;
-  title: string;
-  lede?: string;
-  children?: ReactNode;
-  band?: boolean;
-  center?: boolean;
-}) {
+/** Where the app can be had. Until it is on the store this is a statement, not a button. */
+export function StoreStatus({ className = "" }: { className?: string }) {
+  if (site.appStoreUrl) {
+    return (
+      <a
+        href={site.appStoreUrl}
+        className={`inline-flex h-10 items-center rounded-full bg-ink px-5 text-[14px] font-medium text-[var(--base)] ${className}`}
+      >
+        Get Matter on the App Store
+      </a>
+    );
+  }
   return (
-    <section
-      id={id}
-      className={
-        band
-          ? "bg-band py-[clamp(4.5rem,10vw,8rem)] text-band-ink"
-          : "py-[clamp(4rem,9vw,7rem)]"
-      }
+    <span
+      className={`inline-flex h-10 items-center rounded-full border border-hairline px-5 text-[14px] text-ink-muted ${className}`}
     >
-      <Wrap>
-        <div className={`reveal ${center ? "mx-auto text-center" : ""}`}>
-          <h2
-            className={`text-balance text-[clamp(1.9rem,4.6vw,3.25rem)] font-semibold leading-[1.06] tracking-[-0.028em] ${
-              center ? "mx-auto max-w-[20ch]" : "max-w-[18ch]"
-            }`}
-          >
-            {title}
-          </h2>
-          {lede && (
-            <p
-              className={`mt-5 max-w-[56ch] text-pretty text-[clamp(1.05rem,1.7vw,1.25rem)] leading-[1.45] ${
-                band ? "text-band-muted" : "text-ink-muted"
-              } ${center ? "mx-auto" : ""}`}
-            >
-              {lede}
-            </p>
-          )}
-        </div>
-        {children}
-      </Wrap>
-    </section>
+      Coming to the App Store
+    </span>
   );
 }
 
-/** The spec strip: a few cells divided by hairlines, the way Apple lists tech specs. */
-export function Spec({
-  items,
-  band = false,
-  columns = 4,
+/**
+ * A section's statement. Set light and large, and split into words so each can arrive on
+ * its own as the line scrolls into view (see `.words` in globals.css).
+ */
+export function Statement({
+  children,
+  as: Tag = "h2",
   className = "",
 }: {
-  items: { term: string; detail: ReactNode }[];
-  band?: boolean;
-  columns?: 2 | 3 | 4;
+  children: string;
+  as?: "h1" | "h2" | "p";
   className?: string;
 }) {
-  const cols =
-    columns === 2 ? "sm:grid-cols-2" : columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4";
+  const words = children.split(" ");
   return (
-    <dl
-      className={`reveal grid gap-px overflow-hidden rounded-2xl border ${
-        band ? "border-band-hairline bg-band-hairline" : "border-hairline bg-hairline"
-      } ${cols} ${className}`}
+    <Tag
+      className={`words text-balance text-[clamp(1.9rem,4.4vw,3.1rem)] font-normal leading-[1.1] tracking-[-0.03em] ${className}`}
     >
-      {items.map((item) => (
-        <div key={item.term} className={`p-6 ${band ? "bg-band" : "bg-base"}`}>
-          <dt className="text-[1rem] font-semibold tracking-tight">{item.term}</dt>
-          <dd
-            className={`mt-1.5 text-[0.92rem] leading-relaxed ${
-              band ? "text-band-muted" : "text-ink-muted"
-            }`}
-          >
-            {item.detail}
-          </dd>
-        </div>
+      {words.map((word, index) => (
+        <Fragment key={index}>
+          <span style={{ "--i": Math.min(index, 8) } as CSSProperties}>{word}</span>
+          {index < words.length - 1 ? " " : ""}
+        </Fragment>
       ))}
-    </dl>
-  );
-}
-
-/** Inline keyboard key. */
-export function Key({ children }: { children: ReactNode }) {
-  return (
-    <kbd className="rounded-[5px] border border-hairline bg-track px-1.5 py-0.5 font-sans text-[0.85em] text-ink">
-      {children}
-    </kbd>
+    </Tag>
   );
 }
 
@@ -210,7 +145,6 @@ export function Shot({
   src,
   width = 1600,
   height = 1000,
-  band = false,
   className = "",
 }: {
   label: string;
@@ -219,7 +153,6 @@ export function Shot({
   src?: string;
   width?: number;
   height?: number;
-  band?: boolean;
   className?: string;
 }) {
   if (src) {
@@ -231,9 +164,7 @@ export function Shot({
           width={width}
           height={height}
           sizes="(min-width: 980px) 980px, 100vw"
-          className={`h-auto w-full rounded-[14px] border ${
-            band ? "border-band-hairline" : "border-hairline"
-          }`}
+          className="h-auto w-full rounded-[inherit]"
         />
       </figure>
     );
@@ -242,20 +173,12 @@ export function Shot({
     <figure
       role="img"
       aria-label={`Screenshot placeholder: ${label}`}
-      className={`flex w-full flex-col items-center justify-center rounded-[14px] border border-dashed px-6 text-center ${
-        band
-          ? "border-band-hairline bg-band-card text-band-muted"
-          : "border-hairline bg-track text-ink-muted"
-      } ${className}`}
+      className={`flex w-full flex-col items-center justify-center border border-dashed border-hairline bg-track px-6 text-center text-ink-muted ${className}`}
       style={{ aspectRatio: aspect }}
     >
       <span className="text-[11px] font-semibold uppercase tracking-[0.12em]">Screenshot</span>
-      <span className={`mt-2 text-[15px] font-medium ${band ? "text-band-ink" : "text-ink"}`}>
-        {label}
-      </span>
-      {capture && (
-        <span className="mt-1.5 max-w-[34ch] text-[12.5px] leading-relaxed">{capture}</span>
-      )}
+      <span className="mt-2 text-[15px] font-medium text-ink">{label}</span>
+      {capture && <span className="mt-1.5 max-w-[34ch] text-[12.5px] leading-relaxed">{capture}</span>}
     </figure>
   );
 }

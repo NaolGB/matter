@@ -1,0 +1,633 @@
+{
+  "source": "Duka/Settings/InfoDocuments.swift",
+  "guide": [
+    {
+      "id": "welcome",
+      "title": "Welcome to Matter",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Matter is a calm, local-first place for your tasks and time. Everything you create lives on your Mac — there are no accounts to make, and nothing is uploaded to us."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This guide walks through each part of the app. Use the sidebar to jump to a topic, or read straight through."
+        },
+        {
+          "kind": "heading",
+          "text": "The main surfaces"
+        },
+        {
+          "kind": "bullet",
+          "text": "**Tasks** — your board of things to do, with a live view of how the day's plan fits your time."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Calendar** — your days and events, from calendar feeds you subscribe to."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Notes** — a block-based space for longer thinking, organized into folders."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Standup** — a free-form daily log for reflection, one entry per day."
+        },
+        {
+          "kind": "heading",
+          "text": "Getting started"
+        },
+        {
+          "kind": "step",
+          "n": 1,
+          "text": "Open **Tasks** and add a few things you need to do with the **+** button."
+        },
+        {
+          "kind": "step",
+          "n": 2,
+          "text": "Set your work hours and daily focus limit in **Settings ▸ Day** so the capacity bar reflects your real day."
+        },
+        {
+          "kind": "step",
+          "n": 3,
+          "text": "Give tasks an estimate so Matter can tell you whether the day actually fits."
+        },
+        {
+          "kind": "step",
+          "n": 4,
+          "text": "Explore the rest — subscribe to a calendar, jot a note, or write today's standup."
+        },
+        {
+          "kind": "note",
+          "text": "Your data stays on this Mac. See **Privacy Policy** in the sidebar for exactly what that means."
+        }
+      ]
+    },
+    {
+      "id": "tasks",
+      "title": "Tasks",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The Tasks board is Matter's home. It shows your open work in two columns — **Today** and **Upcoming** — with completed items kept in view for the day you finish them."
+        },
+        {
+          "kind": "heading",
+          "text": "Creating and editing"
+        },
+        {
+          "kind": "bullet",
+          "text": "Click **+** in the toolbar (or **New task** in the header) to create a task."
+        },
+        {
+          "kind": "bullet",
+          "text": "A task has a title, an optional day and time, an estimate in minutes, and any number of tags. Only the title is required."
+        },
+        {
+          "kind": "bullet",
+          "text": "Click any task row to open the editor. Changes save as you make them."
+        },
+        {
+          "kind": "heading",
+          "text": "Scheduling a task"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Pick a day for the task, and optionally a time. If you set a time, the task is *pinned* there. If you leave the time empty, Matter auto-places it within your day's available time."
+        },
+        {
+          "kind": "note",
+          "text": "Clear a task's time at any point to hand its placement back to auto-scheduling."
+        },
+        {
+          "kind": "heading",
+          "text": "Completing, reopening, and pushing"
+        },
+        {
+          "kind": "bullet",
+          "text": "Click the circle on a row to mark it **done**. Click a done task to reopen it."
+        },
+        {
+          "kind": "bullet",
+          "text": "Hover a row and use the **+** menu to push a task to tomorrow, out a few days, or to next week."
+        },
+        {
+          "kind": "bullet",
+          "text": "If you keep pushing the same task, Matter asks you to confirm — a gentle nudge that it may need rethinking."
+        },
+        {
+          "kind": "heading",
+          "text": "Archiving and deleting"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Deleting a task moves it to the Archive rather than destroying it, so it can be recovered. Open the Archive from the toolbar to restore or permanently remove items."
+        },
+        {
+          "kind": "heading",
+          "text": "Tags on the board"
+        },
+        {
+          "kind": "paragraph",
+          "text": "A task appears under each tag it carries. The Today column groups rows by tag, with each group showing the tag's color and its total estimated time. Untagged tasks appear under **No tag**."
+        },
+        {
+          "kind": "heading",
+          "text": "Tracking time"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Drag a task onto the **work bucket** at the bottom of the sidebar to start timing it. It stays there on every page. See **Capacity & Scheduling** for how tracked time feeds your day's budget."
+        },
+        {
+          "kind": "heading",
+          "text": "Finding a task"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Use **Quick find tasks…** at the top of the board to filter by title."
+        }
+      ]
+    },
+    {
+      "id": "capacity",
+      "title": "Capacity & Scheduling",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Matter doesn't just list tasks — it tells you whether they fit. The capacity engine compares the time you've planned against the time you actually have, and warns you before the day is overcommitted."
+        },
+        {
+          "kind": "heading",
+          "text": "Your day's shape"
+        },
+        {
+          "kind": "bullet",
+          "text": "**Work hours** — the window your day runs in (by default 8am–8pm). Only time inside this window counts."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Focus limit** — a daily budget for focused work (by default 6 hours). It's a soft cap: you can plan past it, but Matter flags it."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Set both in **Settings ▸ Day**, along with whether a full day refuses new work or only says so."
+        },
+        {
+          "kind": "heading",
+          "text": "The capacity bar"
+        },
+        {
+          "kind": "paragraph",
+          "text": "The sidebar shows today's plan as a bar — green while you're under budget, orange when over. It reads out how much free time is left, or how far over you've gone."
+        },
+        {
+          "kind": "bullet",
+          "text": "When the day is over-planned, a **Push … to tomorrow** button appears to defer just enough work to fit."
+        },
+        {
+          "kind": "bullet",
+          "text": "A compact capacity chip lives in the toolbar. Hover it for a breakdown of worked, planned, and free time — both for the whole day and from now onward."
+        },
+        {
+          "kind": "heading",
+          "text": "The today gate"
+        },
+        {
+          "kind": "paragraph",
+          "text": "When you give a task an estimate that won't fit today, the editor says so — **Doesn't fit today** — and offers to move it to the soonest day that has room."
+        },
+        {
+          "kind": "heading",
+          "text": "Auto-placement"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Tasks without a set time are placed automatically into the earliest open slot that fits their estimate, working around anything you've pinned to a specific time."
+        },
+        {
+          "kind": "heading",
+          "text": "Events that count"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Calendar feeds can be set to **count toward your load**. When on, their events consume capacity just like tasks. When off, they're shown as context but don't affect your budget. Toggle this per feed in **Settings ▸ Calendars**."
+        }
+      ]
+    },
+    {
+      "id": "templates",
+      "title": "Templates & Recurring Work",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Templates turn work you do again and again into a single click. Each template carries a cadence, an estimate, and a set of tags, and spawns real tasks when you apply it."
+        },
+        {
+          "kind": "heading",
+          "text": "Creating a template"
+        },
+        {
+          "kind": "step",
+          "n": 1,
+          "text": "Open the **Templates** drawer from the toolbar."
+        },
+        {
+          "kind": "step",
+          "n": 2,
+          "text": "Choose a cadence — **Daily**, **Weekly**, or **Monthly**."
+        },
+        {
+          "kind": "step",
+          "n": 3,
+          "text": "Click **Add new** and fill in the title, estimate, and tags. Weekly templates let you pick which day of the week."
+        },
+        {
+          "kind": "heading",
+          "text": "Applying templates"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Each cadence section has an **Apply** button that materializes its tasks for the current period — today for daily, this week for weekly, this month for monthly."
+        },
+        {
+          "kind": "bullet",
+          "text": "A red dot marks a template not yet applied this period."
+        },
+        {
+          "kind": "bullet",
+          "text": "A green checkmark means it's already applied — applying again won't create duplicates."
+        },
+        {
+          "kind": "heading",
+          "text": "What spawned tasks inherit"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Tasks created from a template start with the template's estimate and tags, and behave like any other task from then on — you can reschedule, retag, or complete them freely."
+        }
+      ]
+    },
+    {
+      "id": "tags",
+      "title": "Tags",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Tags are how you group and color your work. A task can carry several tags, and the board organizes around them."
+        },
+        {
+          "kind": "heading",
+          "text": "Managing tags"
+        },
+        {
+          "kind": "bullet",
+          "text": "Open **Settings ▸ Tags** to add a tag or edit an existing one."
+        },
+        {
+          "kind": "bullet",
+          "text": "Each tag has a **label**, a **color**, and an **order** number that controls where its group sits on the board."
+        },
+        {
+          "kind": "heading",
+          "text": "Applying tags"
+        },
+        {
+          "kind": "paragraph",
+          "text": "In a task's editor, use the tag picker to toggle any of your tags on or off. On the Today column, tasks are grouped under each tag they carry, with the group showing the tag color and its total estimated time."
+        },
+        {
+          "kind": "note",
+          "text": "Events from calendar feeds can be tagged too — the tag is stored locally in Matter and never written back to the feed."
+        }
+      ]
+    },
+    {
+      "id": "calendar",
+      "title": "Calendar & Subscriptions",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Matter can bring your external calendars in alongside your tasks by subscribing to iCal (ICS) feeds. Events are read-only mirrors of the feed — Matter never edits or writes back to your calendar provider."
+        },
+        {
+          "kind": "heading",
+          "text": "Subscribing to a feed"
+        },
+        {
+          "kind": "step",
+          "n": 1,
+          "text": "Open **Settings ▸ Calendars**."
+        },
+        {
+          "kind": "step",
+          "n": 2,
+          "text": "Enter a name and the feed's **iCal URL** (starting with https://), then click **Add**. The feed is fetched right away."
+        },
+        {
+          "kind": "step",
+          "n": 3,
+          "text": "Pick a color for the feed, and decide whether it should **count toward your load**."
+        },
+        {
+          "kind": "note",
+          "text": "A feed's URL usually comes from your calendar provider as a “subscribe” or “iCal/ICS” link. Matter needs the raw feed URL, not a web page."
+        },
+        {
+          "kind": "heading",
+          "text": "Managing feeds"
+        },
+        {
+          "kind": "bullet",
+          "text": "Toggle a feed **off** to stop syncing it without deleting it."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Refresh all** forces a live re-fetch and shows the last sync time."
+        },
+        {
+          "kind": "bullet",
+          "text": "Deleting a feed removes all of its events from the board and the Calendar page."
+        },
+        {
+          "kind": "heading",
+          "text": "How syncing works"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Matter syncs on a periodic timer, when the app becomes active, and whenever you hit Refresh. It keeps a rolling window of roughly a month back and a month ahead, and expands repeating events (including edited single occurrences) so they land on the right days."
+        },
+        {
+          "kind": "heading",
+          "text": "The Calendar page"
+        },
+        {
+          "kind": "bullet",
+          "text": "Switch between **daily** and **weekly** views. Days and hours form a grid, with events and scheduled tasks drawn as blocks."
+        },
+        {
+          "kind": "bullet",
+          "text": "Use the **‹ ›** arrows to move between days or weeks; past days fade so the week reads as a record."
+        },
+        {
+          "kind": "bullet",
+          "text": "Click an event to see its details — title, time, location, and description — in a read-only sheet."
+        },
+        {
+          "kind": "bullet",
+          "text": "You can tag an event or start a work session on it, just like a task."
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Notes is a space for longer thinking — a list of notes on the left, a rich block editor on the right. Notes can be filed into folders or left unfiled."
+        },
+        {
+          "kind": "heading",
+          "text": "Organizing notes"
+        },
+        {
+          "kind": "bullet",
+          "text": "Click **New note** to start one; it opens in the editor immediately."
+        },
+        {
+          "kind": "bullet",
+          "text": "Create folders and drag notes into them to file them. Unfiled notes collect under **Unfiled**."
+        },
+        {
+          "kind": "bullet",
+          "text": "The list is searchable by title and by the text inside a note."
+        },
+        {
+          "kind": "bullet",
+          "text": "Deleting a note is a soft delete — recover it later from the archive."
+        },
+        {
+          "kind": "note",
+          "text": "Matter reopens the last note you were reading when you return to the page."
+        },
+        {
+          "kind": "heading",
+          "text": "The block editor"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notes (and Standup) share a block-based editor. Every line is a block you can restyle and rearrange:"
+        },
+        {
+          "kind": "bullet",
+          "text": "**Block types:** paragraph, headings, bulleted and numbered items, and checkable to-do items."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Indent** with Tab and outdent with Shift+Tab to build nested structure."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Inline formatting:** bold, italic, strikethrough, underline, and inline code."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Links:** paste a URL and it becomes a clickable link."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Date chips:** type **@** to pick a date and drop in a date token."
+        },
+        {
+          "kind": "bullet",
+          "text": "**Keyboard:** arrow keys move between blocks, Return splits a block, and Backspace at the start of a line merges it upward."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Your edits save automatically a moment after you stop typing."
+        }
+      ]
+    },
+    {
+      "id": "standup",
+      "title": "Standup",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Standup is a daily reflective log — one entry per day — built for a quick check-in with yourself. It uses the same block editor as Notes."
+        },
+        {
+          "kind": "heading",
+          "text": "A day's entry"
+        },
+        {
+          "kind": "bullet",
+          "text": "Click **Add today** to create today's entry if it doesn't exist yet."
+        },
+        {
+          "kind": "bullet",
+          "text": "Each entry is organized around a few fixed prompts, and each prompt has its own editable block area."
+        },
+        {
+          "kind": "bullet",
+          "text": "Past days are listed newest-first in the sidebar; select one to revisit it."
+        }
+      ]
+    },
+    {
+      "id": "notifications",
+      "title": "Notifications",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The bell in the toolbar is Matter's in-app inbox. It collects reminders and app events, and can also surface them as macOS notifications if you allow it."
+        },
+        {
+          "kind": "heading",
+          "text": "Using the inbox"
+        },
+        {
+          "kind": "bullet",
+          "text": "Click the bell to open the inbox. A badge appears when you have unread items."
+        },
+        {
+          "kind": "bullet",
+          "text": "Unread items show a colored dot and bold text; click a row to toggle it read or unread."
+        },
+        {
+          "kind": "bullet",
+          "text": "Use **Mark all read** to clear the unread state at once."
+        },
+        {
+          "kind": "heading",
+          "text": "System alerts"
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you turn on reminders, Matter can also post macOS notifications so you see them outside the app. If permission is off, the inbox offers a shortcut to enable it in System Settings — the in-app inbox keeps working either way."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "title": "Getting Around",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Matter is a single window with a handful of pages and a few slide-in drawers."
+        },
+        {
+          "kind": "heading",
+          "text": "Switching pages"
+        },
+        {
+          "kind": "bullet",
+          "text": "The toolbar's leading icons move between **Tasks**, **Standup**, **Calendar**, **Notes**, and **Settings**."
+        },
+        {
+          "kind": "bullet",
+          "text": "A strip in the title bar shows your most recently visited pages for quick switching."
+        },
+        {
+          "kind": "bullet",
+          "text": "Open Settings any time with **⌘,**."
+        },
+        {
+          "kind": "heading",
+          "text": "Toolbar actions"
+        },
+        {
+          "kind": "bullet",
+          "text": "The **capacity chip** shows free or over-planned time at a glance."
+        },
+        {
+          "kind": "bullet",
+          "text": "**+** creates a task."
+        },
+        {
+          "kind": "bullet",
+          "text": "The **pin** opens a pinned scratchpad notebook that follows you across pages."
+        },
+        {
+          "kind": "bullet",
+          "text": "The **bell** opens notifications."
+        },
+        {
+          "kind": "heading",
+          "text": "Drawers and sheets"
+        },
+        {
+          "kind": "paragraph",
+          "text": "The notebook, templates, and archive slide in from the right. The task editor and event details open as centered panels. Press **Esc** to dismiss most of them."
+        },
+        {
+          "kind": "heading",
+          "text": "Settings"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Settings is organized into **General**, **Day**, **Tags**, **Calendars**, and **About**. You'll find this guide and the privacy policy under **About**."
+        }
+      ]
+    }
+  ],
+  "privacy": {
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "blocks": [
+      {
+        "kind": "paragraph",
+        "text": "Matter is a local-first app. Your tasks, notes, calendars, and settings are stored on your Mac and are not sent to us. Matter has no account system, no analytics, and no advertising or tracking."
+      },
+      {
+        "kind": "heading",
+        "text": "What stays on your device"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Everything you create in Matter — tasks, templates, notes, standup entries, tags, and preferences — is stored locally on your device. We, the developer, never receive this data."
+      },
+      {
+        "kind": "heading",
+        "text": "Calendar subscriptions"
+      },
+      {
+        "kind": "paragraph",
+        "text": "If you subscribe to a calendar feed, Matter periodically fetches it directly from the URL you provide. Those requests go to that calendar's server, governed by that provider's own policies. Matter does not route them through us."
+      },
+      {
+        "kind": "heading",
+        "text": "Data you export or share"
+      },
+      {
+        "kind": "paragraph",
+        "text": "If you copy, export, or share content out of Matter, that action is yours and leaves Matter's control."
+      },
+      {
+        "kind": "heading",
+        "text": "Children"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Matter is not directed at children and does not knowingly collect information from them."
+      },
+      {
+        "kind": "heading",
+        "text": "Changes"
+      },
+      {
+        "kind": "paragraph",
+        "text": "If this policy changes, the updated version will appear here and on our website."
+      },
+      {
+        "kind": "heading",
+        "text": "Contact"
+      },
+      {
+        "kind": "paragraph",
+        "text": "Questions about privacy? Reach us through the Support link in Settings ▸ About."
+      }
+    ]
+  }
+}

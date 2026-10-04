@@ -12,11 +12,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Matter",
+    default: "Matter: plan the day you actually have",
     template: "%s · Matter",
   },
   description:
-    "A calm, local-first place for your tasks and time on the Mac and iPhone. Matter plans against the room a day actually has, keeps the clock running while you work, and keeps your data on your own devices.",
+    "Matter is a planner for Mac and iPhone that knows how much a day holds. When the plan stops fitting, it says so and offers the next day that will.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
