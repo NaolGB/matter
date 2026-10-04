@@ -47,13 +47,26 @@ link. Until they are set, `/support` says an address is coming and the store but
 
 ## Screenshots
 
-Pictures are placeholder frames until real captures exist. Each one is a `<Shot>`
-(`src/components/site.tsx`) whose text says what to shoot. To use a real image, put it
-under `public/screenshots/` and pass `src` with its pixel size:
+The pictures are real captures of the app running its demo world, in `public/shots`, one for
+light and one for dark. They are WebP at twice the size they are shown and are served as they
+are (`unoptimized`), so the site needs no image resizer at run time.
 
 ```tsx
-<Shot label="The main window" src="/screenshots/window.png" width={2400} height={1500} />
+<Shot
+  label="The Mac app"
+  src="/shots/mac-tasks-light.webp"
+  srcDark="/shots/mac-tasks-dark.webp"
+  width={1680}
+  height={1050}
+/>
 ```
+
+A `<Shot>` with no `src` draws a soft frame saying what to shoot, which is how a new slot looks
+until its capture exists.
+
+The full-size originals, the App Store set and the tools that made them are in
+`~/Desktop/duka/Screenshots/app-store` (see its README). `tools/process.py` there writes
+`public/shots`; rerun it after reshooting rather than editing the files by hand.
 
 ## Look
 

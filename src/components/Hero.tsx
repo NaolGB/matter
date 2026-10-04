@@ -354,10 +354,22 @@ export function Hero() {
           <Shot
             label="The Mac app"
             capture="Tasks, with the capacity reading 2h 10m free and Loafy at home in the sidebar."
-            className="rounded-[18px] pr-[32%] sm:pr-6"
+            src="/shots/mac-tasks-light.webp"
+            srcDark="/shots/mac-tasks-dark.webp"
+            width={1680}
+            height={1050}
+            className="rounded-[18px] shadow-[0_40px_90px_-50px_rgb(0_0_0/0.45)] ring-1 ring-hairline"
           />
           <div className="absolute bottom-0 right-0 w-[27%] min-w-[104px] rounded-[26px] bg-base p-[5px] sm:w-[21%]">
-            <Shot label="The iPhone app" aspect="9 / 19" compact className="rounded-[22px]" />
+            <Shot
+              label="The iPhone app"
+              capture="Tasks, with 2h 10m free and one task running."
+              src="/shots/iphone-tasks-light.webp"
+              srcDark="/shots/iphone-tasks-dark.webp"
+              width={480}
+              height={1043}
+              className="rounded-[22px] ring-1 ring-hairline"
+            />
           </div>
         </div>
       </Wrap>

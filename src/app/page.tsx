@@ -13,6 +13,7 @@ const cards = [
     line: lines.gate.text,
     body: "Matter counts what you planned against the hours you have left, meetings included, and says when it is too much.",
     crop: "The editor refusing an estimate",
+    shot: { name: "editor", width: 1024, height: 576 },
     href: "/support#capacity",
   },
   {
@@ -20,6 +21,7 @@ const cards = [
     line: lines.bucket.text,
     body: "The clock counts down against your estimate and keeps going past it. Finishing records what the task really took.",
     crop: "A session counting down",
+    shot: { name: "session", width: 928, height: 522 },
     href: "/support#tasks",
   },
   {
@@ -27,6 +29,7 @@ const cards = [
     line: lines.usually.text,
     body: "After enough finished work, Matter knows how long that kind of task runs and offers the number before you guess.",
     crop: "The week review",
+    shot: { name: "week", width: 880, height: 495 },
     href: "/support#capacity",
   },
   {
@@ -34,6 +37,7 @@ const cards = [
     line: lines.notes.text,
     body: "A fast editor, a notebook one click away, and room for longer thinking next to the plan.",
     crop: "A note",
+    shot: { name: "note", width: 1408, height: 792 },
     href: "/support#notes",
   },
 ];
@@ -98,7 +102,14 @@ export default function Home() {
                   <Arrow />
                 </div>
                 <div className="mt-auto px-3 pb-3">
-                  <Shot label={card.crop} aspect="16 / 8" className="rounded-[16px]" />
+                  <Shot
+                    label={card.crop}
+                    src={`/shots/crop-${card.shot.name}-light.webp`}
+                    srcDark={`/shots/crop-${card.shot.name}-dark.webp`}
+                    width={card.shot.width}
+                    height={card.shot.height}
+                    className="rounded-[16px] ring-1 ring-hairline"
+                  />
                 </div>
               </Link>
             ))}
@@ -120,7 +131,10 @@ export default function Home() {
             <Shot
               label={lines.loafyHome.text}
               capture="Bedroom, kitchen, living room."
-              aspect="1 / 2"
+              src="/shots/loafy-home-light.webp"
+              srcDark="/shots/loafy-home-dark.webp"
+              width={524}
+              height={1202}
               className="rise mx-auto max-w-[220px] rounded-[20px]"
             />
             <p className="rise max-w-[34ch] text-[1.05rem] leading-relaxed text-ink-muted">
@@ -157,12 +171,18 @@ export default function Home() {
       <section className="py-[clamp(4rem,9vw,7rem)]">
         <Wrap className="text-center">
           <Statement>{lines.phone.text}</Statement>
-          <Shot
-            label="The iPhone app and its widget"
-            capture="Tasks on the phone, and the widget that shows the room left in your day beside Loafy’s house."
-            aspect="16 / 8"
-            className="rise mt-12 rounded-[20px]"
-          />
+          {/* Five screens in a row. On a phone the row keeps a readable size and scrolls sideways. */}
+          <div className="rise mt-12 overflow-x-auto rounded-[20px] bg-wash">
+            <Shot
+              label="The iPhone app and its widget"
+              capture="Tasks, Calendar, a note and a standup entry on the phone, and the Home Screen widget that shows the room left in your day beside Loafy’s house."
+              src="/shots/iphone-strip-light.webp"
+              srcDark="/shots/iphone-strip-dark.webp"
+              width={2400}
+              height={1200}
+              className="min-w-[720px]"
+            />
+          </div>
           <p className="mx-auto mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-ink-muted">
             Tasks, Calendar, Notes and Standup on the iPhone, in step with the Mac. On the Home Screen, a
             widget shows the room left in your day beside Loafy’s house.
