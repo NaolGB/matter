@@ -4,85 +4,37 @@ import { useRef, useState, type CSSProperties } from "react";
 import lines from "@/content/app-lines.json";
 import { Mark, Shot, StoreStatus, Wrap } from "@/components/site";
 
-/* The hero, live. The day starts with 2h 10m free. Tasks stream in round the number, and
-   each one is a task: click it, or type your own, and it goes on the day the way the app's
-   editor would put it there. One that fits takes its minutes off the number. One that does not is
+/* The hero, live. The day starts with 2h 10m free. A few example tasks lie either side of the
+   add-task field: click one, or type your own, and it goes on the day the way the app's editor
+   would put it there. One that fits takes its minutes off the number. One that does not is
    refused, with the next day offered instead. Every string the app would say comes from
-   app-lines.json; the tasks themselves are examples. */
+   app-lines.json; the tasks themselves are examples. Nothing here moves. */
 
 const START = 130;
 const ESTIMATES = [15, 30, 45, 60, 120];
 const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
-/* The tasks in the air. There are always more of them than the day can hold, which is the
-   point. Each wears a soft tint of a tag colour (the app's DukaPalette.tagPalette), as a tagged
-   task does on the board, and each is a real task here: click one and it goes on the day. */
-/** Inline style that also carries the custom properties the stream reads. */
+/** Inline style that also carries the custom properties a task reads. */
 type ChipStyle = CSSProperties & { [key: `--${string}`]: string };
 
-const hues = ["#0A84FF", "#FF375F", "#30D158", "#FF9F0A", "#5E5CE6", "#40C8E0", "#BF5AF2", "#8E8E93", "#FFD60A", "#AC8E68"];
+/* The example tasks. Together they come to far more than the day can hold, which is the point.
+   Each wears a soft tint of a tag colour (the app's DukaPalette.tagPalette), as a tagged task
+   does on the board.
 
-const pool: [string, number][] = [
-  ["Reply to the reviewer", 30],
-  ["Week review", 45],
-  ["Outline chapter 3", 45],
-  ["Draft the proposal", 60],
-  ["Pay the electricity bill", 15],
-  ["Book the dentist", 15],
-  ["Call the bank", 15],
-  ["Write the report", 120],
-  ["Fix the login bug", 45],
-  ["Plan the offsite", 60],
-  ["Renew the domain", 15],
-  ["Read the contract", 30],
-  ["Prepare the slides", 60],
-  ["Send the invoice", 15],
-  ["Water the plants", 15],
-  ["Review the budget", 45],
-  ["Update the roadmap", 30],
-  ["Call mum", 15],
-  ["Book flights", 30],
-  ["Clear the inbox", 30],
-  ["Sketch the homepage", 60],
-  ["Order groceries", 15],
-  ["Write release notes", 30],
-  ["Back up the laptop", 15],
-  ["Prep for the interview", 45],
-  ["File the expenses", 30],
-  ["Tidy the desk", 15],
-  ["Pick up the parcel", 15],
-  ["Review the pull request", 30],
-  ["Renew the passport", 30],
+   They lie in the two gutters beside the field and are placed from the centre of the field, so
+   they keep clear of the words at any width. `y` is how far the task's centre sits below the
+   field's centre, `out` how far across the gutter it sits (0 is against the column, 1 is the far
+   side), `turn` its tilt in degrees. */
+const tasks: { name: string; length: number; hue: string; side: "left" | "right"; y: number; out: number; turn: number }[] = [
+  { name: "Week review", length: 45, hue: "#0A84FF", side: "left", y: -172, out: 0.6, turn: -5 },
+  { name: "Call the bank", length: 15, hue: "#FF375F", side: "left", y: -84, out: 0.1, turn: 4 },
+  { name: "Write the report", length: 120, hue: "#5E5CE6", side: "left", y: 8, out: 0.85, turn: -3 },
+  { name: "Book flights", length: 30, hue: "#40C8E0", side: "left", y: 100, out: 0.35, turn: 6 },
+  { name: "Draft the proposal", length: 60, hue: "#30D158", side: "right", y: -150, out: 0.25, turn: 5 },
+  { name: "Water the plants", length: 15, hue: "#FF9F0A", side: "right", y: -58, out: 0.9, turn: -6 },
+  { name: "Clear the inbox", length: 30, hue: "#BF5AF2", side: "right", y: 36, out: 0.05, turn: 3 },
+  { name: "Prepare the slides", length: 60, hue: "#FFD60A", side: "right", y: 128, out: 0.6, turn: -4 },
 ];
-
-/* Where the tasks come from. The target is the centre of the add-task field, and the sources
-   sit all round it on a circle, a little uneven so it does not look ruled. A slot is one
-   bearing on that circle: its task appears out there, gathers speed towards the field,
-   shrinks to a dot before it reaches the words, and is gone as it lands. Then the slot comes
-   back as the next task from the pool. --cx and --cy are the bearing as a fraction of the
-   circle's radius (--R, set on the layer), so the whole thing scales with the screen.
-
-   A task coming in from the side, level with the field or below it, has the gutter to itself,
-   so it is full size, readable and clickable. One coming from above would cross the number,
-   the headline and the sentence (measured: anything more than about 20 degrees above level
-   does), so it starts small and faint, as if further away, and is only there to be seen. No two slots
-   take the same time, so the stream never repeats. */
-const slots = Array.from({ length: 24 }, (_, slot) => {
-  const bearing = (slot * 360) / 24 + ((slot * 37) % 11) - 5;
-  const reach = 0.82 + ((slot * 29) % 30) / 100;
-  const radians = (bearing * Math.PI) / 180;
-  const far = Math.abs(Math.cos(radians)) < 0.6 || Math.sin(radians) < -0.34;
-  const style: ChipStyle = {
-    "--cx": (Math.cos(radians) * reach).toFixed(3),
-    "--cy": (Math.sin(radians) * reach).toFixed(3),
-    "--r": `${((slot * 7) % 9) - 4}deg`,
-    "--size": far ? "0.5" : "1",
-    "--strength": far ? "0.45" : "1",
-    "--dur": `${(4.6 + ((slot * 13) % 19) / 10).toFixed(1)}s`,
-    "--delay": `${((slot * 0.83) % 5).toFixed(2)}s`,
-  };
-  return { slot, far, style };
-});
 
 /** Minutes the way the app says them: 45m, 2h, 2h 15m (CapacityFormat.minutes). */
 function minutes(value: number) {
@@ -101,7 +53,7 @@ function tomorrow() {
 
 type Note =
   | { kind: "added"; title: string }
-  | { kind: "refused"; title: string; day: string; slot?: number }
+  | { kind: "refused"; title: string; day: string; task?: number }
   | { kind: "moved"; title: string; day: string };
 
 export function Hero() {
@@ -109,34 +61,20 @@ export function Hero() {
   const [title, setTitle] = useState("");
   const [estimate, setEstimate] = useState(30);
   const [note, setNote] = useState<Note | null>(null);
-  /** The task each slot is showing, as an index into the pool. */
-  const [shown, setShown] = useState<number[]>(() => slots.map((entry) => entry.slot));
-  /** Slots whose task has been taken: put on today, or moved to tomorrow. */
-  const [gone, setGone] = useState<number[]>([]);
+  /** Example tasks that have left the pile: put on today, or moved to tomorrow. */
+  const [taken, setTaken] = useState<number[]>([]);
   const input = useRef<HTMLInputElement>(null);
 
   /** Put a task on today if it fits; otherwise refuse it the way the app's editor does. */
-  function commit(name: string, length: number, slot?: number) {
+  function commit(name: string, length: number, task?: number) {
     if (length > free) {
-      setNote({ kind: "refused", title: name, day: tomorrow(), slot });
+      setNote({ kind: "refused", title: name, day: tomorrow(), task });
       return false;
     }
     setFree(free - length);
-    if (slot !== undefined) setGone((list) => [...list, slot]);
+    if (task !== undefined) setTaken((list) => [...list, task]);
     setNote({ kind: "added", title: name });
     return true;
-  }
-
-  /** A slot has finished a pass: it comes back as the next task nobody else is showing. */
-  function recycle(slot: number) {
-    setShown((current) => {
-      let next = (current[slot] + 1) % pool.length;
-      while (current.includes(next)) next = (next + 1) % pool.length;
-      const copy = [...current];
-      copy[slot] = next;
-      return copy;
-    });
-    setGone((list) => list.filter((entry) => entry !== slot));
   }
 
   function addTyped() {
@@ -153,8 +91,8 @@ export function Hero() {
 
   function move() {
     if (note?.kind !== "refused") return;
-    const slot = note.slot;
-    if (slot !== undefined) setGone((list) => [...list, slot]);
+    const task = note.task;
+    if (task !== undefined) setTaken((list) => [...list, task]);
     else setTitle("");
     setNote({ kind: "moved", title: note.title, day: note.day });
   }
@@ -164,17 +102,14 @@ export function Hero() {
     setTitle("");
     setEstimate(30);
     setNote(null);
-    setGone([]);
-    setShown(slots.map((entry) => entry.slot));
+    setTaken([]);
   }
 
   const touched = free !== START || note !== null;
 
   return (
-    <section className="relative isolate overflow-hidden pt-[clamp(3.5rem,8vw,6rem)] pb-[clamp(3.5rem,8vw,6rem)]">
-      {/* The words let the pointer through to the tasks passing behind them. The controls
-          take it back. */}
-      <Wrap className="pointer-events-none relative text-center">
+    <section className="relative overflow-hidden pt-[clamp(3.5rem,8vw,6rem)] pb-[clamp(3.5rem,8vw,6rem)]">
+      <Wrap className="relative text-center">
         <div className="flex flex-col items-center gap-2">
           <Mark size={46} />
           <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-muted">Matter</p>
@@ -218,39 +153,9 @@ export function Hero() {
             event.preventDefault();
             addTyped();
           }}
-          className="mx-auto mt-9 w-full max-w-[520px]"
+          className="relative mx-auto mt-9 w-full max-w-[520px]"
         >
-          <div className="pointer-events-auto relative flex items-center gap-2 rounded-full bg-track p-1.5 pl-5 ring-1 ring-transparent transition-shadow focus-within:ring-ink-faint">
-            {/* The tasks in the air, anchored on the centre of this field and drawn behind
-                everything in the hero. They are a pointer's shortcut to what the field does and
-                they change every few seconds, so they stay out of the keyboard order and away
-                from a screen reader; the field is the way in for both. */}
-            <div aria-hidden className="stream pointer-events-none absolute left-1/2 top-1/2 -z-10 size-0">
-              {slots.map(({ slot, far, style }) => {
-                // `?? slot` only matters while editing: hot reload keeps the old state, which
-                // may have fewer entries than there are slots now.
-                const index = shown[slot] ?? slot;
-                const [name, length] = pool[index];
-                const chipStyle: ChipStyle = { ...style, "--hue": hues[index % hues.length] };
-                return (
-                  <button
-                    key={slot}
-                    type="button"
-                    tabIndex={-1}
-                    data-gone={gone.includes(slot)}
-                    data-far={far}
-                    onClick={() => commit(name, length, slot)}
-                    onAnimationIteration={() => recycle(slot)}
-                    style={chipStyle}
-                    className="chip pointer-events-auto absolute left-0 top-0 flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium"
-                  >
-                    <span className="size-[11px] rounded-full border-[1.5px] border-current opacity-70" />
-                    {name}
-                    <span className="font-normal opacity-80">{minutes(length)}</span>
-                  </button>
-                );
-              })}
-            </div>
+          <div className="flex items-center gap-2 rounded-full bg-track p-1.5 pl-5 ring-1 ring-transparent transition-shadow focus-within:ring-ink-faint">
             <input
               ref={input}
               value={title}
@@ -267,7 +172,7 @@ export function Hero() {
             </button>
           </div>
 
-          <div role="radiogroup" aria-label="Estimate" className="pointer-events-auto mx-auto mt-3 flex w-fit flex-wrap items-center justify-center gap-1.5">
+          <div role="radiogroup" aria-label="Estimate" className="mx-auto mt-3 flex w-fit flex-wrap items-center justify-center gap-1.5">
             {ESTIMATES.map((value) => (
               <button
                 key={value}
@@ -286,7 +191,7 @@ export function Hero() {
             ))}
           </div>
 
-          <div aria-live="polite" className="mt-4 min-h-[4.5rem] text-[14px] leading-relaxed [&_button]:pointer-events-auto">
+          <div aria-live="polite" className="mt-4 min-h-[4.5rem] text-[14px] leading-relaxed">
             {note === null && (
               <p className="text-ink-faint">
                 <span className="lg:hidden">Try it. Add tasks until the day is full.</span>
@@ -326,10 +231,39 @@ export function Hero() {
               </button>
             )}
           </div>
+
+          {/* The example tasks, on wide screens only: there is no gutter to lay them in on a
+              phone. The list is a point on the centre of the field (26px is half the field's
+              height) and each task is placed from it. It comes last in the form, so the
+              keyboard reaches the field first. */}
+          <ul aria-label="Example tasks" className="tasks absolute left-1/2 top-[26px] hidden size-0 lg:block">
+            {tasks.map((task, index) => {
+              const chipStyle: ChipStyle = { "--hue": task.hue, "--r": `${task.turn}deg` };
+              return (
+                <li
+                  key={task.name}
+                  className="absolute -translate-y-1/2"
+                  style={{ top: task.y, [task.side === "left" ? "right" : "left"]: `calc(288px + var(--spread) * ${task.out})` }}
+                >
+                  <button
+                    type="button"
+                    disabled={taken.includes(index)}
+                    onClick={() => commit(task.name, task.length, index)}
+                    style={chipStyle}
+                    className="chip flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium"
+                  >
+                    <span aria-hidden className="size-[11px] rounded-full border-[1.5px] border-current opacity-70" />
+                    {task.name}{" "}
+                    <span className="font-normal opacity-80">{minutes(task.length)}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </form>
 
         <p className="mt-2">
-          <StoreStatus className="pointer-events-auto" />
+          <StoreStatus />
         </p>
       </Wrap>
 
