@@ -16,7 +16,7 @@ export function Inline({ text }: { text: string }) {
         }
         if (part.startsWith("`")) {
           return (
-            <code key={index} className="rounded-[4px] bg-track px-1 py-0.5 font-mono text-[0.9em]">
+            <code key={index} className="rounded-[4px] bg-wash px-1 py-0.5 font-mono text-[0.9em]">
               {part.slice(1, -1)}
             </code>
           );
@@ -70,7 +70,7 @@ function Block({ block }: { block: InfoBlock }) {
       );
     case "note":
       return (
-        <aside className="rounded-[12px] border border-hairline bg-track px-4 py-3 text-[0.95em]">
+        <aside className="rounded-[14px] bg-wash px-4 py-3 text-[0.95em]">
           <Inline text={block.text} />
         </aside>
       );

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s · Matter",
   },
   description:
-    "Matter is a planner for Mac and iPhone that knows how much a day holds. When the plan stops fitting, it says so and offers the next day that will.",
+    "Matter is a planner for Mac and iPhone that knows how much a day holds. It works offline, with no account, and keeps everything on your own devices.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

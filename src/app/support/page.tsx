@@ -12,6 +12,11 @@ export const metadata: Metadata = {
 
 const answers = [
   {
+    question: "Does Matter work offline?",
+    answer:
+      "Yes, completely. Tasks, notes, the daily log and the calendar you have already fetched all work with no connection. Two things use the network when it is there: iCloud, to keep your own devices in step, and the calendar feeds you subscribe to.",
+  },
+  {
     question: "Where is my data kept?",
     answer:
       "On your devices. Matter has no account system and no server of ours. Your devices keep in step through your private iCloud database, and nothing is sent to us.",
@@ -49,7 +54,7 @@ export default function SupportPage() {
           app, under Help.
         </p>
 
-        <section className="mt-12 rounded-[22px] border border-hairline bg-card p-7">
+        <section className="mt-12 rounded-[24px] bg-track p-8">
           <h2 className="text-[1.25rem] font-semibold tracking-[-0.015em]">Reach us</h2>
           {site.supportEmail ? (
             <p className="mt-2 leading-relaxed text-ink-muted">
@@ -68,7 +73,7 @@ export default function SupportPage() {
 
         <section className="mt-14">
           <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-normal tracking-[-0.02em]">Common questions</h2>
-          <dl className="mt-6 divide-y divide-hairline border-y border-hairline">
+          <dl className="mt-4 divide-y divide-hairline">
             {answers.map((item) => (
               <div key={item.question} className="grid gap-2 py-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:gap-10">
                 <dt className="font-semibold tracking-[-0.01em]">{item.question}</dt>

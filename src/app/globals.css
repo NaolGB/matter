@@ -1,35 +1,36 @@
 @import "tailwindcss";
 
-/* Surfaces and ink are Matter's app palette (DukaPalette, DukaKit/AppCore). The page stays
-   in ink, as the app does. The only colour on it is the logo. */
+/* A neutral scale tuned for the web: white, one soft grey for bands, and three steps of
+   ink. Surfaces are told apart by fill, not by outline, so --hairline is rare and faint.
+   --wash is a translucent tint that reads as a soft fill on any ground. */
 :root {
   --base: #ffffff;
-  --card: #fefdfb;
-  --track: #f2f1ef;
-  --ink: #161615;
-  --ink-muted: rgb(22 22 21 / 0.62);
-  --ink-faint: rgb(22 22 21 / 0.4);
-  --hairline: rgb(22 22 21 / 0.12);
-  --chrome: rgb(255 255 255 / 0.72);
+  --track: #f5f5f7;
+  --wash: rgb(0 0 0 / 0.045);
+  --ink: #1d1d1f;
+  --ink-muted: #6e6e73;
+  --ink-faint: #86868b;
+  --hairline: rgb(0 0 0 / 0.08);
+  --chrome: rgb(255 255 255 / 0.8);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --base: #211f1e;
-    --card: #2f2e2b;
-    --track: #1b1a19;
-    --ink: #f1f0ec;
-    --ink-muted: rgb(241 240 236 / 0.62);
-    --ink-faint: rgb(241 240 236 / 0.4);
-    --hairline: rgb(241 240 236 / 0.14);
-    --chrome: rgb(33 31 30 / 0.72);
+    --base: #111112;
+    --track: #1b1b1d;
+    --wash: rgb(255 255 255 / 0.07);
+    --ink: #f5f5f7;
+    --ink-muted: #a1a1a6;
+    --ink-faint: #7d7d82;
+    --hairline: rgb(255 255 255 / 0.1);
+    --chrome: rgb(17 17 18 / 0.8);
   }
 }
 
 @theme inline {
   --color-base: var(--base);
-  --color-card: var(--card);
   --color-track: var(--track);
+  --color-wash: var(--wash);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-ink-faint: var(--ink-faint);

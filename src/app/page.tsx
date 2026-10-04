@@ -3,7 +3,7 @@ import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { site } from "@/config";
 import { CapacityDemo } from "@/components/CapacityDemo";
-import { Shot, Statement, StoreStatus, Wordmark, Wrap } from "@/components/site";
+import { Mark, Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
@@ -19,6 +19,8 @@ const chips: { text: string; style: CSSProperties; quiet?: boolean }[] = [
   { text: lines.over.text, style: { right: "12%", top: 420, "--r": "-6deg", "--d": "-1.5s" } as CSSProperties },
   { text: lines.chipFind.text, style: { right: "6%", top: 520, "--r": "4deg", "--d": "-3.5s" } as CSSProperties, quiet: true },
 ];
+
+const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
 const cards = [
   {
@@ -88,13 +90,13 @@ export default function Home() {
   return (
     <main className="flex-1">
       {/* Hero */}
-      <section className="relative overflow-hidden pt-[clamp(3.5rem,8vw,6rem)]">
+      <section className="relative overflow-hidden pt-[clamp(3.5rem,8vw,6rem)] pb-[clamp(3.5rem,8vw,6rem)]">
         <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
           {chips.map((chip) => (
             <span
               key={chip.text}
               style={chip.style}
-              className={`chip absolute whitespace-nowrap rounded-[10px] border border-hairline bg-card px-3 py-1.5 text-[13px] ${
+              className={`chip absolute whitespace-nowrap rounded-[10px] bg-wash px-3 py-1.5 text-[13px] ${
                 chip.quiet ? "text-ink-faint" : "text-ink-muted"
               }`}
             >
@@ -104,8 +106,11 @@ export default function Home() {
         </div>
 
         <Wrap className="relative text-center">
-          <Wordmark height={46} className="mx-auto" />
-          <div className="mt-6">
+          <div className="flex flex-col items-center gap-2">
+            <Mark size={46} />
+            <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-muted">Matter</p>
+          </div>
+          <div className="mt-5">
             <CapacityDemo>
               <h1 className="mt-5 text-[clamp(1.3rem,2.6vw,1.75rem)] tracking-[-0.015em]">
                 Plan the day you actually have
@@ -114,6 +119,14 @@ export default function Home() {
                 Matter is a planner for Mac and iPhone that knows how much a day holds. When the
                 plan stops fitting, it says so and offers the next day that will.
               </p>
+              <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] text-ink-muted">
+                {facts.map((fact, index) => (
+                  <li key={fact} className="flex items-center gap-2">
+                    {index > 0 && <span aria-hidden className="text-ink-faint">·</span>}
+                    {fact}
+                  </li>
+                ))}
+              </ul>
             </CapacityDemo>
           </div>
           <p className="mt-2">
@@ -121,13 +134,17 @@ export default function Home() {
           </p>
         </Wrap>
 
+        {/* The Mac and the iPhone together. The phone stands in front, on a ring of page colour. */}
         <Wrap className="mt-[clamp(3rem,6vw,4.5rem)]">
-          <div className="h-[clamp(190px,36vw,380px)] overflow-hidden rounded-t-[18px]">
+          <div className="relative mx-auto max-w-[900px] pb-[7%] pr-[10%] sm:pr-[12%]">
             <Shot
-              label="The main window"
+              label="The Mac app"
               capture="Tasks, with the capacity reading 2h 10m free and Loafy at home in the sidebar."
-              className="rounded-t-[18px] border-b-0"
+              className="rounded-[18px] pr-[32%] sm:pr-6"
             />
+            <div className="absolute bottom-0 right-0 w-[27%] min-w-[104px] rounded-[26px] bg-base p-[5px] sm:w-[21%]">
+              <Shot label="The iPhone app" aspect="9 / 19" compact className="rounded-[22px]" />
+            </div>
           </div>
         </Wrap>
       </section>
@@ -141,9 +158,9 @@ export default function Home() {
               <Link
                 key={card.label}
                 href={card.href}
-                className="rise group flex flex-col overflow-hidden rounded-[22px] border border-hairline bg-base"
+                className="rise group flex flex-col overflow-hidden rounded-[24px] bg-base"
               >
-                <div className="flex items-start justify-between gap-4 p-6 pb-5">
+                <div className="flex items-start justify-between gap-4 p-7 pb-6">
                   <div>
                     <p className="text-[13px] text-ink-muted">{card.label}</p>
                     <h3 className="mt-1 text-balance text-[1.25rem] font-semibold leading-snug tracking-[-0.015em]">
@@ -153,7 +170,9 @@ export default function Home() {
                   </div>
                   <Arrow />
                 </div>
-                <Shot label={card.crop} aspect="16 / 8" className="mt-auto border-x-0 border-b-0" />
+                <div className="mt-auto px-3 pb-3">
+                  <Shot label={card.crop} aspect="16 / 8" className="rounded-[16px]" />
+                </div>
               </Link>
             ))}
           </div>
@@ -175,10 +194,10 @@ export default function Home() {
               label={lines.loafyHome.text}
               capture="Bedroom, kitchen, living room."
               aspect="1 / 2"
-              className="rise mx-auto max-w-[220px] rounded-[18px]"
+              className="rise mx-auto max-w-[220px] rounded-[20px]"
             />
             <p className="rise max-w-[34ch] text-[1.05rem] leading-relaxed text-ink-muted">
-              She lives in the sidebar of the Mac app, in a house with three floors. There is no
+              Loafy lives in the sidebar of the Mac app, in a house with three floors. There is no
               clock in it, no score and no streak. You look in on her. That is all.
             </p>
           </div>
@@ -194,12 +213,12 @@ export default function Home() {
           </p>
           <ul className="mt-12 grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-4">
             {prompts.map((prompt) => (
-              <li key={prompt} className="rise rounded-[18px] border border-hairline bg-base p-5">
+              <li key={prompt} className="rise rounded-[20px] bg-base p-6">
                 <p className="text-[0.95rem] font-semibold tracking-[-0.01em]">{prompt}</p>
                 <div aria-hidden className="mt-4 space-y-2.5">
-                  <span className="block h-px bg-hairline" />
-                  <span className="block h-px bg-hairline" />
-                  <span className="block h-px w-2/3 bg-hairline" />
+                  <span className="block h-[5px] rounded-full bg-wash" />
+                  <span className="block h-[5px] rounded-full bg-wash" />
+                  <span className="block h-[5px] w-2/3 rounded-full bg-wash" />
                 </div>
               </li>
             ))}
@@ -210,26 +229,29 @@ export default function Home() {
       {/* The phone */}
       <section className="py-[clamp(4rem,9vw,7rem)]">
         <Wrap className="text-center">
-          <Statement>{lines.widget.text}</Statement>
+          <Statement>{lines.phone.text}</Statement>
           <Shot
-            label="The iPhone and its widget"
-            capture="Tasks on the phone, and the widget that shows the room left in your day beside her house."
+            label="The iPhone app and its widget"
+            capture="Tasks on the phone, and the widget that shows the room left in your day beside Loafy’s house."
             aspect="16 / 8"
-            className="rise mt-12 rounded-[18px]"
+            className="rise mt-12 rounded-[20px]"
           />
-          <p className="mx-auto mt-6 max-w-[44ch] text-[1.05rem] leading-relaxed text-ink-muted">
-            Your tasks, your calendar, your notes. On the phone, on the Home Screen, in step with
-            the Mac.
+          <p className="mx-auto mt-6 max-w-[46ch] text-[1.05rem] leading-relaxed text-ink-muted">
+            Tasks, Calendar and Notes on the iPhone, in step with the Mac. On the Home Screen, a
+            widget shows the room left in your day beside Loafy’s house.
           </p>
         </Wrap>
       </section>
 
-      {/* Privacy */}
+      {/* Offline and private */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
         <Wrap className="text-center">
           <Statement>{lines.privacy.text}</Statement>
-          <p className="mx-auto mt-5 max-w-[42ch] text-[1.05rem] leading-relaxed text-ink-muted">
-            Everything. No account to make, no server of ours. Your devices, your iCloud, yours.
+          <p className="mx-auto mt-5 max-w-[46ch] text-[1.05rem] leading-relaxed text-ink-muted">
+            Everything. Matter works with no connection at all. There is no account to make and no
+            server of ours. The network is only ever used for two things, and both are yours:
+            keeping your own devices in step through your iCloud, and fetching the calendar feeds
+            you add.
           </p>
           <p className="mt-6 text-[16px]">
             <Link href="/privacy" className="group inline-flex items-center gap-1 font-medium">
@@ -248,7 +270,7 @@ export default function Home() {
           <Statement>{lines.start.text}</Statement>
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {devices.map((device) => (
-              <div key={device.name} className="rise rounded-[22px] border border-hairline bg-card p-7">
+              <div key={device.name} className="rise rounded-[24px] bg-track p-8">
                 <h3 className="text-[1.25rem] font-semibold tracking-[-0.015em]">{device.name}</h3>
                 <p className="mt-2 leading-relaxed text-ink-muted">{device.body}</p>
                 <p className="mt-5">

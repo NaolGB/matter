@@ -57,5 +57,7 @@ under `public/screenshots/` and pass `src` with its pixel size:
 
 ## Look
 
-The logo in `public/brand/` is cut from `../Brand/Matter` and is the only colour on the
-site. Everything else is the app's ink and surfaces (`DukaPalette`), in `src/app/globals.css`.
+The mark in `public/brand/mark.png` is the app's own icon artwork (`Duka.icon`), used as a mask
+so it is drawn in ink on any ground. `src/app/icon.png` and `apple-icon.png` are that mark on
+white, as the app icon is. The site is in ink throughout: white, one soft grey for bands, and
+three steps of text grey, in `src/app/globals.css`. Surfaces are told apart by fill, not outline.

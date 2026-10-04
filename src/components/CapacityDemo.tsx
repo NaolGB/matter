@@ -87,7 +87,7 @@ export function CapacityDemo({ children }: { children?: ReactNode }) {
         }}
         className="mx-auto mt-9 w-full max-w-[520px]"
       >
-        <div className="flex items-center gap-2 rounded-full border border-hairline bg-card p-1.5 pl-5 focus-within:border-ink-faint">
+        <div className="flex items-center gap-2 rounded-full bg-wash p-1.5 pl-5 ring-1 ring-transparent transition-shadow focus-within:ring-ink-faint">
           <input
             ref={input}
             value={title}
@@ -112,10 +112,10 @@ export function CapacityDemo({ children }: { children?: ReactNode }) {
               role="radio"
               aria-checked={estimate === value}
               onClick={() => setEstimate(value)}
-              className={`h-8 rounded-full border px-3 text-[13px] transition-colors ${
+              className={`h-8 rounded-full px-3 text-[13px] transition-colors ${
                 estimate === value
-                  ? "border-ink bg-ink text-[var(--base)]"
-                  : "border-hairline text-ink-muted hover:text-ink"
+                  ? "bg-ink text-[var(--base)]"
+                  : "bg-wash text-ink-muted hover:text-ink"
               }`}
             >
               {minutes(value)}
@@ -137,7 +137,7 @@ export function CapacityDemo({ children }: { children?: ReactNode }) {
               <button
                 type="button"
                 onClick={move}
-                className="ml-1 mt-1 rounded-full border border-ink px-3 py-1 text-[13px] font-medium"
+                className="ml-1 mt-1 rounded-full bg-ink px-3 py-1 text-[13px] font-medium text-[var(--base)]"
               >
                 {lines.moveTo.text} {note.day}
               </button>
