@@ -55,13 +55,60 @@ const cards = [
   },
 ];
 
-/* Five more, small: a mark, what it is, and the app's own words for it. */
+/* Five more, small. Each has a mark in one of the app's tag colours, what it is, the app's own
+   words for it and a line of ours. They are laid out unevenly on purpose: a small one beside a
+   wide one, then a wide one beside two small ones. */
 const more = [
-  { label: "Work bucket", line: lines.bucket.text, href: "/support#tasks", icon: "M6.5 5.5v9l7.5-4.5z" },
-  { label: "Estimates", line: lines.usually.text, href: "/support#capacity", icon: "M10 5.5V10l3 2M10 2.75a7.25 7.25 0 1 0 0 14.5 7.25 7.25 0 0 0 0-14.5z" },
-  { label: "Week review", line: lines.week.text, href: "/support#capacity", icon: "M4.5 16V9.5M10 16V4M15.5 16v-4.5" },
-  { label: "Templates", line: lines.templates.text, href: "/support#templates", icon: "M7 7V4.5h8.5V13H13M4.5 7H13v8.5H4.5z" },
-  { label: "Home Screen widget", line: lines.widget.text, href: "/support#capacity", icon: "M4 4h12v12H4zM4 10h12M10 4v12" },
+  {
+    label: "Estimates",
+    line: lines.usually.text,
+    body: "After enough finished work, Matter suggests how long that kind of task runs.",
+    href: "/support#capacity",
+    icon: "M10 5.5V10l3 2M10 2.75a7.25 7.25 0 1 0 0 14.5 7.25 7.25 0 0 0 0-14.5z",
+    hue: "#0A84FF",
+    glyph: "#ffffff",
+    span: "lg:col-span-4",
+  },
+  {
+    label: "Work bucket",
+    line: lines.bucket.text,
+    body: "Start a session and the clock counts down against your estimate, then keeps going past it.",
+    href: "/support#tasks",
+    icon: "M7 5.5v9l7.5-4.5z",
+    hue: "#FF9F0A",
+    glyph: "#1d1d1f",
+    span: "lg:col-span-8",
+  },
+  {
+    label: "Week review",
+    line: lines.week.text,
+    body: "The week's hours by tag and by day, set against what you planned.",
+    href: "/support#capacity",
+    icon: "M4.5 16V9.5M10 16V4M15.5 16v-4.5",
+    hue: "#30D158",
+    glyph: "#1d1d1f",
+    span: "lg:col-span-6",
+  },
+  {
+    label: "Templates",
+    line: lines.templates.text,
+    body: "Routines you set once and drop onto the week in one go.",
+    href: "/support#templates",
+    icon: "M7 7V4.5h8.5V13H13M4.5 7H13v8.5H4.5z",
+    hue: "#5E5CE6",
+    glyph: "#ffffff",
+    span: "lg:col-span-3",
+  },
+  {
+    label: "Home Screen widget",
+    line: lines.widget.text,
+    body: "The room left in your day, beside Loafy’s house.",
+    href: "/support#capacity",
+    icon: "M4 4h12v12H4zM4 10h12M10 4v12",
+    hue: "#FF375F",
+    glyph: "#ffffff",
+    span: "sm:col-span-2 lg:col-span-3",
+  },
 ];
 
 const devices = [
@@ -149,22 +196,27 @@ export default function Home() {
           </div>
 
           <p className="rise mt-12 text-[15px] text-ink-muted">Also in Matter</p>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-12">
             {more.map((item) => (
-              <li key={item.label} className="rise">
+              <li key={item.label} className={`rise ${item.span}`}>
                 <Link href={item.href} className="group flex h-full flex-col rounded-[22px] bg-base p-6">
-                  <span aria-hidden className="flex size-10 items-center justify-center rounded-full bg-wash">
-                    <svg viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <span
+                    aria-hidden
+                    className="flex size-11 items-center justify-center rounded-full"
+                    style={{ background: item.hue, color: item.glyph }}
+                  >
+                    <svg viewBox="0 0 20 20" className="size-[22px]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                       <path d={item.icon} />
                     </svg>
                   </span>
                   <span className="mt-5 text-[13px] text-ink-muted">{item.label}</span>
-                  <span className="mt-1 text-balance text-[1.05rem] font-semibold leading-snug tracking-[-0.015em]">
+                  <span className="mt-1 text-balance text-[1.1rem] font-semibold leading-snug tracking-[-0.015em]">
                     {item.line}{" "}
                     <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">
                       →
                     </span>
                   </span>
+                  <span className="mt-2 max-w-[46ch] text-[0.92rem] leading-relaxed text-ink-muted">{item.body}</span>
                 </Link>
               </li>
             ))}
