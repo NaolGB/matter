@@ -156,13 +156,6 @@ export default function Home() {
           </div>
 
           <MoreCarousel title="Also in Matter" cards={more} />
-
-          <figure className="rise mx-auto mt-16 max-w-[30ch] text-center">
-            <blockquote className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] leading-snug">
-              “{lines.limit.text}”
-            </blockquote>
-            <figcaption className="mt-3 text-[13px] text-ink-muted">From Settings ▸ Day, in the app</figcaption>
-          </figure>
         </Wrap>
       </section>
 
@@ -189,12 +182,6 @@ export default function Home() {
             className="object-cover object-center"
           />
         </div>
-        <p className="py-8 px-5 text-center text-[13px] text-ink-faint">
-          Every heading on this page is a line from the app.{" "}
-          <Link href="/support" className="underline underline-offset-2 hover:text-ink">
-            The guide says what each one does.
-          </Link>
-        </p>
       </section>
     </main>
   );

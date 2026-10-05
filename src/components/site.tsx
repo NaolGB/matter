@@ -78,10 +78,6 @@ export function Footer() {
         <p className="flex items-center gap-2">
           <Mark size={15} className="text-ink" />
           <span className="font-semibold text-ink">Matter</span>
-          <span className="text-ink-faint">Version {site.version}</span>
-        </p>
-        <p className="text-ink-faint">
-          Requires {site.macRequirement}. The iPhone app requires {site.iphoneRequirement}.
         </p>
         <ul className="flex gap-5">
           <li>

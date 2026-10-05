@@ -151,7 +151,6 @@ export function Hero() {
           </div>
 
           <div aria-live="polite" className="mt-3 min-h-[3.25rem] text-[14px] leading-relaxed">
-            {note === null && <p className="text-ink-faint">Try it. Add a task and the number answers.</p>}
             {note?.kind === "added" && (
               <p className="text-ink-muted">
                 {lines.added.text} “{note.title}”

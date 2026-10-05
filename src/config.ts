@@ -4,7 +4,6 @@ export const site = {
   supportEmail: "",
   /** The App Store listing. Empty until the app is live; the pages then say it is coming. */
   appStoreUrl: "",
-  version: "1.0",
   macRequirement: "macOS 26",
   iphoneRequirement: "iOS 26.5",
 };
