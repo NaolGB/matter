@@ -16,9 +16,10 @@
   --ink-faint: #86868b;
   --hairline: rgb(0 0 0 / 0.08);
   --chrome: rgb(255 255 255 / 0.8);
-  /* The app's green for "free", taken as deep as it must go on white: 3:1 against the page,
-     which is the bar for type this large. Any darker and the word looks tired. */
-  --free: #1aa83e;
+  /* The app's own green for "free" (systemGreen in light mode), as the screenshots show it.
+     Naol's choice over a deeper one: it is 2.2:1 on white, below the 3:1 guideline for large
+     type, and the word looked tired any darker. */
+  --free: #34c759;
 }
 
 @theme inline {
