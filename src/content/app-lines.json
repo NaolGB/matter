@@ -39,10 +39,6 @@
     "text": "A limit you can walk past is decoration.",
     "find": "a limit you can walk past is decoration"
   },
-  "usually": {
-    "text": "Usually 45m",
-    "find": "\"Usually \\("
-  },
   "notes": {
     "text": "Write, or type / for headings and lists",
     "find": "Write, or type / for headings and lists"
@@ -74,14 +70,6 @@
   "promptNoticed": {
     "text": "Something I noticed",
     "find": "title: \"Something I noticed\""
-  },
-  "privacy": {
-    "text": "What stays on your device",
-    "find": "What stays on your device"
-  },
-  "start": {
-    "text": "Getting started",
-    "find": "\"Getting started\""
   },
   "calendar": {
     "text": "Add a calendar",
