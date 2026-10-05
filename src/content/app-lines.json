@@ -106,5 +106,37 @@
   "widget": {
     "text": "Today",
     "find": "configurationDisplayName(\"Today\")"
+  },
+  "newTask": {
+    "text": "New task",
+    "find": "\"New task\" : \"Edit task\""
+  },
+  "done": {
+    "text": "Done",
+    "find": "Button(\"Done\")"
+  },
+  "schedule": {
+    "text": "Schedule",
+    "find": "field(\"Schedule\")"
+  },
+  "estimate": {
+    "text": "Estimate",
+    "find": "field(\"Estimate\")"
+  },
+  "today": {
+    "text": "Today",
+    "find": "DukaChip(title: \"Today\""
+  },
+  "tomorrow": {
+    "text": "Tomorrow",
+    "find": "DukaChip(title: \"Tomorrow\", isSelected: isSelected"
+  },
+  "nextWeek": {
+    "text": "Next week",
+    "find": "DukaChip(title: \"Next week\", isSelected: isSelected"
+  },
+  "headroom": {
+    "text": "of headroom left.",
+    "find": "of headroom left.\""
   }
 }

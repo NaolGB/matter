@@ -1,6 +1,7 @@
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { site } from "@/config";
+import { EditorRefusal } from "@/components/EditorRefusal";
 import { Hero } from "@/components/Hero";
 import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 
@@ -11,7 +12,7 @@ const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
 /* The four cards. `span` is the card's share of the twelve columns on a wide screen: the two
    with a piece of the Mac window to show get seven, and they sit on a diagonal. The other two
-   show the phone. */
+   show the phone. `built` marks a picture drawn on the page instead of photographed. */
 const cards = [
   {
     label: "Tasks",
@@ -19,6 +20,7 @@ const cards = [
     body: "Matter counts what you planned against the hours you have left, meetings included, and says when it is too much.",
     crop: "The editor refusing an estimate",
     shot: { name: "crop-editor", width: 1040, height: 800 },
+    built: true,
     phone: false,
     span: "lg:col-span-7",
     href: "/support#capacity",
@@ -29,6 +31,7 @@ const cards = [
     body: "One entry a day, under the same four headings. A few lines is enough.",
     crop: "A standup entry on the iPhone",
     shot: { name: "iphone-standup", width: 480, height: 1043 },
+    built: false,
     phone: true,
     span: "lg:col-span-5",
     href: "/support#standup",
@@ -39,6 +42,7 @@ const cards = [
     body: "Subscribe to the calendars you already keep. Meetings sit beside your tasks and count against the day.",
     crop: "Three days of tasks and meetings on the iPhone",
     shot: { name: "iphone-calendar", width: 480, height: 1043 },
+    built: false,
     phone: true,
     span: "lg:col-span-5",
     href: "/support#calendar",
@@ -49,6 +53,7 @@ const cards = [
     body: "A fast editor, a notebook one click away, and room for longer thinking next to the plan.",
     crop: "A note",
     shot: { name: "crop-note", width: 1400, height: 940 },
+    built: false,
     phone: false,
     span: "lg:col-span-7",
     href: "/support#notes",
@@ -177,18 +182,28 @@ export default function Home() {
                   <Arrow />
                 </div>
                 <div className="mt-auto px-8 pt-8">
-                  <div className={`min-h-0 lg:aspect-auto lg:h-[340px] ${card.phone ? "aspect-[4/3]" : "aspect-[16/9]"}`}>
-                    <Shot
-                      label={card.crop}
-                      src={`/shots/${card.shot.name}-light.webp`}
-                      width={card.shot.width}
-                      height={card.shot.height}
-                      className={
-                        card.phone
-                          ? "mx-auto max-w-[270px] rounded-t-[34px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
-                          : "rounded-t-[12px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
-                      }
-                    />
+                  {/* A photograph is cut to a window on small screens. A drawn picture is shown whole
+                      there, since the part that matters is lower down in it. */}
+                  <div
+                    className={`min-h-0 lg:h-[340px] ${
+                      card.built ? "" : card.phone ? "aspect-[4/3] lg:aspect-auto" : "aspect-[16/9] lg:aspect-auto"
+                    }`}
+                  >
+                    {card.built ? (
+                      <EditorRefusal />
+                    ) : (
+                      <Shot
+                        label={card.crop}
+                        src={`/shots/${card.shot.name}-light.webp`}
+                        width={card.shot.width}
+                        height={card.shot.height}
+                        className={
+                          card.phone
+                            ? "mx-auto max-w-[270px] rounded-t-[34px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
+                            : "rounded-t-[12px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
+                        }
+                      />
+                    )}
                   </div>
                 </div>
               </Link>
