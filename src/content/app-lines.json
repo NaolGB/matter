@@ -83,10 +83,6 @@
     "text": "Getting started",
     "find": "\"Getting started\""
   },
-  "phone": {
-    "text": "Tap + to add a task.",
-    "find": "Tap + to add a task."
-  },
   "calendar": {
     "text": "Add a calendar",
     "find": "Text(\"Add a calendar\")"

@@ -243,28 +243,6 @@ export default function Home() {
         </Wrap>
       </section>
 
-      {/* The phone */}
-      <section className="py-[clamp(4rem,9vw,7rem)]">
-        <Wrap wide>
-          <Statement>{lines.phone.text}</Statement>
-          <p className="rise mt-5 max-w-[52ch] text-[1.1rem] leading-relaxed text-ink-muted">
-            Tasks, Calendar, Notes and Standup on the iPhone, in step with the Mac. On the Home Screen, a
-            widget shows the room left in your day beside Loafy’s house.
-          </p>
-          {/* Five screens in a row. On a phone the row keeps a readable size and scrolls sideways. */}
-          <div className="rise mt-12 overflow-x-auto rounded-[28px] bg-wash">
-            <Shot
-              label="The iPhone app and its widget"
-              capture="Tasks, Calendar, a note and the standup list on the phone, and the Home Screen widget that shows the room left in your day beside Loafy’s house."
-              src="/shots/iphone-strip-light.webp"
-              width={2400}
-              height={1200}
-              className="min-w-[720px]"
-            />
-          </div>
-        </Wrap>
-      </section>
-
       {/* Offline and private */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
         <Wrap wide>
