@@ -1,8 +1,11 @@
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { site } from "@/config";
+import { CalendarDays } from "@/components/CalendarDays";
 import { EditorRefusal } from "@/components/EditorRefusal";
 import { Hero } from "@/components/Hero";
+import { NoteSlash } from "@/components/NoteSlash";
+import { SessionDrop } from "@/components/SessionDrop";
 import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
@@ -10,40 +13,35 @@ import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 
 const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
-/* The four cards. `span` is the card's share of the twelve columns on a wide screen: the two
-   with a piece of the Mac window to show get seven, and they sit on a diagonal. The other two
-   show the phone. `built` marks a picture drawn on the page instead of photographed. */
+/* The four cards. Each picture is drawn on the page in the app's own look, not photographed, so
+   it stays sharp at any size. `span` is the card's share of the twelve columns on a wide screen:
+   the wide ones sit on a diagonal. `frame` is the room the picture gets. On a wide screen every
+   picture has the same height and runs off the foot of its card. */
 const cards = [
   {
     label: "Tasks",
     line: lines.gate.text,
     body: "Matter counts what you planned against the hours you have left, meetings included, and says when it is too much.",
-    crop: "The editor refusing an estimate",
-    shot: { name: "crop-editor", width: 1040, height: 800 },
-    built: true,
-    phone: false,
+    picture: <EditorRefusal />,
+    frame: "lg:h-[360px]",
     span: "lg:col-span-7",
     href: "/support#capacity",
   },
   {
-    label: "Standup",
-    line: lines.addToday.text,
-    body: "One entry a day, under the same four headings. A few lines is enough.",
-    crop: "A standup entry on the iPhone",
-    shot: { name: "iphone-standup", width: 480, height: 1043 },
-    built: false,
-    phone: true,
+    label: "Sessions",
+    line: lines.dropToStart.text,
+    body: "Drag a task into the sidebar and its clock starts. It counts down against your estimate, then keeps going past it.",
+    picture: <SessionDrop />,
+    frame: "flex items-end lg:h-[360px]",
     span: "lg:col-span-5",
-    href: "/support#standup",
+    href: "/support#tasks",
   },
   {
     label: "Calendar",
     line: lines.calendar.text,
     body: "Subscribe to the calendars you already keep. Meetings sit beside your tasks and count against the day.",
-    crop: "Three days of tasks and meetings on the iPhone",
-    shot: { name: "iphone-calendar", width: 480, height: 1043 },
-    built: false,
-    phone: true,
+    picture: <CalendarDays />,
+    frame: "h-[340px] lg:h-[360px]",
     span: "lg:col-span-5",
     href: "/support#calendar",
   },
@@ -51,10 +49,8 @@ const cards = [
     label: "Notes",
     line: lines.notes.text,
     body: "A fast editor, a notebook one click away, and room for longer thinking next to the plan.",
-    crop: "A note",
-    shot: { name: "crop-note", width: 1400, height: 940 },
-    built: false,
-    phone: false,
+    picture: <NoteSlash />,
+    frame: "lg:h-[360px]",
     span: "lg:col-span-7",
     href: "/support#notes",
   },
@@ -75,11 +71,11 @@ const more = [
     span: "lg:col-span-4",
   },
   {
-    label: "Work bucket",
-    line: lines.bucket.text,
-    body: "Start a session and the clock counts down against your estimate, then keeps going past it.",
-    href: "/support#tasks",
-    icon: "M7 5.5v9l7.5-4.5z",
+    label: "Standup",
+    line: lines.addToday.text,
+    body: "One entry a day, under the same four headings. A few lines is enough.",
+    href: "/support#standup",
+    icon: "M5 6h10M5 10h10M5 14h6",
     hue: "#FF9F0A",
     glyph: "#1d1d1f",
     span: "lg:col-span-8",
@@ -147,8 +143,8 @@ export default function Home() {
     <main className="flex-1">
       <Hero />
 
-      {/* The four cards. Each picture is a piece of the app's window standing at the foot of its
-          card and running off the bottom, so it is shown large enough to read. */}
+      {/* The four cards. Each picture stands at the foot of its card and runs off the bottom, so
+          it is shown large enough to read. */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
         <Wrap wide>
           <Statement className="max-w-[17ch]">{lines.tagline.text}</Statement>
@@ -182,29 +178,7 @@ export default function Home() {
                   <Arrow />
                 </div>
                 <div className="mt-auto px-8 pt-8">
-                  {/* A photograph is cut to a window on small screens. A drawn picture is shown whole
-                      there, since the part that matters is lower down in it. */}
-                  <div
-                    className={`min-h-0 lg:h-[340px] ${
-                      card.built ? "" : card.phone ? "aspect-[4/3] lg:aspect-auto" : "aspect-[16/9] lg:aspect-auto"
-                    }`}
-                  >
-                    {card.built ? (
-                      <EditorRefusal />
-                    ) : (
-                      <Shot
-                        label={card.crop}
-                        src={`/shots/${card.shot.name}-light.webp`}
-                        width={card.shot.width}
-                        height={card.shot.height}
-                        className={
-                          card.phone
-                            ? "mx-auto max-w-[270px] rounded-t-[34px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
-                            : "rounded-t-[12px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
-                        }
-                      />
-                    )}
-                  </div>
+                  <div className={`min-h-0 ${card.frame}`}>{card.picture}</div>
                 </div>
               </Link>
             ))}

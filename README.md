@@ -61,6 +61,11 @@ the folder below if that ever changes.
 A `<Shot>` with no `src` draws a soft frame saying what to shoot, which is how a new slot looks
 until its capture exists.
 
+The four cards under the tagline are not screenshots. Their pictures are drawn on the page in
+the app's own look (`EditorRefusal`, `SessionDrop`, `CalendarDays`, `NoteSlash` in
+`src/components`), with the demo world's tasks and the app's own words from `app-lines.json`.
+When the app's look changes, compare them with a fresh capture.
+
 The full-size originals, the App Store set and the tools that made them are in
 `~/Desktop/duka/Screenshots/app-store` (see its README). `tools/process.py` there writes
 `public/shots`; rerun it after reshooting rather than editing the files by hand.

@@ -39,10 +39,6 @@
     "text": "A limit you can walk past is decoration.",
     "find": "a limit you can walk past is decoration"
   },
-  "bucket": {
-    "text": "Drag a task here to start a focus session.",
-    "find": "Drag a task here to start a focus session."
-  },
   "usually": {
     "text": "Usually 45m",
     "find": "\"Usually \\("
@@ -138,5 +134,53 @@
   "headroom": {
     "text": "of headroom left.",
     "find": "of headroom left.\""
+  },
+  "dropToStart": {
+    "text": "Drop to start",
+    "find": "Text(\"Drop to start\")"
+  },
+  "pause": {
+    "text": "Pause",
+    "find": "Label(\"Pause\", systemImage: \"pause.fill\")"
+  },
+  "complete": {
+    "text": "Complete",
+    "find": "Label(\"Complete\", systemImage: \"checkmark\")"
+  },
+  "started": {
+    "text": "Started",
+    "find": "\"Started \\(session.startedAt"
+  },
+  "est": {
+    "text": "est.",
+    "find": "estimatedMinutes)m est."
+  },
+  "slashText": {
+    "text": "Text",
+    "find": "return \"Text\""
+  },
+  "slashHeading1": {
+    "text": "Heading 1",
+    "find": "return \"Heading 1\""
+  },
+  "slashHeading2": {
+    "text": "Heading 2",
+    "find": "return \"Heading 2\""
+  },
+  "slashHeading3": {
+    "text": "Heading 3",
+    "find": "return \"Heading 3\""
+  },
+  "slashBulleted": {
+    "text": "Bulleted list",
+    "find": "return \"Bulleted list\""
+  },
+  "slashNumbered": {
+    "text": "Numbered list",
+    "find": "return \"Numbered list\""
+  },
+  "slashTodo": {
+    "text": "To-do",
+    "find": "return \"To-do\""
   }
 }
