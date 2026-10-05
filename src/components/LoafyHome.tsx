@@ -332,10 +332,11 @@ export function LoafyHome({ alt }: { alt: string }) {
       if (!frame) frame = requestAnimationFrame(tick);
     };
 
+    let shown = 0;
     const watch = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        const shown = entry.intersectionRatio;
+        shown = entry.intersectionRatio;
         if (!ladderShown()) {
           // No ladder to come from: she is at home.
           if (state !== "home") atHome();
@@ -356,8 +357,11 @@ export function LoafyHome({ alt }: { alt: string }) {
     else atHome();
     watch.observe(box);
 
+    // A window made narrow loses the ladder, and she goes home; made wide again, with the house
+    // out of view, she is back on it.
     const onResize = () => {
       if (!ladderShown() && state === "ladder") atHome();
+      else if (ladderShown() && state === "home" && shown <= 0.15) onLadder();
     };
     window.addEventListener("resize", onResize);
 

@@ -4,8 +4,8 @@ import lines from "@/content/app-lines.json";
    card on the left, the board the task came from on the right, with a gap where it was. It is a
    picture: nothing in it can be pressed. The gap and the arrow are ours, since the app closes up
    the list as a task leaves it. The task, its tags and the figures are the demo's, at the minute
-   the screenshots are taken. Where the card is narrow, on a phone and on a small laptop, the whole
-   picture is drawn a little smaller. */
+   the screenshots are taken. A phone's card has no room for the list beside the well, so there
+   it shows the well alone, and the words above it say where the task came from. */
 
 const tags = { mosaic: "#FF375F", larkspur: "#30D158", quarry: "#FF9F0A", juniper: "#5E5CE6" };
 
@@ -55,11 +55,17 @@ export function SessionDrop() {
     <div
       role="img"
       aria-label={`A task dragged from the list into the sidebar, where its session has started: Write the Mosaic pitch story, 1:29:58 left, ${lines.started.text} 9:41, 90m ${lines.est.text}`}
-      className="relative h-[328px] w-full select-none text-left max-sm:[zoom:0.85] lg:max-xl:[zoom:0.85]"
+      className="relative h-[328px] w-full select-none text-left max-sm:h-[300px]"
     >
       <div aria-hidden>
-        {/* The board, running off the card to the right and at the foot. */}
-        <div className="absolute -right-24 left-[280px] top-0">
+        {/* The board, running off the card to the right and at the foot. It fades out before the
+            card's edge, so what is cut off reads as more of the list and not as text cut short. */}
+        <div
+          className="absolute -right-24 left-[280px] top-0 max-sm:hidden"
+          style={{
+            maskImage: "linear-gradient(to right, #000 calc(100% - 190px), transparent calc(100% - 96px))",
+          }}
+        >
           <Group hue={tags.mosaic}>Mosaic Grocers</Group>
           <div className="mt-3 h-[52px] rounded-[12px] border-[1.5px] border-dashed border-[#d2d2d7]" />
           <div className="mt-6">
@@ -79,7 +85,7 @@ export function SessionDrop() {
 
         <svg
           viewBox="0 0 120 90"
-          className="absolute left-[196px] top-3 z-10 h-[90px] w-[120px] text-[#a1a1a6]"
+          className="absolute left-[196px] top-3 z-10 h-[90px] w-[120px] text-[#a1a1a6] max-sm:hidden"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -91,7 +97,7 @@ export function SessionDrop() {
         </svg>
 
         {/* The well: the day's figure above, and the session's card in it. */}
-        <div className="absolute left-0 top-[52px] w-[262px] rounded-[20px] bg-base p-3 ring-1 ring-hairline">
+        <div className="absolute left-0 top-[52px] w-[262px] rounded-[20px] bg-base p-3 ring-1 ring-hairline max-sm:left-1/2 max-sm:top-6 max-sm:-translate-x-1/2">
           <p className="flex h-[26px] items-center gap-2 pl-1 text-[13px] font-semibold text-ink-faint">
             <svg viewBox="0 0 14 14" className="size-3.5" fill="none" strokeWidth="1.8" strokeLinecap="round">
               <circle cx="7" cy="7" r="5.6" stroke="#d2d2d7" />

@@ -17,7 +17,8 @@ const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
 /* The four cards. Each picture is drawn on the page in the app's own look, not photographed, so
    it stays sharp at any size. `span` is the card's share of the twelve columns on a wide screen:
-   the wide ones sit on a diagonal. `frame` is the room the picture gets. On a wide screen every
+   the wide ones sit on a diagonal, and go to the two pictures that need the room, the list beside
+   the session and the three days of the calendar. `frame` is the room the picture gets. On a wide screen every
    picture has the same height and runs off the foot of its card. */
 const cards = [
   {
@@ -26,7 +27,7 @@ const cards = [
     body: "Matter counts what you planned against the hours you have left, meetings included, and says when it is too much.",
     picture: <EditorRefusal />,
     frame: "lg:h-[360px]",
-    span: "lg:col-span-7",
+    span: "lg:col-span-5",
     href: "/support#capacity",
   },
   {
@@ -35,7 +36,7 @@ const cards = [
     body: "Drag a task into the sidebar and its clock starts. It counts down against your estimate, then keeps going past it.",
     picture: <SessionDrop />,
     frame: "flex items-end lg:h-[360px]",
-    span: "lg:col-span-5",
+    span: "lg:col-span-7",
     href: "/support#tasks",
   },
   {
@@ -44,7 +45,7 @@ const cards = [
     body: "Subscribe to the calendars you already keep. Meetings sit beside your tasks and count against the day.",
     picture: <CalendarDays />,
     frame: "h-[340px] lg:h-[360px]",
-    span: "lg:col-span-5",
+    span: "lg:col-span-7",
     href: "/support#calendar",
   },
   {
@@ -53,7 +54,7 @@ const cards = [
     body: "A fast editor, a notebook one click away, and room for longer thinking next to the plan.",
     picture: <NoteSlash />,
     frame: "lg:h-[360px]",
-    span: "lg:col-span-7",
+    span: "lg:col-span-5",
     href: "/support#notes",
   },
 ];
@@ -120,14 +121,16 @@ export default function Home() {
         <Wrap wide>
           <Statement className="max-w-[17ch]">{lines.tagline.text}</Statement>
           <ul className="rise mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] text-ink-muted">
+            {/* The dot ends an item rather than starting the next, so a line that wraps never
+                begins with one. */}
             {facts.map((fact, index) => (
               <li key={fact} className="flex items-center gap-2">
-                {index > 0 && (
+                {fact}
+                {index < facts.length - 1 && (
                   <span aria-hidden className="text-ink-faint">
                     ·
                   </span>
                 )}
-                {fact}
               </li>
             ))}
           </ul>

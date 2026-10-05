@@ -2,8 +2,8 @@
    calendar's colour, and the red line at the present minute. It is a picture: nothing in it can
    be pressed. The days are the demo's, at the minute the screenshots are taken, with the
    finished tasks and a few short ones left out so the rest can be read. An hour is drawn taller
-   than the app draws it, for the same reason. Where the card is narrow, on a phone and on a small
-   laptop, the whole picture is drawn smaller. */
+   than the app draws it, for the same reason. On a phone, where the card is narrow, the whole
+   picture is drawn smaller. */
 
 const START = 8 * 60 + 45;
 const HOUR = 80;
@@ -80,7 +80,7 @@ export function CalendarDays() {
     <div
       role="img"
       aria-label="Three days of the calendar, Tuesday to Thursday, with tasks and meetings side by side and a line at the present time, 9:41."
-      className="select-none overflow-hidden rounded-t-[16px] bg-base text-left shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline max-sm:[zoom:0.8] lg:max-xl:[zoom:0.85]"
+      className="select-none overflow-hidden rounded-t-[16px] bg-base text-left shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline max-sm:[zoom:0.8]"
     >
       <div aria-hidden>
         <div className="flex border-b border-hairline pb-2.5 pl-8 pt-3">
