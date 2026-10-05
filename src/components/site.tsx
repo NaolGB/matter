@@ -73,7 +73,9 @@ export function Nav() {
 
 export function Footer() {
   return (
-    <footer className="bg-track py-10">
+    // White like the page, with a hairline above it: on the home page Loafy's house ends the page,
+    // and a grey band under it was a third near-white in one screen.
+    <footer className="border-t border-hairline py-10">
       <Wrap wide className="flex flex-col gap-4 text-[12px] leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-center gap-2">
           <Mark size={15} className="text-ink" />

@@ -7,7 +7,7 @@ import { LoafyHome } from "@/components/LoafyHome";
 import { LoafyLadder } from "@/components/LoafyLadder";
 import { NoteSlash } from "@/components/NoteSlash";
 import { SessionDrop } from "@/components/SessionDrop";
-import { MoreCarousel, type MoreCard } from "@/components/MoreCarousel";
+import { MoreCards, type MoreCard } from "@/components/MoreCards";
 import { Statement, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
@@ -59,7 +59,7 @@ const cards = [
   },
 ];
 
-/* The carousel under the four cards: what else is in the app, each with a real capture. Estimates
+/* Under the four cards, two by two: what else is in the app, each with a real capture. Estimates
    ("Usually 45m") is not here because no capture shows it yet. */
 const more: MoreCard[] = [
   {
@@ -67,7 +67,6 @@ const more: MoreCard[] = [
     line: lines.week.text,
     body: "The week's hours by tag and by day, set against what you planned.",
     href: "/support#capacity",
-    hue: "#30D158",
     shot: { src: "/shots/more-week-light.webp", alt: "The week review on the Mac", width: 880, height: 800, phone: false },
   },
   {
@@ -75,7 +74,6 @@ const more: MoreCard[] = [
     line: lines.templates.text,
     body: "Routines you set once, on the days you pick, and drop onto the week in one go.",
     href: "/support#templates",
-    hue: "#5E5CE6",
     shot: { src: "/shots/more-templates-light.webp", alt: "Weekly templates on the Mac", width: 880, height: 800, phone: false },
   },
   {
@@ -83,7 +81,6 @@ const more: MoreCard[] = [
     line: lines.addToday.text,
     body: "One entry a day, under the same four headings. A few lines is enough.",
     href: "/support#standup",
-    hue: "#FF9F0A",
     shot: { src: "/shots/more-standup-light.webp", alt: "A standup entry on the iPhone", width: 480, height: 1043, phone: true },
   },
   {
@@ -91,7 +88,6 @@ const more: MoreCard[] = [
     line: lines.widget.text,
     body: "The room left in your day, beside Loafy’s house.",
     href: "/support#capacity",
-    hue: "#FF375F",
     shot: { src: "/shots/more-widget-light.webp", alt: "The Today widget on the iPhone Home Screen", width: 480, height: 1043, phone: true },
   },
 ];
@@ -119,8 +115,9 @@ export default function Home() {
           it is shown large enough to read. */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
         <Wrap wide>
-          <Statement className="max-w-[17ch]">{lines.tagline.text}</Statement>
-          <ul className="rise mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] text-ink-muted">
+          {/* Centred, like the hero above it and Loafy below. */}
+          <Statement className="mx-auto max-w-[17ch] text-center">{lines.tagline.text}</Statement>
+          <ul className="rise mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[15px] text-ink-muted">
             {/* The dot ends an item rather than starting the next, so a line that wraps never
                 begins with one. */}
             {facts.map((fact, index) => (
@@ -158,7 +155,7 @@ export default function Home() {
             ))}
           </div>
 
-          <MoreCarousel title="Also in Matter" cards={more} />
+          <MoreCards title="Also in Matter" cards={more} />
         </Wrap>
       </section>
 
