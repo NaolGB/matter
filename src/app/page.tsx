@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { CalendarDays } from "@/components/CalendarDays";
 import { EditorRefusal } from "@/components/EditorRefusal";
 import { Hero } from "@/components/Hero";
+import { LoafyHome } from "@/components/LoafyHome";
 import { LoafyLadder } from "@/components/LoafyLadder";
 import { NoteSlash } from "@/components/NoteSlash";
 import { SessionDrop } from "@/components/SessionDrop";
@@ -172,16 +172,9 @@ export default function Home() {
             clock in it, no score and no streak. You look in on her. That is all.
           </p>
         </div>
-        <div className="relative mt-14 h-[clamp(560px,calc(100svh-3rem),1092px)] overflow-hidden">
-          <Image
-            src="/shots/loafy-house-light.webp"
-            alt={`${lines.loafyHome.text}: a bedroom in the roof, a kitchen and a living room, one above the other, with Loafy napping in the mixing bowl on the kitchen counter.`}
-            fill
-            unoptimized
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
+        <LoafyHome
+          alt={`${lines.loafyHome.text}: a bedroom in the roof, a kitchen and a living room, one above the other, with Loafy napping in the mixing bowl on the kitchen counter.`}
+        />
       </section>
     </main>
   );

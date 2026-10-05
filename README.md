@@ -67,8 +67,10 @@ the app's own look (`EditorRefusal`, `SessionDrop`, `CalendarDays`, `NoteSlash` 
 When the app's look changes, compare them with a fresh capture.
 
 Loafy's house at the end of the page is not a capture either. It is drawn by the app's own
-painter at full width (`tools/loaf-render` in the folder below) and saved as
-`public/shots/loafy-house-light.webp`.
+painter at full width, with Loafy left out (`tools/loaf-render` in the folder below), and saved as
+`public/shots/loafy-house-light.webp`. `LoafyHome` draws her over it: when the house comes into
+view she climbs down the page's ladder, hops off onto the kitchen floor, walks to the counter and
+hops into the mixing bowl to nap.
 
 The full-size originals, the App Store set and the tools that made them are in
 `~/Desktop/duka/Screenshots/app-store` (see its README). `tools/process.py` there writes

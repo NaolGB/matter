@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { BODY, CAP, LADDER_UNIT, RUNG, SLASH, colour } from "@/components/loafy";
 
 /* Loafy on her ladder, at the right edge of the window. The ladder is fixed there, and she stands
    where the reader is in the page: at the top of it at the top, at the foot of it at the end. She
@@ -14,19 +15,16 @@ import { useEffect, useRef } from "react";
    ladder's proportions and paint from LoafSceneView and LoafPalette. The app has no back view, so
    that one is ours: the same loaf mirrored, with the pinch on the other side and no face. It is
    decoration, hidden from assistive technology, and left out on a phone, where there is no room
-   beside the page for it. */
+   beside the page for it.
 
-const RUNG = 39; // from one rung to the next
+   When her house comes into view at the foot of the page, LoafyHome takes her off the ladder and
+   walks her in. While she is there it marks the ladder `data-away`, and she is not drawn here. */
+
 const FIRST = 62; // the top rung, far enough under the bar for her to stand on it
 const FOOT = 24; // the lowest rung stays this far above the foot of the window
-const UNIT = 3; // one of LoafFigure's body units, on the page
+const UNIT = LADDER_UNIT; // one of LoafFigure's body units, on the page
 const TURN = 90; // each half of a turn, in milliseconds
 const WOOD = "#C9A678";
-
-const BODY =
-  "M-6.5 0C-7.8-1.5-7.6-4-6.8-6-6-9.5-4.5-11.5-1.5-11.5.2-11.5 1.4-12.6 2.5-11.8 4.5-11 6.6-9 6.8-6 7.6-4 7.8-1.5 6.5 0 3 .8-3 .8-6.5 0Z";
-const CAP = "M-6.5-7.4C-5.6-10-4-11.5-1.5-11.5.2-11.5 1.4-12.6 2.5-11.8 4.4-11 6.2-9.6 6.6-7.4 3-8.8-3-8.8-6.5-7.4Z";
-const SLASH = "M-3.6-9.4Q0-11 3.4-10.2";
 
 type Side = "front" | "back";
 
@@ -168,6 +166,7 @@ export function LoafyLadder() {
       />
       <div
         ref={loafy}
+        data-climber
         className="absolute left-1/2 top-0 w-[48px] origin-bottom will-change-transform"
         style={{ transform: `translate(-50%, calc(${FIRST + UNIT}px - 100%))` }}
       >
@@ -178,19 +177,19 @@ export function LoafyLadder() {
           style={{ transitionDuration: `${TURN}ms` }}
         >
           <g ref={front}>
-            <path fill="#F6E6C4" d={BODY} />
-            <path fill="#D9A860" d={CAP} />
-            <path d={SLASH} fill="none" stroke="#B48243" strokeWidth="0.4" strokeLinecap="round" />
-            <ellipse cx="-4.4" cy="-3.9" rx="1.2" ry="0.7" fill="#EE9E8A" opacity="0.7" />
-            <ellipse cx="4.6" cy="-3.9" rx="1.2" ry="0.7" fill="#EE9E8A" opacity="0.7" />
-            <circle cx="-2.4" cy="-5.6" r="0.75" fill="#3A2A1A" />
-            <circle cx="2.6" cy="-5.6" r="0.75" fill="#3A2A1A" />
-            <path d="M-1-3.6Q0-2.6 1-3.6" fill="none" stroke="#3A2A1A" strokeWidth="0.3" strokeLinecap="round" />
+            <path fill={colour.crumb} d={BODY} />
+            <path fill={colour.cap} d={CAP} />
+            <path d={SLASH} fill="none" stroke={colour.crust} strokeWidth="0.4" strokeLinecap="round" />
+            <ellipse cx="-4.4" cy="-3.9" rx="1.2" ry="0.7" fill={colour.blush} opacity="0.7" />
+            <ellipse cx="4.6" cy="-3.9" rx="1.2" ry="0.7" fill={colour.blush} opacity="0.7" />
+            <circle cx="-2.4" cy="-5.6" r="0.75" fill={colour.ink} />
+            <circle cx="2.6" cy="-5.6" r="0.75" fill={colour.ink} />
+            <path d="M-1-3.6Q0-2.6 1-3.6" fill="none" stroke={colour.ink} strokeWidth="0.3" strokeLinecap="round" />
           </g>
           <g ref={back} transform="scale(-1 1)" style={{ display: "none" }}>
-            <path fill="#F6E6C4" d={BODY} />
-            <path fill="#D9A860" d={CAP} />
-            <path d={SLASH} fill="none" stroke="#B48243" strokeWidth="0.4" strokeLinecap="round" />
+            <path fill={colour.crumb} d={BODY} />
+            <path fill={colour.cap} d={CAP} />
+            <path d={SLASH} fill="none" stroke={colour.crust} strokeWidth="0.4" strokeLinecap="round" />
           </g>
         </svg>
       </div>
