@@ -52,7 +52,7 @@ WebP at twice the size they are shown and are served as they are (`unoptimized`)
 needs no image resizer at run time.
 
 ```tsx
-<Shot label="The Mac app" src="/shots/mac-tasks-light.webp" width={1680} height={1050} />
+<Shot label="The iPhone app" src="/shots/iphone-tasks-light.webp" width={480} height={1043} />
 ```
 
 The site is always light, so it uses the light captures only. Dark ones of every shot exist in
@@ -61,9 +61,10 @@ the folder below if that ever changes.
 A `<Shot>` with no `src` draws a soft frame saying what to shoot, which is how a new slot looks
 until its capture exists.
 
-The four cards under the tagline are not screenshots. Their pictures are drawn on the page in
-the app's own look (`EditorRefusal`, `SessionDrop`, `CalendarDays`, `NoteSlash` in
-`src/components`), with the demo world's tasks and the app's own words from `app-lines.json`.
+The hero's Mac window and the four cards under the tagline are not screenshots. They are drawn
+on the page in the app's own look (`HeroWindow`, `EditorRefusal`, `SessionDrop`, `CalendarDays`,
+`NoteSlash` in `src/components`), with the demo world's tasks and the app's own words. The house
+in the hero's sidebar is the app's painter, rendered (`public/shots/hero-house-light.webp`).
 When the app's look changes, compare them with a fresh capture.
 
 Loafy's house at the end of the page is not a capture either. It is drawn by the app's own

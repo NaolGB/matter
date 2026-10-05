@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import lines from "@/content/app-lines.json";
+import { HeroWindow } from "@/components/HeroWindow";
 import { Shot, Wrap } from "@/components/site";
 
 /* The hero, live. The headline says what the app is for and carries the day's figure inside it,
@@ -191,18 +192,11 @@ export function Hero() {
 
       </Wrap>
 
-      {/* The Mac at the full width of the page, big enough to read, with the iPhone standing in
-          front of it on a ring of page colour. */}
+      {/* The Mac at the full width of the page, drawn so it can be read, with the iPhone standing
+          in front of it on a ring of page colour. */}
       <Wrap wide className="mt-[clamp(1.5rem,3.5vw,2.75rem)]">
         <div className="relative pb-[6%] pr-[7%] sm:pr-[9%]">
-          <Shot
-            label="The Mac app"
-            capture="Tasks, with the capacity reading 2h 10m free and Loafy at home in the sidebar."
-            src="/shots/mac-tasks-light.webp"
-            width={2400}
-            height={1500}
-            className="rounded-[12px] shadow-[0_50px_100px_-60px_rgb(0_0_0/0.45)] ring-1 ring-hairline sm:rounded-[20px]"
-          />
+          <HeroWindow className="rounded-[12px] shadow-[0_50px_100px_-60px_rgb(0_0_0/0.45)] ring-1 ring-hairline sm:rounded-[20px]" />
           <div className="absolute bottom-0 right-0 w-[24%] min-w-[104px] rounded-[24px] bg-base p-[5px] sm:w-[17%] sm:rounded-[30px] sm:p-[6px]">
             <Shot
               label="The iPhone app"
