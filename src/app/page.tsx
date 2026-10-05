@@ -10,51 +10,58 @@ import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
 
 /* The four cards. `span` is the card's share of the twelve columns on a wide screen: the two
-   with the most to show get seven, and they sit on a diagonal. */
+   with a piece of the Mac window to show get seven, and they sit on a diagonal. The other two
+   show the phone. */
 const cards = [
   {
     label: "Tasks",
     line: lines.gate.text,
     body: "Matter counts what you planned against the hours you have left, meetings included, and says when it is too much.",
     crop: "The editor refusing an estimate",
-    shot: { name: "editor", width: 1040, height: 800 },
+    shot: { name: "crop-editor", width: 1040, height: 800 },
+    phone: false,
     span: "lg:col-span-7",
     href: "/support#capacity",
   },
   {
-    label: "Estimates",
-    line: lines.usually.text,
-    body: "After enough finished work, Matter knows how long that kind of task runs and offers the number before you guess.",
-    crop: "The week review",
-    shot: { name: "week", width: 880, height: 880 },
+    label: "Standup",
+    line: lines.addToday.text,
+    body: "One entry a day, under the same four headings. A few lines is enough.",
+    crop: "A standup entry on the iPhone",
+    shot: { name: "iphone-standup", width: 480, height: 1043 },
+    phone: true,
     span: "lg:col-span-5",
-    href: "/support#capacity",
+    href: "/support#standup",
   },
   {
-    label: "Work bucket",
-    line: lines.bucket.text,
-    body: "The clock counts down against your estimate and keeps going past it. Finishing records what the task really took.",
-    crop: "A session counting down",
-    shot: { name: "session", width: 840, height: 784 },
+    label: "Calendar",
+    line: lines.calendar.text,
+    body: "Subscribe to the calendars you already keep. Meetings sit beside your tasks and count against the day.",
+    crop: "Three days of tasks and meetings on the iPhone",
+    shot: { name: "iphone-calendar", width: 480, height: 1043 },
+    phone: true,
     span: "lg:col-span-5",
-    href: "/support#tasks",
+    href: "/support#calendar",
   },
   {
     label: "Notes",
     line: lines.notes.text,
     body: "A fast editor, a notebook one click away, and room for longer thinking next to the plan.",
     crop: "A note",
-    shot: { name: "note", width: 1400, height: 940 },
+    shot: { name: "crop-note", width: 1400, height: 940 },
+    phone: false,
     span: "lg:col-span-7",
     href: "/support#notes",
   },
 ];
 
-const prompts = [
-  lines.promptHappened.text,
-  lines.promptToday.text,
-  lines.promptHow.text,
-  lines.promptNoticed.text,
+/* Five more, small: a mark, what it is, and the app's own words for it. */
+const more = [
+  { label: "Work bucket", line: lines.bucket.text, href: "/support#tasks", icon: "M6.5 5.5v9l7.5-4.5z" },
+  { label: "Estimates", line: lines.usually.text, href: "/support#capacity", icon: "M10 5.5V10l3 2M10 2.75a7.25 7.25 0 1 0 0 14.5 7.25 7.25 0 0 0 0-14.5z" },
+  { label: "Week review", line: lines.week.text, href: "/support#capacity", icon: "M4.5 16V9.5M10 16V4M15.5 16v-4.5" },
+  { label: "Templates", line: lines.templates.text, href: "/support#templates", icon: "M7 7V4.5h8.5V13H13M4.5 7H13v8.5H4.5z" },
+  { label: "Home Screen widget", line: lines.widget.text, href: "/support#capacity", icon: "M4 4h12v12H4zM4 10h12M10 4v12" },
 ];
 
 const devices = [
@@ -123,19 +130,46 @@ export default function Home() {
                   <Arrow />
                 </div>
                 <div className="mt-auto px-8 pt-8">
-                  <div className="aspect-[16/9] min-h-0 lg:aspect-auto lg:h-[340px]">
+                  <div className={`min-h-0 lg:aspect-auto lg:h-[340px] ${card.phone ? "aspect-[4/3]" : "aspect-[16/9]"}`}>
                     <Shot
                       label={card.crop}
-                      src={`/shots/crop-${card.shot.name}-light.webp`}
+                      src={`/shots/${card.shot.name}-light.webp`}
                       width={card.shot.width}
                       height={card.shot.height}
-                      className="rounded-t-[12px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
+                      className={
+                        card.phone
+                          ? "mx-auto max-w-[270px] rounded-t-[34px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
+                          : "rounded-t-[12px] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.3)] ring-1 ring-hairline"
+                      }
                     />
                   </div>
                 </div>
               </Link>
             ))}
           </div>
+
+          <p className="rise mt-12 text-[15px] text-ink-muted">Also in Matter</p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {more.map((item) => (
+              <li key={item.label} className="rise">
+                <Link href={item.href} className="group flex h-full flex-col rounded-[22px] bg-base p-6">
+                  <span aria-hidden className="flex size-10 items-center justify-center rounded-full bg-wash">
+                    <svg viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={item.icon} />
+                    </svg>
+                  </span>
+                  <span className="mt-5 text-[13px] text-ink-muted">{item.label}</span>
+                  <span className="mt-1 text-balance text-[1.05rem] font-semibold leading-snug tracking-[-0.015em]">
+                    {item.line}{" "}
+                    <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
           <figure className="rise mx-auto mt-16 max-w-[30ch] text-center">
             <blockquote className="font-serif text-[clamp(1.35rem,2.6vw,1.75rem)] leading-snug">
               “{lines.limit.text}”
@@ -163,38 +197,6 @@ export default function Home() {
               width={524}
               height={1202}
               className="rise mx-auto max-w-[320px] rounded-[26px] shadow-[0_40px_90px_-50px_rgb(0_0_0/0.4)]"
-            />
-          </div>
-        </Wrap>
-      </section>
-
-      {/* The daily log */}
-      <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
-        <Wrap wide>
-          <div className="grid items-center gap-12 md:grid-cols-2">
-            <div>
-              <Statement>{lines.addToday.text}</Statement>
-              <p className="rise mt-5 max-w-[36ch] text-[1.1rem] leading-relaxed text-ink-muted">
-                One entry a day, under the same four headings. A few lines is enough.
-              </p>
-              <ol className="rise mt-8 max-w-[26rem]">
-                {prompts.map((prompt) => (
-                  <li
-                    key={prompt}
-                    className="border-t border-hairline py-4 text-[1.15rem] font-semibold tracking-[-0.015em] last:border-b"
-                  >
-                    {prompt}
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <Shot
-              label="A standup entry on the iPhone"
-              capture="The day's entry under its four headings."
-              src="/shots/iphone-standup-light.webp"
-              width={480}
-              height={1043}
-              className="rise mx-auto max-w-[300px] rounded-[40px] shadow-[0_40px_90px_-50px_rgb(0_0_0/0.45)] ring-1 ring-hairline"
             />
           </div>
         </Wrap>

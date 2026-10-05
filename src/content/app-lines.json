@@ -90,5 +90,21 @@
   "phone": {
     "text": "Tap + to add a task.",
     "find": "Tap + to add a task."
+  },
+  "calendar": {
+    "text": "Add a calendar",
+    "find": "Text(\"Add a calendar\")"
+  },
+  "week": {
+    "text": "Where it went",
+    "find": "sectionTitle(\"Where it went\")"
+  },
+  "templates": {
+    "text": "Fill this week",
+    "find": "action: \"Fill this week\""
+  },
+  "widget": {
+    "text": "Today",
+    "find": "configurationDisplayName(\"Today\")"
   }
 }
