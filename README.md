@@ -47,19 +47,16 @@ link. Until they are set, `/support` says an address is coming and the store but
 
 ## Screenshots
 
-The pictures are real captures of the app running its demo world, in `public/shots`, one for
-light and one for dark. They are WebP at twice the size they are shown and are served as they
-are (`unoptimized`), so the site needs no image resizer at run time.
+The pictures are real captures of the app running its demo world, in `public/shots`. They are
+WebP at twice the size they are shown and are served as they are (`unoptimized`), so the site
+needs no image resizer at run time.
 
 ```tsx
-<Shot
-  label="The Mac app"
-  src="/shots/mac-tasks-light.webp"
-  srcDark="/shots/mac-tasks-dark.webp"
-  width={1680}
-  height={1050}
-/>
+<Shot label="The Mac app" src="/shots/mac-tasks-light.webp" width={1680} height={1050} />
 ```
+
+The site is always light, so it uses the light captures only. Dark ones of every shot exist in
+the folder below if that ever changes.
 
 A `<Shot>` with no `src` draws a soft frame saying what to shoot, which is how a new slot looks
 until its capture exists.

@@ -5,7 +5,7 @@ import { site } from "@/config";
 
 /**
  * The app's mark. The artwork is one black shape, so it is used as a mask and drawn in
- * whatever ink the text around it is: dark on a light page, light on a dark one.
+ * whatever ink the text around it is.
  */
 export function Mark({ size = 22, className = "" }: { size?: number; className?: string }) {
   const mask = "url(/brand/mark.png) center / contain no-repeat";
@@ -122,19 +122,16 @@ export function Statement({
 }
 
 /**
- * A screenshot. Pass `src` and the picture's pixel size; with `srcDark` as well, the page shows
- * whichever matches the reader's light or dark setting (two images, one hidden: lazy loading
- * means only the visible one is fetched). The files in `public/shots` are already WebP at twice
- * the size they are shown, so they are served as they are, with no resizing at run time.
- * Without `src` it draws a soft frame that says what to shoot, which is how a slot looks until
- * its capture exists. `compact` is for slots too narrow to hold that note.
+ * A screenshot. Pass `src` and the picture's pixel size. The files in `public/shots` are already
+ * WebP at twice the size they are shown, so they are served as they are, with no resizing at
+ * run time. Without `src` it draws a soft frame that says what to shoot, which is how a slot
+ * looks until its capture exists. `compact` is for slots too narrow to hold that note.
  */
 export function Shot({
   label,
   capture,
   aspect = "16 / 10",
   src,
-  srcDark,
   width = 1600,
   height = 1000,
   compact = false,
@@ -144,36 +141,24 @@ export function Shot({
   capture?: string;
   aspect?: string;
   src?: string;
-  srcDark?: string;
   width?: number;
   height?: number;
   compact?: boolean;
   className?: string;
 }) {
   if (src) {
-    const alt = capture ? `${label}: ${capture}` : label;
     // `w-full` so the frame has its width before the picture arrives: as a grid item with auto
     // margins it would otherwise shrink to nothing, and a lazy image with no box never loads.
     return (
       <figure className={`w-full ${className}`}>
         <Image
           src={src}
-          alt={alt}
+          alt={capture ? `${label}: ${capture}` : label}
           width={width}
           height={height}
           unoptimized
-          className={`h-auto w-full rounded-[inherit] ${srcDark ? "dark:hidden" : ""}`}
+          className="h-auto w-full rounded-[inherit]"
         />
-        {srcDark && (
-          <Image
-            src={srcDark}
-            alt={alt}
-            width={width}
-            height={height}
-            unoptimized
-            className="hidden h-auto w-full rounded-[inherit] dark:block"
-          />
-        )}
       </figure>
     );
   }

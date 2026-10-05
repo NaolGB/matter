@@ -105,7 +105,6 @@ export default function Home() {
                   <Shot
                     label={card.crop}
                     src={`/shots/crop-${card.shot.name}-light.webp`}
-                    srcDark={`/shots/crop-${card.shot.name}-dark.webp`}
                     width={card.shot.width}
                     height={card.shot.height}
                     className="rounded-[16px] ring-1 ring-hairline"
@@ -132,7 +131,6 @@ export default function Home() {
               label={lines.loafyHome.text}
               capture="Bedroom, kitchen, living room."
               src="/shots/loafy-home-light.webp"
-              srcDark="/shots/loafy-home-dark.webp"
               width={524}
               height={1202}
               className="rise mx-auto max-w-[220px] rounded-[20px]"
@@ -177,7 +175,6 @@ export default function Home() {
               label="The iPhone app and its widget"
               capture="Tasks, Calendar, a note and a standup entry on the phone, and the Home Screen widget that shows the room left in your day beside Loafy’s house."
               src="/shots/iphone-strip-light.webp"
-              srcDark="/shots/iphone-strip-dark.webp"
               width={2400}
               height={1200}
               className="min-w-[720px]"

@@ -355,7 +355,6 @@ export function Hero() {
             label="The Mac app"
             capture="Tasks, with the capacity reading 2h 10m free and Loafy at home in the sidebar."
             src="/shots/mac-tasks-light.webp"
-            srcDark="/shots/mac-tasks-dark.webp"
             width={1680}
             height={1050}
             className="rounded-[18px] shadow-[0_40px_90px_-50px_rgb(0_0_0/0.45)] ring-1 ring-hairline"
@@ -365,7 +364,6 @@ export function Hero() {
               label="The iPhone app"
               capture="Tasks, with 2h 10m free and one task running."
               src="/shots/iphone-tasks-light.webp"
-              srcDark="/shots/iphone-tasks-dark.webp"
               width={480}
               height={1043}
               className="rounded-[22px] ring-1 ring-hairline"

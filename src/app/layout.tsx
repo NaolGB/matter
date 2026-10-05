@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Footer, Nav } from "@/components/site";
 import "./globals.css";
@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   },
   description:
     "Matter is a planner for Mac and iPhone that knows how much a day holds. It works offline, with no account, and keeps everything on your own devices.",
+};
+
+// Always light: see the note on :root in globals.css.
+export const viewport: Viewport = {
+  colorScheme: "only light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

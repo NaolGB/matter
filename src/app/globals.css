@@ -2,8 +2,12 @@
 
 /* A neutral scale tuned for the web: white, one soft grey for bands, and three steps of
    ink. Surfaces are told apart by fill, not by outline, so --hairline is rare and faint.
-   --wash is a translucent tint that reads as a soft fill on any ground. */
+   --wash is a translucent tint that reads as a soft fill on any ground.
+
+   The site is always light, whatever the reader's device is set to. `only light` also stops a
+   browser from darkening the page on its own. */
 :root {
+  color-scheme: only light;
   --base: #ffffff;
   --track: #f5f5f7;
   --wash: rgb(0 0 0 / 0.045);
@@ -12,21 +16,9 @@
   --ink-faint: #86868b;
   --hairline: rgb(0 0 0 / 0.08);
   --chrome: rgb(255 255 255 / 0.8);
-  --free: #248a3d;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --base: #111112;
-    --track: #1b1b1d;
-    --wash: rgb(255 255 255 / 0.07);
-    --ink: #f5f5f7;
-    --ink-muted: #a1a1a6;
-    --ink-faint: #7d7d82;
-    --hairline: rgb(255 255 255 / 0.1);
-    --chrome: rgb(17 17 18 / 0.8);
-    --free: #30d158;
-  }
+  /* The app's green for "free", taken as deep as it must go on white: 3:1 against the page,
+     which is the bar for type this large. Any darker and the word looks tired. */
+  --free: #1aa83e;
 }
 
 @theme inline {
@@ -61,7 +53,7 @@ body {
 }
 
 /* The example tasks round the add-task field. Each wears a soft tint of one of the app's tag
-   colours (--hue), mixed into the page so it holds in light and dark alike, and is turned (--r)
+   colours (--hue), mixed into the page, and is turned (--r)
    to lie along its own line to the field. The rows further out are drawn fainter (--strength);
    one of those comes up to full strength under the pointer. */
 .chip {
@@ -78,17 +70,6 @@ body {
 .chip:hover {
   background: color-mix(in srgb, var(--hue) 26%, var(--base));
   opacity: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .chip {
-    background: color-mix(in srgb, var(--hue) 24%, var(--base));
-    color: color-mix(in srgb, var(--hue) 55%, var(--ink));
-  }
-
-  .chip:hover {
-    background: color-mix(in srgb, var(--hue) 36%, var(--base));
-  }
 }
 
 /* A task that has been taken, put on today or moved to tomorrow, leaves the pile. It fades,
