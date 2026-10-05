@@ -115,6 +115,72 @@ export function StoreStatus({ className = "" }: { className?: string }) {
   );
 }
 
+const devices = {
+  mac: {
+    name: "Mac",
+    platform: "mac",
+    // A laptop, not Apple's logo, which is theirs to use.
+    icon: "M4 4.5h12a1 1 0 0 1 1 1V13H3V5.5a1 1 0 0 1 1-1zM1.5 15.5h17",
+  },
+  iphone: {
+    name: "iPhone",
+    platform: "iphone",
+    icon: "M7 2.5h6a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 16V4A1.5 1.5 0 0 1 7 2.5zM9 15h2",
+  },
+};
+
+/**
+ * A button to get the app for one device. Mac and iPhone are one App Store record (universal
+ * purchase), so both go to the same listing; `platform` asks it to open on that device's page.
+ * Until `site.appStoreUrl` is set there is nowhere to send anyone, so the button is drawn but
+ * does nothing, and whoever shows it says the app is coming.
+ */
+export function Download({
+  device,
+  primary = false,
+  className: extra = "",
+}: {
+  device: keyof typeof devices;
+  primary?: boolean;
+  className?: string;
+}) {
+  const { name, platform, icon } = devices[device];
+  const className = `inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-medium ${
+    primary ? "bg-ink text-[var(--base)]" : "bg-track text-ink"
+  } ${extra}`;
+  const content = (
+    <>
+      <svg
+        aria-hidden
+        viewBox="0 0 20 20"
+        className="size-[18px]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d={icon} />
+      </svg>
+      Download for {name}
+    </>
+  );
+  if (site.appStoreUrl) {
+    const url = new URL(site.appStoreUrl);
+    url.searchParams.set("platform", platform);
+    return (
+      <a href={url.toString()} className={`${className} transition-opacity hover:opacity-85`}>
+        {content}
+      </a>
+    );
+  }
+  return (
+    <span aria-disabled="true" className={`${className} cursor-default select-none`}>
+      {content}
+    </span>
+  );
+}
+
 /**
  * A section's statement. Set heavy and large, like the headline, and split into words so each
  * can arrive on its own as the line scrolls into view (see `.words` in globals.css).

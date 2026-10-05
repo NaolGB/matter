@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import lines from "@/content/app-lines.json";
 import { site } from "@/config";
-import { Shot, StoreStatus, Wrap } from "@/components/site";
+import { Download, Shot, Wrap } from "@/components/site";
 
 /* The hero, live. The headline says what the app is for and carries the day's figure inside it,
    in the words of the app's own capacity chip: 2h 10m free to begin with. Type a task, give it
@@ -101,12 +101,19 @@ export function Hero() {
           Matter is a planner for Mac and iPhone that knows how much a day holds.
         </p>
 
+        {/* Side by side, or one over the other at the same width on a phone. */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Download device="mac" primary className="w-[240px] sm:w-auto" />
+          <Download device="iphone" className="w-[240px] sm:w-auto" />
+        </div>
+        {!site.appStoreUrl && <p className="mt-3 text-[13px] text-ink-faint">Coming to the App Store</p>}
+
         <form
           onSubmit={(event) => {
             event.preventDefault();
             add();
           }}
-          className="mx-auto mt-8 w-full max-w-[520px]"
+          className="mx-auto mt-12 w-full max-w-[520px]"
         >
           <div className="flex items-center gap-1 rounded-full bg-track p-1.5 pl-4 ring-1 ring-transparent transition-shadow focus-within:ring-ink-faint sm:pl-5">
             <input
@@ -188,13 +195,6 @@ export function Hero() {
           </div>
         </form>
 
-        {/* A way to get the app belongs here once there is one. Until then the page says so
-            further down, and the hero stays a headline, a sentence and the field. */}
-        {site.appStoreUrl && (
-          <p className="mt-2">
-            <StoreStatus />
-          </p>
-        )}
       </Wrap>
 
       {/* The Mac at the full width of the page, big enough to read, with the iPhone standing in
