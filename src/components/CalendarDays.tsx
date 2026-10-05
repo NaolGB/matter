@@ -1,9 +1,9 @@
 /* Three days of the calendar, drawn in the app's own look: tasks in grey, meetings in their
    calendar's colour, and the red line at the present minute. It is a picture: nothing in it can
    be pressed. The days are the demo's, at the minute the screenshots are taken, with the
-   finished tasks and a few short ones left out so the rest can be read. An hour is drawn taller
-   than the app draws it, for the same reason. On a phone, where the card is narrow, the whole
-   picture is drawn smaller. */
+   finished tasks and everything under half an hour left out, so the rest can be read. An hour
+   is drawn taller than the app draws it, for the same reason. On a phone, where the card is
+   narrow, the whole picture is drawn smaller. */
 
 const START = 8 * 60 + 45;
 const HOUR = 80;
@@ -22,19 +22,10 @@ type Entry = { day: number; at: [number, number]; minutes: number; title: string
 
 const entries: Entry[] = [
   { day: 0, at: [9, 0], minutes: 90, title: "Write the Mosaic pitch story", lane: 0 },
-  { day: 0, at: [9, 30], minutes: 15, title: "Studio standup", meeting: true, lane: 1 },
   { day: 0, at: [10, 0], minutes: 60, title: "Larkspur weekly sync", meeting: true, lane: 1 },
   { day: 0, at: [11, 0], minutes: 30, title: "Prioritise the dashboard backlog with Ravi" },
-  { day: 0, at: [11, 30], minutes: 15, title: "Check the Larkspur channel" },
-  { day: 0, at: [12, 0], minutes: 15, title: "Reply to Juniper's feedback round" },
-  { day: 0, at: [12, 15], minutes: 15, title: "Shutdown review" },
-  { day: 1, at: [9, 30], minutes: 15, title: "Studio standup", meeting: true },
-  { day: 1, at: [10, 45], minutes: 15, title: "Check the Quarry board" },
   { day: 1, at: [11, 0], minutes: 30, title: "Juniper portal review", meeting: true },
-  { day: 1, at: [11, 30], minutes: 20, title: "Prepare the usability session room" },
-  { day: 1, at: [12, 0], minutes: 15, title: "Check the Larkspur channel" },
   { day: 1, at: [12, 15], minutes: 120, title: "Draft the Mosaic proposal" },
-  { day: 2, at: [9, 30], minutes: 15, title: "Studio standup", meeting: true },
   { day: 2, at: [10, 0], minutes: 45, title: "Larkspur usability session", meeting: true },
   { day: 2, at: [11, 0], minutes: 45, title: "Larkspur usability session", meeting: true },
   { day: 2, at: [11, 45], minutes: 60, title: "Write the usability test script" },
@@ -54,9 +45,10 @@ function Block({ entry }: { entry: Entry }) {
   const height = (entry.minutes * HOUR) / 60 - 2;
   const hue = entry.meeting ? FEED : "var(--ink)";
   /* A short block has room for its title only. The length is added once there is a second
-     line for it, and the title may take two lines once the block is taller still. */
+     line for it, and the title may take two lines once the block is taller still: three in a
+     long block, which the app does not need but a half-width column here does. */
   const tall = height >= 32;
-  const wrap = height >= 50 ? "line-clamp-2" : "truncate";
+  const wrap = height >= 100 ? "line-clamp-3" : height >= 50 ? "line-clamp-2" : "truncate";
   return (
     <div
       className="absolute overflow-hidden rounded-[7px] border px-[5px] py-[1px] text-[11.5px] leading-[15px]"

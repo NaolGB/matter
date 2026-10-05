@@ -154,7 +154,7 @@ export function Download({
   const { name, platform, icon } = devices[device];
   const className = `inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap ${
     small ? "h-8 gap-1.5 px-3.5 text-[13px]" : "h-12 gap-2.5 px-6 text-[15px]"
-  } ${primary ? "bg-ink text-[var(--base)]" : "bg-track text-ink"} ${extra}`;
+  } ${primary ? "bg-ink text-[var(--base)]" : "bg-base text-ink ring-1 ring-inset ring-black/15"} ${extra}`;
   const label = small ? (
     <>
       <span className="sm:hidden">{name}</span>

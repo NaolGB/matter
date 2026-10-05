@@ -107,6 +107,9 @@ export function Hero() {
           }}
           className="mx-auto mt-8 w-full max-w-[520px]"
         >
+          {/* Two words, so the field reads as something to try and not as a form that keeps
+              what is typed into it. */}
+          <p className="mb-2.5 text-[13px] text-ink-faint">Try it</p>
           <div className="flex items-center gap-1 rounded-full bg-track p-1.5 pl-4 ring-1 ring-transparent transition-shadow focus-within:ring-ink-faint sm:pl-5">
             <input
               ref={input}
