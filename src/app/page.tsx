@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import { CalendarDays } from "@/components/CalendarDays";
@@ -7,7 +8,7 @@ import { LoafyLadder } from "@/components/LoafyLadder";
 import { NoteSlash } from "@/components/NoteSlash";
 import { SessionDrop } from "@/components/SessionDrop";
 import { MoreCarousel, type MoreCard } from "@/components/MoreCarousel";
-import { Shot, Statement, Wrap } from "@/components/site";
+import { Statement, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
@@ -165,8 +166,12 @@ export default function Home() {
         </Wrap>
       </section>
 
-      {/* Loafy, last, across the whole window: the page ends in her house. */}
-      <section className="py-[clamp(4rem,9vw,7rem)]">
+      {/* Loafy, last: the page ends in her house, as wide as the window. The picture is drawn by
+          the app's own painter into a box wider than the house, so its floors and roof run out to
+          both edges (Screenshots/app-store/tools/loaf-render). The band is about a screen tall,
+          so the whole house is in view at once, and a wider window shows more of the floors
+          either side of it. */}
+      <section className="pt-[clamp(4rem,9vw,7rem)]">
         <div className="px-5 text-center sm:px-6">
           <Statement className="mx-auto max-w-[16ch]">{lines.loafy.text}</Statement>
           <p className="rise mx-auto mt-6 max-w-[44ch] text-[1.1rem] leading-relaxed text-ink-muted">
@@ -174,17 +179,17 @@ export default function Home() {
             clock in it, no score and no streak. You look in on her. That is all.
           </p>
         </div>
-        <div className="rise mt-14 bg-track py-[clamp(3rem,7vw,5.5rem)]">
-          <Shot
-            label={lines.loafyHome.text}
-            capture="Bedroom, kitchen, living room."
-            src="/shots/loafy-home-light.webp"
-            width={524}
-            height={1202}
-            className="mx-auto max-w-[min(380px,72vw)] rounded-[30px] shadow-[0_40px_90px_-50px_rgb(0_0_0/0.4)]"
+        <div className="relative mt-14 h-[clamp(560px,calc(100svh-3rem),1092px)] overflow-hidden">
+          <Image
+            src="/shots/loafy-house-light.webp"
+            alt={`${lines.loafyHome.text}: a bedroom in the roof, a kitchen and a living room, one above the other, with Loafy napping in the mixing bowl on the kitchen counter.`}
+            fill
+            unoptimized
+            sizes="100vw"
+            className="object-cover object-center"
           />
         </div>
-        <p className="mt-12 px-5 text-center text-[13px] text-ink-faint">
+        <p className="py-8 px-5 text-center text-[13px] text-ink-faint">
           Every heading on this page is a line from the app.{" "}
           <Link href="/support" className="underline underline-offset-2 hover:text-ink">
             The guide says what each one does.
