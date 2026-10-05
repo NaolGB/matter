@@ -46,7 +46,7 @@ export default function SupportPage() {
   return (
     <main className="flex-1">
       <Wrap className="py-[clamp(3rem,7vw,5rem)]">
-        <h1 className="max-w-[14ch] text-balance text-[clamp(2.4rem,6vw,4rem)] font-normal leading-[1.04] tracking-[-0.035em]">
+        <h1 className="max-w-[14ch] text-balance text-[clamp(2.5rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em]">
           Support
         </h1>
         <p className="mt-5 max-w-[52ch] text-pretty text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.45] text-ink-muted">
@@ -72,7 +72,7 @@ export default function SupportPage() {
         </section>
 
         <section className="mt-14">
-          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-normal tracking-[-0.02em]">Common questions</h2>
+          <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] font-semibold tracking-[-0.025em]">Common questions</h2>
           <dl className="mt-4 divide-y divide-hairline">
             {answers.map((item) => (
               <div key={item.question} className="grid gap-2 py-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:gap-10">
@@ -84,10 +84,10 @@ export default function SupportPage() {
         </section>
 
         <section className="mt-16">
-          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-normal tracking-[-0.02em]">User Guide</h2>
+          <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] font-semibold tracking-[-0.025em]">User Guide</h2>
           <div className="mt-8 grid gap-12 lg:grid-cols-[200px_1fr]">
             <aside className="lg:sticky lg:top-20 lg:self-start">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-ink-faint">Contents</p>
+              <p className="text-[13px] text-ink-faint">Contents</p>
               <ul className="mt-3 space-y-2 text-[13.5px]">
                 {guide.map((doc) => (
                   <li key={doc.id}>

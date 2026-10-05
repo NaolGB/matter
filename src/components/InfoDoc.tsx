@@ -77,11 +77,17 @@ function Block({ block }: { block: InfoBlock }) {
   }
 }
 
-export function InfoDoc({ doc }: { doc: InfoDocument }) {
+export function InfoDoc({ doc, page = false }: { doc: InfoDocument; page?: boolean }) {
   return (
     <article id={doc.id} className="scroll-mt-24">
-      <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-[-0.02em]">{doc.title}</h2>
-      <div className="mt-4 space-y-3 text-[15.5px] leading-[1.6] text-ink-muted">
+      {page ? (
+        <h1 className="text-balance text-[clamp(2.5rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em]">
+          {doc.title}
+        </h1>
+      ) : (
+        <h2 className="text-[1.4rem] font-semibold tracking-[-0.02em]">{doc.title}</h2>
+      )}
+      <div className={`${page ? "mt-8" : "mt-4"} space-y-3 text-[16px] leading-[1.6] text-ink-muted`}>
         {doc.blocks.map((block, index) => (
           <Block key={index} block={block} />
         ))}

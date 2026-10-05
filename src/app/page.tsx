@@ -8,7 +8,7 @@ import { LoafyLadder } from "@/components/LoafyLadder";
 import { NoteSlash } from "@/components/NoteSlash";
 import { SessionDrop } from "@/components/SessionDrop";
 import { MoreCards, type MoreCard } from "@/components/MoreCards";
-import { Statement, Wrap } from "@/components/site";
+import { CardArrow, Statement, Wrap } from "@/components/site";
 
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
@@ -92,19 +92,6 @@ const more: MoreCard[] = [
   },
 ];
 
-function Arrow() {
-  return (
-    <span
-      aria-hidden
-      className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink text-[var(--base)] transition-transform group-hover:translate-x-0.5"
-    >
-      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 8h10M9 4l4 4-4 4" />
-      </svg>
-    </span>
-  );
-}
-
 export default function Home() {
   return (
     <main className="flex-1">
@@ -140,13 +127,13 @@ export default function Home() {
               >
                 <div className="flex items-start justify-between gap-4 p-8 pb-0">
                   <div>
-                    <p className="text-[14px] text-ink-muted">{card.label}</p>
+                    <p className="text-[13px] text-ink-muted">{card.label}</p>
                     <h3 className="mt-1.5 text-balance text-[clamp(1.35rem,2.2vw,1.65rem)] font-semibold leading-[1.15] tracking-[-0.025em]">
                       {card.line}
                     </h3>
                     <p className="mt-3 max-w-[44ch] text-[1rem] leading-relaxed text-ink-muted">{card.body}</p>
                   </div>
-                  <Arrow />
+                  <CardArrow />
                 </div>
                 <div className="mt-auto px-8 pt-8">
                   <div className={`min-h-0 ${card.frame}`}>{card.picture}</div>

@@ -12,11 +12,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="flex-1">
-      <Wrap className="max-w-[760px] py-[clamp(3rem,7vw,5rem)]">
-        <InfoDoc doc={privacy} />
-        <p className="mt-12 border-t border-hairline pt-6 text-[13px] text-ink-faint">
-          This is the policy shown inside Matter, under Settings ▸ About. The two are the same text.
-        </p>
+      <Wrap className="py-[clamp(3rem,7vw,5rem)]">
+        <div className="max-w-[680px]">
+          <InfoDoc doc={privacy} page />
+          <p className="mt-12 border-t border-hairline pt-6 text-[13px] text-ink-faint">
+            This is the policy shown inside Matter, under Settings ▸ About. The two are the same text.
+          </p>
+        </div>
       </Wrap>
     </main>
   );

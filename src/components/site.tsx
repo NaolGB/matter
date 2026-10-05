@@ -196,6 +196,20 @@ export function Download({
   );
 }
 
+/** The round arrow in the corner of a card that links somewhere. */
+export function CardArrow() {
+  return (
+    <span
+      aria-hidden
+      className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink text-[var(--base)] transition-transform group-hover:translate-x-0.5"
+    >
+      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 8h10M9 4l4 4-4 4" />
+      </svg>
+    </span>
+  );
+}
+
 /**
  * A section's statement. Set heavy and large, like the headline, and split into words so each
  * can arrive on its own as the line scrolls into view (see `.words` in globals.css).
