@@ -47,12 +47,18 @@ export function Wrap({
 export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-chrome backdrop-blur-xl backdrop-saturate-150">
-      <Wrap wide className="flex h-12 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
+      {/* The mark on the left, the two ways to get the app in the middle, the two pages on the
+          right. On a phone there is no room for all three, and the pages are in the footer. */}
+      <Wrap wide className="grid h-12 grid-cols-[auto_1fr] items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
+        <Link href="/" className="flex items-center gap-2 justify-self-start text-[15px] font-semibold tracking-tight">
           <Mark size={20} />
           Matter
         </Link>
-        <nav className="flex items-center gap-6 text-[13px] text-ink-muted">
+        <div className="flex gap-2 justify-self-end sm:justify-self-center">
+          <Download device="mac" primary small />
+          <Download device="iphone" small />
+        </div>
+        <nav className="hidden items-center gap-6 justify-self-end text-[13px] text-ink-muted sm:flex">
           <Link href="/support" className="transition-colors hover:text-ink">
             Support
           </Link>
@@ -138,22 +144,33 @@ const devices = {
 export function Download({
   device,
   primary = false,
+  small = false,
   className: extra = "",
 }: {
   device: keyof typeof devices;
   primary?: boolean;
+  /** The size for the bar, where on a phone it says only the device's name. */
+  small?: boolean;
   className?: string;
 }) {
   const { name, platform, icon } = devices[device];
-  const className = `inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-medium ${
-    primary ? "bg-ink text-[var(--base)]" : "bg-track text-ink"
-  } ${extra}`;
+  const className = `inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap ${
+    small ? "h-8 gap-1.5 px-3.5 text-[13px]" : "h-12 gap-2.5 px-6 text-[15px]"
+  } ${primary ? "bg-ink text-[var(--base)]" : "bg-track text-ink"} ${extra}`;
+  const label = small ? (
+    <>
+      <span className="sm:hidden">{name}</span>
+      <span className="hidden sm:inline">Download for {name}</span>
+    </>
+  ) : (
+    <>Download for {name}</>
+  );
   const content = (
     <>
       <svg
         aria-hidden
         viewBox="0 0 20 20"
-        className="size-[18px]"
+        className={small ? "size-[15px]" : "size-[18px]"}
         fill="none"
         stroke="currentColor"
         strokeWidth="1.6"
@@ -162,7 +179,7 @@ export function Download({
       >
         <path d={icon} />
       </svg>
-      Download for {name}
+      {label}
     </>
   );
   if (site.appStoreUrl) {
@@ -175,7 +192,7 @@ export function Download({
     );
   }
   return (
-    <span aria-disabled="true" className={`${className} cursor-default select-none`}>
+    <span aria-disabled="true" title="Coming to the App Store" className={`${className} cursor-default select-none`}>
       {content}
     </span>
   );
