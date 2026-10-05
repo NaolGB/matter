@@ -15,7 +15,7 @@ Next.js 16, React 19, TypeScript, Tailwind 4.
 ## Pages
 
 - `/` the pitch. Every heading is a line the app says; the sentences under them are ours.
-  The hero number is live: add a task and it answers the way the app's editor would.
+  The figure in the hero's headline is live: add a task and it answers the way the app's editor would.
 - `/support` a way to reach us, a few answers, and the User Guide.
 - `/privacy` the Privacy Policy.
 

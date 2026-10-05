@@ -7,6 +7,8 @@ import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
 /* Every heading on this page is a line the app says, taken from app-lines.json and checked
    against the Swift source by `npm run check:lines`. The sentences underneath are ours. */
 
+const facts = ["Works offline", "No account", "Syncs through your own iCloud"];
+
 const cards = [
   {
     label: "Tasks",
@@ -82,8 +84,20 @@ export default function Home() {
 
       {/* The bento */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
-        <Wrap>
+        <Wrap wide>
           <Statement className="max-w-[17ch]">{lines.tagline.text}</Statement>
+          <ul className="rise mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] text-ink-muted">
+            {facts.map((fact, index) => (
+              <li key={fact} className="flex items-center gap-2">
+                {index > 0 && (
+                  <span aria-hidden className="text-ink-faint">
+                    ·
+                  </span>
+                )}
+                {fact}
+              </li>
+            ))}
+          </ul>
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {cards.map((card) => (
               <Link
@@ -124,8 +138,8 @@ export default function Home() {
 
       {/* Loafy */}
       <section className="py-[clamp(4rem,9vw,7rem)]">
-        <Wrap>
-          <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_220px_minmax(0,1fr)] md:gap-12">
+        <Wrap wide>
+          <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_260px_minmax(0,1fr)] md:gap-12">
             <Statement className="md:text-right">{lines.loafy.text}</Statement>
             <Shot
               label={lines.loafyHome.text}
@@ -133,7 +147,7 @@ export default function Home() {
               src="/shots/loafy-home-light.webp"
               width={524}
               height={1202}
-              className="rise mx-auto max-w-[220px] rounded-[20px]"
+              className="rise mx-auto max-w-[260px] rounded-[22px]"
             />
             <p className="rise max-w-[34ch] text-[1.05rem] leading-relaxed text-ink-muted">
               Loafy lives in the sidebar of the Mac app, in a house with three floors. There is no
@@ -145,7 +159,7 @@ export default function Home() {
 
       {/* The daily log */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
-        <Wrap className="text-center">
+        <Wrap wide className="text-center">
           <Statement>{lines.addToday.text}</Statement>
           <p className="mx-auto mt-4 max-w-[40ch] text-[1.05rem] leading-relaxed text-ink-muted">
             One entry a day, under the same four headings. A few lines is enough.
@@ -167,7 +181,7 @@ export default function Home() {
 
       {/* The phone */}
       <section className="py-[clamp(4rem,9vw,7rem)]">
-        <Wrap className="text-center">
+        <Wrap wide className="text-center">
           <Statement>{lines.phone.text}</Statement>
           {/* Five screens in a row. On a phone the row keeps a readable size and scrolls sideways. */}
           <div className="rise mt-12 overflow-x-auto rounded-[20px] bg-wash">
@@ -189,7 +203,7 @@ export default function Home() {
 
       {/* Offline and private */}
       <section className="bg-track py-[clamp(4rem,9vw,7rem)]">
-        <Wrap className="text-center">
+        <Wrap wide className="text-center">
           <Statement>{lines.privacy.text}</Statement>
           <p className="mx-auto mt-5 max-w-[46ch] text-[1.05rem] leading-relaxed text-ink-muted">
             Everything. Matter works with no connection at all. There is no account to make and no
@@ -210,7 +224,7 @@ export default function Home() {
 
       {/* Getting started */}
       <section className="py-[clamp(4rem,9vw,7rem)]">
-        <Wrap>
+        <Wrap wide>
           <Statement>{lines.start.text}</Statement>
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {devices.map((device) => (

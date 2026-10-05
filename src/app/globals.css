@@ -53,36 +53,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The example tasks round the add-task field. Each wears a soft tint of one of the app's tag
-   colours (--hue), mixed into the page, and is turned (--r)
-   to lie along its own line to the field. The rows further out are drawn fainter (--strength);
-   one of those comes up to full strength under the pointer. */
-.chip {
-  background: color-mix(in srgb, var(--hue) 14%, var(--base));
-  color: color-mix(in srgb, var(--hue) 42%, var(--ink));
-  rotate: var(--r, 0deg);
-  opacity: var(--strength, 1);
-  transition:
-    background-color 0.2s ease,
-    opacity 0.2s ease,
-    visibility 0s;
-}
-
-.chip:hover {
-  background: color-mix(in srgb, var(--hue) 26%, var(--base));
-  opacity: 1;
-}
-
-/* A task that has been taken, put on today or moved to tomorrow, leaves the pile. It fades,
-   then goes from the accessibility tree as well. */
-.chip:disabled {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.2s ease,
-    visibility 0s 0.2s;
-}
-
 /* A statement arrives a word at a time, out of a blur, as it scrolls into view. Driven by
    the scroll position in CSS, so there is no JavaScript and nothing to hydrate; a browser
    without view timelines shows the words in place. */

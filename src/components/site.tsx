@@ -18,14 +18,30 @@ export function Mark({ size = 22, className = "" }: { size?: number; className?:
   );
 }
 
-export function Wrap({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[980px] px-5 sm:px-6 ${className}`}>{children}</div>;
+/**
+ * The page's column. `wide` is the home page, the bar and the footer, where pictures of the app
+ * need the room to be read; the reading pages keep the narrower one.
+ */
+export function Wrap({
+  children,
+  wide = false,
+  className = "",
+}: {
+  children: ReactNode;
+  wide?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`mx-auto w-full px-5 sm:px-6 ${wide ? "max-w-[1200px]" : "max-w-[980px]"} ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-chrome backdrop-blur-xl backdrop-saturate-150">
-      <Wrap className="flex h-12 items-center justify-between">
+      <Wrap wide className="flex h-12 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
           <Mark size={20} />
           Matter
@@ -46,7 +62,7 @@ export function Nav() {
 export function Footer() {
   return (
     <footer className="bg-track py-10">
-      <Wrap className="flex flex-col gap-4 text-[12px] leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+      <Wrap wide className="flex flex-col gap-4 text-[12px] leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between">
         <p className="flex items-center gap-2">
           <Mark size={15} className="text-ink" />
           <span className="font-semibold text-ink">Matter</span>
@@ -94,8 +110,8 @@ export function StoreStatus({ className = "" }: { className?: string }) {
 }
 
 /**
- * A section's statement. Set light and large, and split into words so each can arrive on
- * its own as the line scrolls into view (see `.words` in globals.css).
+ * A section's statement. Set heavy and large, like the headline, and split into words so each
+ * can arrive on its own as the line scrolls into view (see `.words` in globals.css).
  */
 export function Statement({
   children,
@@ -109,7 +125,7 @@ export function Statement({
   const words = children.split(" ");
   return (
     <Tag
-      className={`words text-balance text-[clamp(1.9rem,4.4vw,3.1rem)] font-normal leading-[1.1] tracking-[-0.03em] ${className}`}
+      className={`words text-balance text-[clamp(2rem,4.6vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.035em] ${className}`}
     >
       {words.map((word, index) => (
         <Fragment key={index}>
