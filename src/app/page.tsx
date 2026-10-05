@@ -4,6 +4,7 @@ import { site } from "@/config";
 import { CalendarDays } from "@/components/CalendarDays";
 import { EditorRefusal } from "@/components/EditorRefusal";
 import { Hero } from "@/components/Hero";
+import { LoafyLadder } from "@/components/LoafyLadder";
 import { NoteSlash } from "@/components/NoteSlash";
 import { SessionDrop } from "@/components/SessionDrop";
 import { Shot, Statement, StoreStatus, Wrap } from "@/components/site";
@@ -141,6 +142,7 @@ function Arrow() {
 export default function Home() {
   return (
     <main className="flex-1">
+      <LoafyLadder />
       <Hero />
 
       {/* The four cards. Each picture stands at the foot of its card and runs off the bottom, so

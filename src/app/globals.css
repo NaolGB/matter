@@ -94,6 +94,15 @@ body {
   }
 }
 
+/* Loafy's ladder stands at the right edge of the window on the home page. Where the window is
+   too narrow for it to stand in the margin, the page and the footer keep a lane clear for it.
+   The bar is above the ladder's top, so it keeps its own width. */
+@media (min-width: 768px) and (max-width: 1296px) {
+  body:has([data-ladder]) :is(main, footer) {
+    --lane: 3rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

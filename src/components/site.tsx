@@ -20,7 +20,9 @@ export function Mark({ size = 22, className = "" }: { size?: number; className?:
 
 /**
  * The page's column. `wide` is the home page, the bar and the footer, where pictures of the app
- * need the room to be read; the reading pages keep the narrower one.
+ * need the room to be read; the reading pages keep the narrower one. `--lane` is room kept clear
+ * on the right for Loafy's ladder, set in globals.css where the window is too narrow for the
+ * ladder to stand in the margin; everywhere else it is nothing.
  */
 export function Wrap({
   children,
@@ -32,7 +34,11 @@ export function Wrap({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full px-5 sm:px-6 ${wide ? "max-w-[1200px]" : "max-w-[980px]"} ${className}`}>
+    <div
+      className={`mx-auto w-full pl-5 pr-[calc(1.25rem_+_var(--lane,0px))] sm:pl-6 sm:pr-[calc(1.5rem_+_var(--lane,0px))] ${
+        wide ? "max-w-[1200px]" : "max-w-[980px]"
+      } ${className}`}
+    >
       {children}
     </div>
   );
