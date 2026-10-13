@@ -16,10 +16,18 @@
   --ink-faint: #86868b;
   --hairline: rgb(0 0 0 / 0.08);
   --chrome: rgb(255 255 255 / 0.8);
-  /* The app's own green for "free" (systemGreen in light mode), as the screenshots show it.
-     Naol's choice over a deeper one: it is 2.2:1 on white, below the 3:1 guideline for large
-     type, and the word looked tired any darker. */
-  --free: #34c759;
+  /* The app is monochrome, and its three hues each mean one thing (DukaPalette): blue for work
+     that is running, orange for attention (over, doesn't fit), red for late. A figure stays in
+     ink; only the state word after it takes the colour. Never a tinted pill or card. Orange is
+     darker than the app's systemOrange because here it is text on white, and text needs 4.5:1
+     (DESIGN.md): this one is 5.2:1. */
+  /* The site's own "free", for the headline's pill only (the app has no green): a light tint of
+     systemGreen, with text in a deeper green that reads on it at 4.5:1. */
+  --free-tint: #dcf5e2;
+  --free-ink: #1a7a35;
+  --running: #007aff;
+  --attention: #b25000;
+  --late: #ff3b30;
 }
 
 @theme inline {
@@ -31,7 +39,11 @@
   --color-ink-faint: var(--ink-faint);
   --color-hairline: var(--hairline);
   --color-chrome: var(--chrome);
-  --color-free: var(--free);
+  --color-free-tint: var(--free-tint);
+  --color-free-ink: var(--free-ink);
+  --color-running: var(--running);
+  --color-attention: var(--attention);
+  --color-late: var(--late);
 
   /* SF on Apple hardware, which is who this app is for. Inter carries the
      same proportions everywhere else. */
@@ -103,9 +115,13 @@ body {
   }
 }
 
-/* While Loafy is at home, the ladder is empty: the house is drawing her. */
+/* While Loafy is at home, the ladder is empty: the house is drawing her. She fades as the house
+   fades her in. */
+[data-climber] {
+  transition: opacity 0.4s ease;
+}
 [data-ladder][data-away] [data-climber] {
-  visibility: hidden;
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

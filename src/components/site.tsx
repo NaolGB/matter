@@ -47,16 +47,15 @@ export function Wrap({
 export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-chrome backdrop-blur-xl backdrop-saturate-150">
-      {/* The mark on the left, the two ways to get the app in the middle, the two pages on the
-          right. On a phone there is no room for all three, and the pages are in the footer. */}
+      {/* The mark on the left, the way to get the app in the middle, the two pages on the right.
+          On a phone there is no room for all three, and the pages are in the footer. */}
       <Wrap wide className="grid h-12 grid-cols-[auto_1fr] items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
         <Link href="/" className="flex items-center gap-2 justify-self-start text-[15px] font-semibold tracking-tight">
           <Mark size={20} />
           Matter
         </Link>
         <div className="flex gap-2 justify-self-end sm:justify-self-center">
-          <Download device="mac" primary small />
-          <Download device="iphone" small />
+          <Download primary small />
         </div>
         <nav className="hidden items-center gap-6 justify-self-end text-[13px] text-ink-muted sm:flex">
           <Link href="/support" className="transition-colors hover:text-ink">
@@ -80,8 +79,16 @@ export function Footer() {
         <p className="flex items-center gap-2">
           <Mark size={15} className="text-ink" />
           <span className="font-semibold text-ink">Matter</span>
+          <span className="ml-1">© {new Date().getFullYear()}</span>
         </p>
-        <ul className="flex gap-5">
+        <ul className="flex flex-wrap gap-x-5 gap-y-1">
+          {site.supportEmail && (
+            <li>
+              <a href={`mailto:${site.supportEmail}`} className="hover:text-ink">
+                {site.supportEmail}
+              </a>
+            </li>
+          )}
           <li>
             <Link href="/support" className="hover:text-ink">
               Support
@@ -119,49 +126,34 @@ export function StoreStatus({ className = "" }: { className?: string }) {
   );
 }
 
-const devices = {
-  mac: {
-    name: "Mac",
-    platform: "mac",
-    // A laptop, not Apple's logo, which is theirs to use.
-    icon: "M4 4.5h12a1 1 0 0 1 1 1V13H3V5.5a1 1 0 0 1 1-1zM1.5 15.5h17",
-  },
-  iphone: {
-    name: "iPhone",
-    platform: "iphone",
-    icon: "M7 2.5h6a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 16V4A1.5 1.5 0 0 1 7 2.5zM9 15h2",
-  },
-};
+/** A laptop, not Apple's logo, which is theirs to use. */
+const LAPTOP = "M4 4.5h12a1 1 0 0 1 1 1V13H3V5.5a1 1 0 0 1 1-1zM1.5 15.5h17";
 
 /**
- * A button to get the app for one device. Mac and iPhone are one App Store record (universal
- * purchase), so both go to the same listing; `platform` asks it to open on that device's page.
- * Until `site.appStoreUrl` is set there is nowhere to send anyone, so the button is drawn but
- * does nothing, and whoever shows it says the app is coming.
+ * The button to get the app. Matter is Mac only for now. Until `site.appStoreUrl` is set there is
+ * nowhere to send anyone, so the button is drawn but does nothing, and whoever shows it says the
+ * app is coming.
  */
 export function Download({
-  device,
   primary = false,
   small = false,
   className: extra = "",
 }: {
-  device: keyof typeof devices;
   primary?: boolean;
-  /** The size for the bar, where on a phone it says only the device's name. */
+  /** The size for the bar, where on a phone it says only "Mac". */
   small?: boolean;
   className?: string;
 }) {
-  const { name, platform, icon } = devices[device];
   const className = `inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap ${
     small ? "h-8 gap-1.5 px-3.5 text-[13px]" : "h-12 gap-2.5 px-6 text-[15px]"
   } ${primary ? "bg-ink text-[var(--base)]" : "bg-base text-ink ring-1 ring-inset ring-black/15"} ${extra}`;
   const label = small ? (
     <>
-      <span className="sm:hidden">{name}</span>
-      <span className="hidden sm:inline">Download for {name}</span>
+      <span className="sm:hidden">Mac</span>
+      <span className="hidden sm:inline">Download for Mac</span>
     </>
   ) : (
-    <>Download for {name}</>
+    <>Download for Mac</>
   );
   const content = (
     <>
@@ -175,16 +167,14 @@ export function Download({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d={icon} />
+        <path d={LAPTOP} />
       </svg>
       {label}
     </>
   );
   if (site.appStoreUrl) {
-    const url = new URL(site.appStoreUrl);
-    url.searchParams.set("platform", platform);
     return (
-      <a href={url.toString()} className={`${className} transition-opacity hover:opacity-85`}>
+      <a href={site.appStoreUrl} className={`${className} transition-opacity hover:opacity-85`}>
         {content}
       </a>
     );

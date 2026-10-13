@@ -14,31 +14,30 @@ const answers = [
   {
     question: "Does Matter work offline?",
     answer:
-      "Yes, completely. Tasks, notes, the daily log and the calendar you have already fetched all work with no connection. Two things use the network when it is there: iCloud, to keep your own devices in step, and the calendar feeds you subscribe to.",
+      "Yes, completely. Tasks, notes, the daily log and the calendar you have already fetched all work with no connection. Two things use the network when it is there: iCloud, to keep your Macs in step, and the calendar feeds you subscribe to.",
   },
   {
     question: "Where is my data kept?",
     answer:
-      "On your devices. Matter has no account system and no server of ours. Your devices keep in step through your private iCloud database, and nothing is sent to us.",
+      "On your Mac. Matter has no account system and no server of ours. Your Macs keep in step through your private iCloud database, and nothing is sent to us.",
   },
   {
-    question: "My Mac and iPhone are not in step.",
+    question: "Does Matter sync between my Macs?",
     answer:
-      "Both need to be signed in to the same iCloud account. Settings ▸ General shows when iCloud last synced, and the reason if it did not. On a metered connection, such as a personal hotspot, uploads can wait a few minutes.",
+      "Yes, through your own private iCloud database, when each Mac is signed in to the same iCloud account. Settings ▸ General shows when iCloud last synced, and the reason if it did not.",
   },
   {
     question: "How do I bring my calendar in?",
     answer:
-      "Matter reads calendars as iCal feeds. In Settings ▸ Calendars, paste the feed link your calendar provider gives you: a read-only iCal link, which can start with webcal. It has to be the feed itself, not the address of the calendar’s web page. Matter only reads the feed and never writes back.",
+      "Matter reads calendars as iCal feeds. In Settings ▸ Calendars, choose Add a feed and paste the link your calendar provider gives you: a read-only iCal link, which can start with webcal. It has to be the feed itself, not the address of the calendar’s web page. Matter only reads the feed and never writes back.",
   },
   {
-    question: "Do I need the Mac app to use the iPhone app?",
-    answer:
-      "No. The iPhone app keeps its own copy of your tasks, calendar, notes and daily log, and works on its own. The guide below is written for the Mac, so a few steps name controls the phone lays out differently.",
+    question: "Is there an iPhone app?",
+    answer: "Not yet. Matter is for the Mac for now.",
   },
   {
     question: "What does Matter need?",
-    answer: `${site.macRequirement} on the Mac, and ${site.iphoneRequirement} on the iPhone.`,
+    answer: `A Mac with ${site.macRequirement} or later.`,
   },
 ];
 
@@ -50,8 +49,7 @@ export default function SupportPage() {
           Support
         </h1>
         <p className="mt-5 max-w-[52ch] text-pretty text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.45] text-ink-muted">
-          A few answers first, then the full User Guide. It is the same guide that ships inside the
-          app, under Help.
+          A few answers first, then the full User Guide. Matter’s Help menu opens this page.
         </p>
 
         <section className="mt-12 rounded-[24px] bg-track p-8">
@@ -62,7 +60,7 @@ export default function SupportPage() {
               <a href={`mailto:${site.supportEmail}`} className="font-medium text-ink underline underline-offset-2">
                 {site.supportEmail}
               </a>
-              . Say which device you are on and what you expected to happen.
+              . Say which version of macOS you are on and what you expected to happen.
             </p>
           ) : (
             <p className="mt-2 leading-relaxed text-ink-muted">
@@ -87,7 +85,7 @@ export default function SupportPage() {
           <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] font-semibold tracking-[-0.025em]">User Guide</h2>
           <div className="mt-8 grid gap-12 lg:grid-cols-[200px_1fr]">
             <aside className="lg:sticky lg:top-20 lg:self-start">
-              <p className="text-[13px] text-ink-faint">Contents</p>
+              <p className="text-[13px] text-ink-muted">Contents</p>
               <ul className="mt-3 space-y-2 text-[13.5px]">
                 {guide.map((doc) => (
                   <li key={doc.id}>

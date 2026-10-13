@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Footer, Nav } from "@/components/site";
+import { site } from "@/config";
 import "./globals.css";
 
 // Apple hardware gets SF from the system stack in globals.css. Inter is the
@@ -11,12 +12,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: "Matter: plan the day you actually have",
     template: "%s · Matter",
   },
   description:
-    "Matter is a planner for Mac and iPhone that knows how much a day holds. It works offline, with no account, and keeps everything on your own devices.",
+    "Matter is a planner for the Mac that knows how much a day holds. It works offline, with no account, and keeps everything on your Mac.",
 };
 
 // Always light: see the note on :root in globals.css.

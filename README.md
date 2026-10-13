@@ -1,7 +1,9 @@
 # Matter
 
-The product website for Matter, a planner for macOS and iOS. The app itself lives in
-`../workspace` (the Xcode project is still named Duka).
+The product website for Matter, a planner for the Mac. Matter is Mac only for now: the site
+offers no iPhone app, widget or iPhone capture. The app itself lives in `../workspace` (the Xcode
+project is still named Duka). Its look is set in `DESIGN.md`, `MAC.md` and `LOAFY.md` there,
+and the pictures here follow them.
 
 ## Running it
 
@@ -19,21 +21,25 @@ Next.js 16, React 19, TypeScript, Tailwind 4.
 - `/support` a way to reach us, a few answers, and the User Guide.
 - `/privacy` the Privacy Policy.
 
-The app's About view links to `/support` and `/privacy` (`DukaLinks` in `AboutView.swift`,
-still on a placeholder domain), and the App Store listing needs both URLs.
+The app's Settings ▸ General footer and Help menu link to `/support` and `/privacy` (`DukaLinks`
+in `AboutFooter.swift`, still on the placeholder domain `duka.app`), and the App Store listing
+needs both URLs.
 
 ## Keeping it true to the app
 
-The app changes daily, so nothing here is retyped from it.
+The app changes daily, so the lines the home page quotes are checked against it.
 
 ```bash
-npm run sync:guide    # rebuild the guide and the policy from InfoDocuments.swift
-npm run check:lines   # fail if a line the home page quotes has left the app
+npm run check:lines   # fail if a line the home page quotes has left the Mac app
 ```
 
-Both expect the app at `../workspace/Duka`; set `MATTER_APP_DIR` to point elsewhere.
+It expects the app at `../workspace/Duka`, and looks only in the Mac app and DukaKit; set
+`MATTER_APP_DIR` to point elsewhere.
 
-- `src/content/guide.generated.json` is written by `sync:guide`. Do not edit it by hand.
+- `src/content/guide.json` is the User Guide and the Privacy Policy. The app moved them out to
+  this site on 2026-10-08, so they are edited here, by hand, when the app changes. Both were
+  checked line by line against the Mac app's source on 2026-10-12. When the policy changes, move
+  `UPDATED` in `src/app/privacy/page.tsx`.
 - `src/content/app-lines.json` lists each quoted line with the text to look for in the
   Swift source. A heading on `/` should come from this file, never from a literal.
 - Sentences that restate behaviour belong in the guide, not on `/`. The home page states
@@ -41,9 +47,12 @@ Both expect the app at `../workspace/Duka`; set `MATTER_APP_DIR` to point elsewh
 
 ## Before launch
 
-`src/config.ts` holds the two things still missing: the support address and the App Store
-link. Until they are set, `/support` says an address is coming and the store buttons read
-"Coming to the App Store".
+`src/config.ts` holds the release facts. The support address is set (support@trymatter.app,
+shown on /support, in the Privacy Policy and in the footer). Still missing: the site's address
+(`url`, a placeholder matching the app's `duka.app` links, used for the sitemap, robots.txt and
+link previews), the App Store link, and the `placeholder` words (the Notes card's heading), which
+stand in for a line the app no longer says. Until the App Store link is set, the download button
+says the app is coming to the App Store.
 
 ## Screenshots
 
@@ -52,26 +61,55 @@ WebP at twice the size they are shown and are served as they are (`unoptimized`)
 needs no image resizer at run time.
 
 ```tsx
-<Shot label="The iPhone app" src="/shots/iphone-tasks-light.webp" width={480} height={1043} />
+<Shot label="The week review" src="/shots/week-light.webp" width={880} height={800} />
 ```
 
 The site is always light, so it uses the light captures only. Dark ones of every shot exist in
 the folder below if that ever changes.
 
 A `<Shot>` with no `src` draws a soft frame saying what to shoot, which is how a new slot looks
-until its capture exists.
+until its capture exists. For launch the home page has no captures at all: the "Also in Matter"
+cards (week review, templates, tags, standup) were taken out until they can be shot on the Mac in
+the current look, and are in the history if they come back.
 
-The hero's Mac window and the four cards under the tagline are not screenshots. They are drawn
-on the page in the app's own look (`HeroWindow`, `EditorRefusal`, `SessionDrop`, `CalendarDays`,
-`NoteSlash` in `src/components`), with the demo world's tasks and the app's own words. The house
-in the hero's sidebar is the app's painter, rendered (`public/shots/hero-house-light.webp`).
-When the app's look changes, compare them with a fresh capture.
+The hero is a real capture of the Mac app (`public/shots/mac-tasks-light.webp`): the Tasks page
+in the demo world at 9:41, with the chip at the same 2h 10m free as the headline's pill. Its
+source, and `stage.sh` and `shotgo` to retake it when the app changes, are in
+`~/Desktop/duka/Screenshots/hero-2026-10-12` (see its README). The link-preview image,
+`src/app/opengraph-image.jpg`, is cut from the same capture.
 
-Loafy's house at the end of the page is not a capture either. It is drawn by the app's own
-painter at full width, with Loafy left out (`tools/loaf-render` in the folder below), and saved as
-`public/shots/loafy-house-light.webp`. `LoafyHome` draws her over it: when the house comes into
-view she climbs down the page's ladder, hops off onto the kitchen floor, walks to the counter and
-hops into the mixing bowl to nap.
+The four cards under the hero are drawn on the page in the app's look, from the hero's moment,
+so they can show what a capture cannot and be changed here when the app changes. Each is
+measured against a real capture in `~/Desktop/duka/Screenshots/hero-2026-10-12/cards` (its README
+has each window size and crop) and built from the app's own views. Any Mac capture brought onto
+the site must be converted to sRGB with the profile kept, or browsers show it washed out; the
+files in that folder already are.
+
+- `EditorRefusal`: the New task sheet refusing a three-hour task, from `TaskEditorSheet.swift`,
+  at the app's own 520-point width.
+- `SessionDrop`: a task dragged onto the running bucket, which says "Drop to start" and lights
+  its lip, from `WorkBucketDock.swift`'s geometry, since a drag cannot be captured honestly. The
+  lip is drawn softer than the app's. The living room above it is
+  `public/shots/house-living-room.webp`, cut from the painter's render.
+- `CalendarDays`: the real week is too dense to read at card size, so hours are drawn taller and
+  finished and very short tasks are left out.
+- `NoteSlash`: the demo's Q4 goals note, with the slash menu, which the app pops as a native menu
+  that no capture can show.
+
+Their words come from the demo world and app-lines.json. When the app's look changes, compare them
+with a fresh capture.
+
+Loafy is the clay Loafy. Her house at the end of the page is the app's own painter, twice: empty
+(`loafy-house-out.webp`, the `out` moment) and with her napping in the mixing bowl
+(`loafy-house-light.webp`); the two differ only in her. Both are rendered with `ImageRenderer`
+from `LoafSceneView` at 512 × 768 points, scale 2, as `LoafRenderTests` renders its samples.
+
+The ladder at the right edge is Loafy's clay ladder: `~/Desktop/duka/loafy/assets/ladder-tile.png`,
+one rung of `ladder.png` cut so it repeats without a join, copied to `public/loafy/ladder.png` as
+it is and repeated by CSS. Loafy climbs it as the app's sprites `loaf-climb` and
+`loaf-pose-01-standing`, copied to `public/loafy` as WebP. The house is empty while she is on the
+ladder; when she reaches its foot at the end of the page, she fades from the ladder as the house
+fades to her napping, and scrolling back up reverses it.
 
 The full-size originals, the App Store set and the tools that made them are in
 `~/Desktop/duka/Screenshots/app-store` (see its README). `tools/process.py` there writes

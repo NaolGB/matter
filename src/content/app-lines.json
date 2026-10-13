@@ -1,8 +1,4 @@
 {
-  "hero": {
-    "text": "2h 10m free",
-    "find": "headroomMinutes)) free\""
-  },
   "full": {
     "text": "Full",
     "find": "return \"Full\""
@@ -31,14 +27,6 @@
     "text": "Move to",
     "find": "\"Move to \\("
   },
-  "tagline": {
-    "text": "A calm, local-first place for your tasks and time.",
-    "find": "A calm, local-first place for your tasks and time."
-  },
-  "notes": {
-    "text": "Write, or type / for headings and lists",
-    "find": "Write, or type / for headings and lists"
-  },
   "loafy": {
     "text": "Loafy is napping in the mixing bowl.",
     "find": "Loafy is napping in the mixing bowl."
@@ -47,69 +35,9 @@
     "text": "Loafy's home",
     "find": "Loafy's home"
   },
-  "addToday": {
-    "text": "Add today",
-    "find": "\"Add today\""
-  },
-  "promptHappened": {
-    "text": "What happened",
-    "find": "title: \"What happened\""
-  },
-  "promptToday": {
-    "text": "To do today",
-    "find": "title: \"To do today\""
-  },
-  "promptHow": {
-    "text": "How I am",
-    "find": "title: \"How I am\""
-  },
-  "promptNoticed": {
-    "text": "Something I noticed",
-    "find": "title: \"Something I noticed\""
-  },
   "calendar": {
-    "text": "Add a calendar",
-    "find": "Text(\"Add a calendar\")"
-  },
-  "week": {
-    "text": "Where it went",
-    "find": "sectionTitle(\"Where it went\")"
-  },
-  "templates": {
-    "text": "Fill this week",
-    "find": "action: \"Fill this week\""
-  },
-  "widget": {
-    "text": "Today",
-    "find": "configurationDisplayName(\"Today\")"
-  },
-  "newTask": {
-    "text": "New task",
-    "find": "\"New task\" : \"Edit task\""
-  },
-  "done": {
-    "text": "Done",
-    "find": "Button(\"Done\")"
-  },
-  "schedule": {
-    "text": "Schedule",
-    "find": "field(\"Schedule\")"
-  },
-  "estimate": {
-    "text": "Estimate",
-    "find": "field(\"Estimate\")"
-  },
-  "today": {
-    "text": "Today",
-    "find": "DukaChip(title: \"Today\""
-  },
-  "tomorrow": {
-    "text": "Tomorrow",
-    "find": "DukaChip(title: \"Tomorrow\", isSelected: isSelected"
-  },
-  "nextWeek": {
-    "text": "Next week",
-    "find": "DukaChip(title: \"Next week\", isSelected: isSelected"
+    "text": "Add a feed",
+    "find": "Button(\"Add a feed…\""
   },
   "headroom": {
     "text": "of headroom left.",
@@ -118,22 +46,6 @@
   "dropToStart": {
     "text": "Drop to start",
     "find": "Text(\"Drop to start\")"
-  },
-  "pause": {
-    "text": "Pause",
-    "find": "Label(\"Pause\", systemImage: \"pause.fill\")"
-  },
-  "complete": {
-    "text": "Complete",
-    "find": "Label(\"Complete\", systemImage: \"checkmark\")"
-  },
-  "started": {
-    "text": "Started",
-    "find": "\"Started \\(session.startedAt"
-  },
-  "est": {
-    "text": "est.",
-    "find": "estimatedMinutes)m est."
   },
   "slashText": {
     "text": "Text",
@@ -162,5 +74,37 @@
   "slashTodo": {
     "text": "To-do",
     "find": "return \"To-do\""
+  },
+  "newTask": {
+    "text": "New task",
+    "find": "\"New task\" : \"Edit task\""
+  },
+  "cancel": {
+    "text": "Cancel",
+    "find": "Button(\"Cancel\", systemImage: \"xmark\")"
+  },
+  "done": {
+    "text": "Done",
+    "find": "Button(\"Done\", systemImage: \"checkmark\")"
+  },
+  "today": {
+    "text": "Today",
+    "find": "isDateInToday(day) { return \"Today\" }"
+  },
+  "addTime": {
+    "text": "Add time",
+    "find": "title: \"Add time\""
+  },
+  "addTag": {
+    "text": "Add tag",
+    "find": "title: \"Add tag\""
+  },
+  "daySettings": {
+    "text": "Work hours, the focus cap, and whether a full day refuses work are in Settings ▸ General.",
+    "find": "Work hours, the focus cap, and whether a full day refuses work are in Settings ▸ General."
+  },
+  "open": {
+    "text": "Open",
+    "find": "Button(\"Open\", systemImage: \"gearshape\""
   }
 }

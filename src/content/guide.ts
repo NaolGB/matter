@@ -1,8 +1,8 @@
-/* The User Guide and the Privacy Policy. The text is the app's own: guide.generated.json is
-   built from Duka/Settings/InfoDocuments.swift by `npm run sync:guide`. Do not edit the JSON
-   by hand; change the Swift file and run the script. */
+/* The User Guide and the Privacy Policy. They began as the app's own text, but the app moved them
+   out to this site on 2026-10-08 (its Settings and Help menu link here now), so guide.json is
+   the source and is edited by hand. When the app changes, change it here. */
 
-import generated from "./guide.generated.json";
+import source from "./guide.json";
 
 export type InfoBlock =
   | { kind: "heading" | "subheading" | "paragraph" | "bullet" | "note"; text: string }
@@ -14,6 +14,6 @@ export type InfoDocument = {
   blocks: InfoBlock[];
 };
 
-/** The how-to pages, in the order the app's Help sidebar lists them. */
-export const guide = generated.guide as unknown as InfoDocument[];
-export const privacy = generated.privacy as unknown as InfoDocument;
+/** The how-to pages, in reading order. */
+export const guide = source.guide as unknown as InfoDocument[];
+export const privacy = source.privacy as unknown as InfoDocument;

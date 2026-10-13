@@ -10,7 +10,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
 const appDir = resolve(process.env.MATTER_APP_DIR ?? "../workspace/Duka");
-const roots = ["Duka", "DukaiOS", "DukaiOSWidgets", "DukaKit/Sources"].map((dir) => join(appDir, dir));
+const roots = ["Duka", "DukaKit/Sources"].map((dir) => join(appDir, dir));
 if (!roots.every(existsSync)) {
   console.error(`The app's source was not found under ${appDir}. Set MATTER_APP_DIR.`);
   process.exit(2);

@@ -1,45 +1,47 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { BODY, CAP, LADDER_UNIT, RUNG, SLASH, colour } from "@/components/loafy";
+import { LADDER_UNIT, RUNG } from "@/components/loafy";
 
 /* Loafy on her ladder, at the right edge of the window. The ladder is fixed there, and she stands
    where the reader is in the page: at the top of it at the top, at the foot of it at the end. She
    moves the way she climbs in the app (LoafRoute's `.climb`): a hop from rung to rung, eased, with
-   a lean that changes side on every rung and a slight stretch. While she climbs she has her back
-   to us, facing the ladder; once the page stops and she is on a rung, she turns round to face
-   us. A turn is drawn the flat way: she narrows to nothing and widens again the other way round.
-   Nothing runs while the page is still.
+   a lean that changes side on every rung and a slight stretch. While she climbs she is in the
+   app's climbing pose, turned to the ladder; once the page stops and she is on a rung, she turns
+   round to face us, standing. A turn is drawn the flat way: she narrows to nothing and widens
+   again in the other pose. Nothing runs while the page is still.
 
-   The shapes and colours are the app's: the body, cap, slash and face from LoafFigure, the
-   ladder's proportions and paint from LoafSceneView and LoafPalette. The app has no back view, so
-   that one is ours: the same loaf mirrored, with the pinch on the other side and no face. It is
-   decoration, hidden from assistive technology, and left out on a phone, where there is no room
-   beside the page for it.
+   She is the app's own clay sprites (loaf-climb and loaf-pose-01-standing in AppCore/Loaf/Resources,
+   copied to public/loafy). She is decoration, hidden from assistive technology, and left out on a
+   phone, where there is no room beside the page for her.
 
-   When her house comes into view at the foot of the page, LoafyHome takes her off the ladder and
-   walks her in. While she is there it marks the ladder `data-away`, and she is not drawn here. */
+   When she reaches the ladder's foot at the end of the page, LoafyHome marks the ladder
+   `data-away`: she has gone into her house, which now draws her, and she is not drawn here. */
 
 const FIRST = 62; // the top rung, far enough under the bar for her to stand on it
 const FOOT = 24; // the lowest rung stays this far above the foot of the window
-const UNIT = LADDER_UNIT; // one of LoafFigure's body units, on the page
+const UNIT = LADDER_UNIT; // her feet sit this far into the rung
+const SIZE = 42; // her box on the page, in pixels; each pose is fitted into it by its foot
 const TURN = 90; // each half of a turn, in milliseconds
-const WOOD = "#C9A678";
+/* The ladder is Loafy's clay ladder: ~/Desktop/duka/loafy/assets/ladder-tile.png, one rung of
+   ladder.png beside it, cut rung to rung so it repeats without a join, copied here as it is and
+   repeated down the window. At 44 pixels wide a rung comes every 24, its own proportions. */
+const LADDER = "/loafy/ladder.png";
 
 type Side = "front" | "back";
 
 export function LoafyLadder() {
   const ladder = useRef<HTMLDivElement>(null);
   const loafy = useRef<HTMLDivElement>(null);
-  const figure = useRef<SVGSVGElement>(null);
-  const front = useRef<SVGGElement>(null);
-  const back = useRef<SVGGElement>(null);
+  const figure = useRef<HTMLDivElement>(null);
+  const front = useRef<HTMLImageElement>(null);
+  const back = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const track = ladder.current;
     const cob = loafy.current;
-    const svg = figure.current;
-    if (!track || !cob || !svg) return;
+    const pose = figure.current;
+    if (!track || !cob || !pose) return;
 
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     let rungs = 1; // how many she can stand on
@@ -64,10 +66,10 @@ export function LoafyLadder() {
       facing = side;
       if (turning || shown === side) return;
       if (still.matches) return show(side);
-      svg.style.transform = "scaleX(0.06)";
+      pose.style.transform = "scaleX(0.06)";
       turning = window.setTimeout(() => {
         show(facing);
-        svg.style.transform = "";
+        pose.style.transform = "";
         turning = window.setTimeout(() => {
           turning = 0;
           if (facing !== shown) turn(facing);
@@ -152,46 +154,39 @@ export function LoafyLadder() {
       ref={ladder}
       aria-hidden
       data-ladder
-      className="pointer-events-none fixed bottom-0 right-[23px] top-12 z-40 hidden w-[22px] md:block"
+      className="pointer-events-none fixed bottom-0 right-[4px] top-12 z-40 hidden w-[44px] md:block"
     >
-      <span className="absolute inset-y-0 left-0 w-[7px]" style={{ background: WOOD }} />
-      <span className="absolute inset-y-0 right-0 w-[7px]" style={{ background: WOOD }} />
       <span
         className="absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(to bottom, ${WOOD} 6px, transparent 6px)`,
+          backgroundImage: `url(${LADDER})`,
           backgroundSize: `100% ${RUNG}px`,
+          backgroundRepeat: "repeat-y",
           backgroundPositionY: `${FIRST % RUNG}px`,
         }}
       />
       <div
         ref={loafy}
         data-climber
-        className="absolute left-1/2 top-0 w-[48px] origin-bottom will-change-transform"
+        className="absolute left-1/2 top-0 origin-bottom will-change-transform"
         style={{ transform: `translate(-50%, calc(${FIRST + UNIT}px - 100%))` }}
       >
-        <svg
+        <div
           ref={figure}
-          viewBox="-8 -13 16 14"
-          className="block w-full overflow-visible transition-transform ease-in-out"
-          style={{ transitionDuration: `${TURN}ms` }}
+          className="relative transition-transform ease-in-out"
+          style={{ width: SIZE, height: SIZE, transitionDuration: `${TURN}ms` }}
         >
-          <g ref={front}>
-            <path fill={colour.crumb} d={BODY} />
-            <path fill={colour.cap} d={CAP} />
-            <path d={SLASH} fill="none" stroke={colour.crust} strokeWidth="0.4" strokeLinecap="round" />
-            <ellipse cx="-4.4" cy="-3.9" rx="1.2" ry="0.7" fill={colour.blush} opacity="0.7" />
-            <ellipse cx="4.6" cy="-3.9" rx="1.2" ry="0.7" fill={colour.blush} opacity="0.7" />
-            <circle cx="-2.4" cy="-5.6" r="0.75" fill={colour.ink} />
-            <circle cx="2.6" cy="-5.6" r="0.75" fill={colour.ink} />
-            <path d="M-1-3.6Q0-2.6 1-3.6" fill="none" stroke={colour.ink} strokeWidth="0.3" strokeLinecap="round" />
-          </g>
-          <g ref={back} transform="scale(-1 1)" style={{ display: "none" }}>
-            <path fill={colour.crumb} d={BODY} />
-            <path fill={colour.cap} d={CAP} />
-            <path d={SLASH} fill="none" stroke={colour.crust} strokeWidth="0.4" strokeLinecap="round" />
-          </g>
-        </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element -- a small sprite, shown as it is */}
+          <img ref={front} src="/loafy/standing.webp" alt="" className="absolute bottom-0 left-0 w-full" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={back}
+            src="/loafy/climb.webp"
+            alt=""
+            className="absolute bottom-0 left-1/2 w-[89%] -translate-x-1/2"
+            style={{ display: "none" }}
+          />
+        </div>
       </div>
     </div>
   );
