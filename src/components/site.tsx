@@ -44,7 +44,8 @@ export function Wrap({
   );
 }
 
-export function Nav() {
+/** `blog` is whether there is a post to link to: the layout knows, since this file is also loaded in the browser. */
+export function Nav({ blog = false }: { blog?: boolean }) {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-chrome backdrop-blur-xl backdrop-saturate-150">
       {/* The mark on the left, the way to get the app in the middle, the two pages on the right.
@@ -58,6 +59,11 @@ export function Nav() {
           <Download primary small />
         </div>
         <nav className="hidden items-center gap-6 justify-self-end text-[13px] text-ink-muted sm:flex">
+          {blog && (
+            <Link href="/blog" className="transition-colors hover:text-ink">
+              Blog
+            </Link>
+          )}
           <Link href="/support" className="transition-colors hover:text-ink">
             Support
           </Link>
@@ -70,7 +76,7 @@ export function Nav() {
   );
 }
 
-export function Footer() {
+export function Footer({ blog = false }: { blog?: boolean }) {
   return (
     // White like the page, with a hairline above it: on the home page Loafy's house ends the page,
     // and a grey band under it was a third near-white in one screen.
@@ -87,6 +93,13 @@ export function Footer() {
               <a href={`mailto:${site.supportEmail}`} className="hover:text-ink">
                 {site.supportEmail}
               </a>
+            </li>
+          )}
+          {blog && (
+            <li>
+              <Link href="/blog" className="hover:text-ink">
+                Blog
+              </Link>
             </li>
           )}
           <li>

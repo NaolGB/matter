@@ -1,0 +1,47 @@
+export const meta = {
+  title: "How a post looks",
+  date: "2026-10-01",
+  summary: "A draft that shows every part a post can use. It is left out of the built site, so it never goes live.",
+  draft: true,
+};
+
+This is a draft. `next dev` shows it, and `next build` leaves it out. Copy it to start a real post, then delete it.
+
+A post is a markdown file with a few extras. Paragraphs are plain text, with **bold**, *italic*, `code` and [links to other pages](/support) or [anywhere else](https://www.apple.com/macos/).
+
+## A section heading
+
+Sections are `##`, and smaller ones are `###`. The text keeps to a reading width, about the width of the guide on the support page.
+
+### A smaller heading
+
+- A list for things that have no order
+- Each item a line or two
+- No more than that
+
+1. A numbered list for steps
+2. Like the guide's
+
+> A quote, for a line worth stopping on.
+
+## Pictures
+
+A screenshot from `public/shots`, wider than the text:
+
+<Figure caption="Matter on the Mac at 9:41 on a Tuesday, with 2h 10m free.">
+  <Shot label="Matter on the Mac" src="/shots/mac-tasks-light.webp" width={2400} height={1500} />
+</Figure>
+
+One of the home page's drawn cards, on the grey it was made for:
+
+<Figure panel caption="Adding a task that does not fit today.">
+  <EditorRefusal />
+</Figure>
+
+<Note>
+  A note, in the soft fill the guide uses. For an aside the post can do without.
+</Note>
+
+---
+
+That is everything. The date at the top is the day the post goes out, and the post may describe the app as it was on that day.

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -7,4 +8,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Blog posts are .mdx files in src/content/blog, imported by app/blog/[slug]. They are not
+// routes of their own, so `pageExtensions` stays as it is.
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);
