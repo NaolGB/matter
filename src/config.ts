@@ -1,10 +1,10 @@
 /** The few facts about the release that the pages repeat. Matter is Mac only for now. */
 export const site = {
   /**
-   * Where the site lives. A placeholder: it matches the app's own links (`DukaLinks` in
-   * AboutFooter.swift), and both must change together when the real domain is chosen.
+   * Where the site lives, live since 2026-10-12. The app links here too (the website, privacy and
+   * support URLs in DukaKit's Paywall.swift), so the two change together.
    */
-  url: "https://duka.app",
+  url: "https://trymatter.app",
   /** Shown on /support. Leave empty until there is an address to publish. */
   supportEmail: "support@trymatter.app",
   /** The App Store listing. Empty until the app is live; the pages then say it is coming. */

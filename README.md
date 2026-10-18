@@ -21,9 +21,8 @@ Next.js 16, React 19, TypeScript, Tailwind 4.
 - `/support` a way to reach us, a few answers, and the User Guide.
 - `/privacy` the Privacy Policy.
 
-The app's Settings ▸ General footer and Help menu link to `/support` and `/privacy` (`DukaLinks`
-in `AboutFooter.swift`, still on the placeholder domain `duka.app`), and the App Store listing
-needs both URLs.
+The app links to `/support` and `/privacy` on trymatter.app (the URLs in DukaKit's
+`Paywall.swift`), and the App Store listing needs both URLs.
 
 ## Keeping it true to the app
 
@@ -48,9 +47,9 @@ It expects the app at `../workspace/Duka`, and looks only in the Mac app and Duk
 ## Before launch
 
 `src/config.ts` holds the release facts. The support address is set (support@trymatter.app,
-shown on /support, in the Privacy Policy and in the footer). Still missing: the site's address
-(`url`, a placeholder matching the app's `duka.app` links, used for the sitemap, robots.txt and
-link previews), the App Store link, and the `placeholder` words (the Notes card's heading), which
+shown on /support, in the Privacy Policy and in the footer). The site's address (`url`,
+used for the sitemap, robots.txt, the blog's feed and link previews) is https://trymatter.app.
+Still missing: the App Store link, and the `placeholder` words (the Notes card's heading), which
 stand in for a line the app no longer says. Until the App Store link is set, the download button
 says the app is coming to the App Store.
 
