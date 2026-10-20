@@ -40,10 +40,13 @@ function GetMatter({ className = "" }: { className?: string }) {
       </p>
       <p className="mt-2 text-[17px] font-semibold leading-snug tracking-[-0.01em]">Plan the day you actually have.</p>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
-        For the Mac. It works offline, with no account.
+        For the Mac and iPhone. It works offline, with no account.
       </p>
       <Download primary className="mt-4 w-full !h-10 !px-4 !text-[14px]" />
-      {!site.appStoreUrl && <p className="mt-2 text-center text-[12px] text-ink-faint">Coming to the App Store</p>}
+      <Download device="iphone" className="mt-2 w-full !h-10 !px-4 !text-[14px]" />
+      {!site.appStore.mac && !site.appStore.iphone && (
+        <p className="mt-2 text-center text-[12px] text-ink-faint">Coming to the App Store</p>
+      )}
     </div>
   );
 }

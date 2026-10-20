@@ -14,17 +14,17 @@ const answers = [
   {
     question: "Does Matter work offline?",
     answer:
-      "Yes, completely. Tasks, notes, the daily log and the calendar you have already fetched all work with no connection. Two things use the network when it is there: iCloud, to keep your Macs in step, and the calendar feeds you subscribe to.",
+      "Yes, completely. Tasks, notes, the daily log and the calendar you have already fetched all work with no connection. Two things use the network when it is there: iCloud, to keep your Mac and iPhone in step, and the calendar feeds you subscribe to.",
   },
   {
     question: "Where is my data kept?",
     answer:
-      "On your Mac. Matter has no account system and no server of ours. Your Macs keep in step through your private iCloud database, and nothing is sent to us.",
+      "On your devices. Matter has no account system and no server of ours. Your Mac and iPhone keep in step through your private iCloud database, and nothing is sent to us.",
   },
   {
-    question: "Does Matter sync between my Macs?",
+    question: "Does Matter sync between my Mac and iPhone?",
     answer:
-      "Yes, through your own private iCloud database, when each Mac is signed in to the same iCloud account. Settings ▸ General shows when iCloud last synced, and the reason if it did not.",
+      "Yes, through your own private iCloud database, when each device is signed in to the same iCloud account. On the Mac, Settings ▸ General shows when iCloud last synced, and the reason if it did not.",
   },
   {
     question: "How do I bring my calendar in?",
@@ -32,12 +32,12 @@ const answers = [
       "Matter reads calendars as iCal feeds. In Settings ▸ Calendars, choose Add a feed and paste the link your calendar provider gives you: a read-only iCal link, which can start with webcal. It has to be the feed itself, not the address of the calendar’s web page. Matter only reads the feed and never writes back.",
   },
   {
-    question: "Is there an iPhone app?",
-    answer: "Not yet. Matter is for the Mac for now.",
+    question: "Do I need a Mac to use the iPhone app?",
+    answer: "No. Matter for iPhone works on its own. With both, they share one plan through your iCloud.",
   },
   {
     question: "What does Matter need?",
-    answer: `A Mac with ${site.macRequirement} or later.`,
+    answer: `A Mac with ${site.macRequirement} or later, or an iPhone with ${site.iphoneRequirement} or later.`,
   },
 ];
 
@@ -60,7 +60,7 @@ export default function SupportPage() {
               <a href={`mailto:${site.supportEmail}`} className="font-medium text-ink underline underline-offset-2">
                 {site.supportEmail}
               </a>
-              . Say which version of macOS you are on and what you expected to happen.
+              . Say which device and version of macOS or iOS you are on and what you expected to happen.
             </p>
           ) : (
             <p className="mt-2 leading-relaxed text-ink-muted">

@@ -6,7 +6,7 @@ import { Wrap } from "@/components/site";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Matter is local-first. Your tasks, notes, calendars and settings stay on your Mac and in your own iCloud. No accounts, no analytics, no tracking.",
+    "Matter is local-first. Your tasks, notes, calendars and settings stay on your devices and in your own iCloud. No accounts, no analytics, no tracking.",
 };
 
 /** The date the policy last changed. Move it whenever the text in guide.json changes. */

@@ -6,7 +6,7 @@ import { formatDate, getPosts, type PostMeta } from "@/content/blog";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Notes from making Matter, a planner for the Mac that knows how much a day holds.",
+  description: "Notes from making Matter, a planner for the Mac and iPhone that knows how much a day holds.",
   alternates: { types: { "application/rss+xml": "/blog/rss.xml" } },
 };
 

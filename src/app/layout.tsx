@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s · Matter",
   },
   description:
-    "Matter is a planner for the Mac that knows how much a day holds. It works offline, with no account, and keeps everything on your Mac.",
+    "Matter is a planner for the Mac and iPhone that knows how much a day holds. It works offline, with no account, and keeps everything on your devices and in your own iCloud.",
 };
 
 // Always light: see the note on :root in globals.css.

@@ -57,6 +57,7 @@ export function Nav({ blog = false }: { blog?: boolean }) {
         </Link>
         <div className="flex gap-2 justify-self-end sm:justify-self-center">
           <Download primary small />
+          <Download device="iphone" small />
         </div>
         <nav className="hidden items-center gap-6 justify-self-end text-[13px] text-ink-muted sm:flex">
           {blog && (
@@ -119,11 +120,11 @@ export function Footer({ blog = false }: { blog?: boolean }) {
 }
 
 /** Where the app can be had. Until it is on the store this is a statement, not a button. */
-export function StoreStatus({ className = "" }: { className?: string }) {
-  if (site.appStoreUrl) {
+export function StoreStatus({ device = "mac", className = "" }: { device?: Device; className?: string }) {
+  if (site.appStore[device]) {
     return (
       <a
-        href={site.appStoreUrl}
+        href={site.appStore[device]}
         className={`inline-flex h-10 items-center rounded-full bg-ink px-5 text-[14px] font-medium text-[var(--base)] ${className}`}
       >
         Get Matter on the App Store
@@ -139,34 +140,44 @@ export function StoreStatus({ className = "" }: { className?: string }) {
   );
 }
 
-/** A laptop, not Apple's logo, which is theirs to use. */
-const LAPTOP = "M4 4.5h12a1 1 0 0 1 1 1V13H3V5.5a1 1 0 0 1 1-1zM1.5 15.5h17";
+export type Device = "mac" | "iphone";
+
+/** A laptop and a phone, not Apple's logo, which is theirs to use. */
+const ICON: Record<Device, string> = {
+  mac: "M4 4.5h12a1 1 0 0 1 1 1V13H3V5.5a1 1 0 0 1 1-1zM1.5 15.5h17",
+  iphone: "M7 2h6a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 13 18H7a1.5 1.5 0 0 1-1.5-1.5v-13A1.5 1.5 0 0 1 7 2zM9 15.5h2",
+};
+
+const NAME: Record<Device, string> = { mac: "Mac", iphone: "iPhone" };
 
 /**
- * The button to get the app. Matter is Mac only for now. Until `site.appStoreUrl` is set there is
- * nowhere to send anyone, so the button is drawn but does nothing, and whoever shows it says the
- * app is coming.
+ * The button to get the app on one device. Until that device's link in `site.appStore` is set
+ * there is nowhere to send anyone, so the button is drawn but does nothing, and whoever shows it
+ * says the app is coming.
  */
 export function Download({
+  device = "mac",
   primary = false,
   small = false,
   className: extra = "",
 }: {
+  device?: Device;
   primary?: boolean;
-  /** The size for the bar, where on a phone it says only "Mac". */
+  /** The size for the bar, where on a phone it says only "Mac" or "iPhone". */
   small?: boolean;
   className?: string;
 }) {
+  const url = site.appStore[device];
   const className = `inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap ${
     small ? "h-8 gap-1.5 px-3.5 text-[13px]" : "h-12 gap-2.5 px-6 text-[15px]"
   } ${primary ? "bg-ink text-[var(--base)]" : "bg-base text-ink ring-1 ring-inset ring-black/15"} ${extra}`;
   const label = small ? (
     <>
-      <span className="sm:hidden">Mac</span>
-      <span className="hidden sm:inline">Download for Mac</span>
+      <span className="sm:hidden">{NAME[device]}</span>
+      <span className="hidden sm:inline">Download for {NAME[device]}</span>
     </>
   ) : (
-    <>Download for Mac</>
+    <>Download for {NAME[device]}</>
   );
   const content = (
     <>
@@ -180,14 +191,14 @@ export function Download({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d={LAPTOP} />
+        <path d={ICON[device]} />
       </svg>
       {label}
     </>
   );
-  if (site.appStoreUrl) {
+  if (url) {
     return (
-      <a href={site.appStoreUrl} className={`${className} transition-opacity hover:opacity-85`}>
+      <a href={url} className={`${className} transition-opacity hover:opacity-85`}>
         {content}
       </a>
     );

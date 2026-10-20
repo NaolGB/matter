@@ -114,7 +114,7 @@ export function Hero() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-[62ch] text-pretty text-[clamp(1.05rem,1.7vw,1.3rem)] leading-[1.45] text-ink-muted">
-          Matter is a planner for the Mac that knows how much a day holds.
+          Matter is a planner for the Mac and iPhone that knows how much a day holds.
         </p>
         <ul className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[15px] text-ink-muted">
           {/* The dot ends an item rather than starting the next, so a line that wraps never

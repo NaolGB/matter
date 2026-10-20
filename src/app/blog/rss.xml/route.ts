@@ -27,7 +27,7 @@ export async function GET() {
   <channel>
     <title>Matter Blog</title>
     <link>${site.url}/blog</link>
-    <description>Notes from making Matter, a planner for the Mac that knows how much a day holds.</description>
+    <description>Notes from making Matter, a planner for the Mac and iPhone that knows how much a day holds.</description>
     <language>en</language>
 ${items}
   </channel>
