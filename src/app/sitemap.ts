@@ -4,7 +4,7 @@ import { getPosts } from "@/content/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getPosts();
-  const pages = ["", "/support", "/privacy", ...(posts.length ? ["/blog"] : [])].map((path) => ({
+  const pages = ["", "/support", "/privacy", "/terms", "/press", ...(posts.length ? ["/blog"] : [])].map((path) => ({
     url: `${site.url}${path}`,
   }));
   return [

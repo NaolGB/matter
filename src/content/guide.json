@@ -541,15 +541,15 @@
     "blocks": [
       {
         "kind": "paragraph",
-        "text": "Matter is a local-first app. Your tasks, notes, calendars and settings are stored on your Mac and, if you use iCloud, in your own private iCloud database to keep your Macs in step. None of it is sent to us. Matter has no account system, no analytics, and no advertising or tracking."
+        "text": "Matter is a local-first app. Your tasks, notes, calendars and settings are stored on your devices and, if you use iCloud, in your own private iCloud database to keep Matter in step across your devices. None of it is sent to us. Matter has no account system, no analytics, and no advertising or tracking."
       },
       {
         "kind": "heading",
-        "text": "What stays on your Mac"
+        "text": "What stays on your devices"
       },
       {
         "kind": "paragraph",
-        "text": "Everything you create in Matter — tasks, templates, notes, standup entries, tags, and preferences — is stored on your Mac. We, the developer, never receive this data."
+        "text": "Everything you create in Matter — tasks, templates, notes, standup entries, tags, and preferences — is stored on your devices. We, the developer, never receive this data."
       },
       {
         "kind": "heading",
@@ -557,7 +557,7 @@
       },
       {
         "kind": "paragraph",
-        "text": "When your Mac is signed in to iCloud, Matter keeps a copy of your data in your private iCloud database, so your Macs stay in step. That database belongs to your Apple Account and is governed by Apple's privacy policy. We cannot see or reach it."
+        "text": "When your devices are signed in to iCloud, Matter keeps a copy of your data in your private iCloud database, so they stay in step. That database belongs to your Apple Account and is governed by Apple's privacy policy. We cannot see or reach it."
       },
       {
         "kind": "heading",

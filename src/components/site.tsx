@@ -109,8 +109,18 @@ export function Footer({ blog = false }: { blog?: boolean }) {
             </Link>
           </li>
           <li>
+            <Link href="/press" className="hover:text-ink">
+              Press
+            </Link>
+          </li>
+          <li>
             <Link href="/privacy" className="hover:text-ink">
               Privacy
+            </Link>
+          </li>
+          <li>
+            <Link href="/terms" className="hover:text-ink">
+              Terms
             </Link>
           </li>
         </ul>

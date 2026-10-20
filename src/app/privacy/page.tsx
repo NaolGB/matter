@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 /** The date the policy last changed. Move it whenever the text in guide.json changes. */
-const UPDATED = "12 October 2026";
+const UPDATED = "19 October 2026";
 
 export default function PrivacyPage() {
   return (
@@ -19,8 +19,7 @@ export default function PrivacyPage() {
         <div className="max-w-[680px]">
           <InfoDoc doc={privacy} page />
           <p className="mt-12 border-t border-hairline pt-6 text-[13px] leading-relaxed text-ink-muted">
-            Last updated {UPDATED}. Matter links here from the foot of Settings ▸ General, and from
-            its Help menu.
+            Last updated {UPDATED}.
           </p>
         </div>
       </Wrap>
