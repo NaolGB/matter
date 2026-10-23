@@ -36,12 +36,8 @@ const answers = [
     answer: "No. Matter for iPhone works on its own. With both, they share one plan through your iCloud.",
   },
   {
-    question: "Do I pay for the Mac and iPhone apps separately?",
-    answer: "No. One purchase covers both.",
-  },
-  {
     question: "What does Matter need?",
-    answer: `A Mac with ${site.macRequirement} or later, or an iPhone or iPad with ${site.iphoneRequirement} or later.`,
+    answer: `A Mac with ${site.macRequirement} or later, or an iPhone with ${site.iphoneRequirement} or later.`,
   },
 ];
 

@@ -20,7 +20,7 @@ const facts: [string, React.ReactNode][] = [
   ["Developer", "The founder, working alone, in London"],
   [
     "Platforms",
-    `Mac (${site.macRequirement} or later) and iPhone (${site.iphoneRequirement} or later). The iPhone app also runs on iPad. Each works on its own; together they share one plan through the user's own iCloud.`,
+    `Mac (${site.macRequirement} or later) and iPhone (${site.iphoneRequirement} or later). Each works on its own; together they share one plan through the user's own iCloud.`,
   ],
   ["Price", site.price],
   ["Availability", "Coming to the App Store"],

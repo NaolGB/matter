@@ -22,7 +22,7 @@ Next.js 16, React 19, TypeScript, Tailwind 4.
 - `/privacy` the Privacy Policy.
 
 The app links to `/support` and `/privacy` on trymatter.app (the URLs in DukaKit's
-`Paywall.swift`), and the App Store listing needs both URLs.
+`DukaLinks.swift`), and the App Store listing needs both URLs.
 
 ## Keeping it true to the app
 

@@ -5,18 +5,18 @@ import { site } from "@/config";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "Matter's terms of use: Apple's standard licence agreement, and how the trial and subscriptions work.",
+  description: "Matter's terms of use: Apple's standard licence agreement.",
 };
 
 /** The date these terms last changed. Move it whenever the text below changes. */
-const UPDATED = "19 October 2026";
+const UPDATED = "23 October 2026";
 
-/** Apple's standard agreement, the same link the app's paywall gives (`DukaLinks.terms`). */
+/** Apple's standard licence agreement, which covers any App Store app that has no licence of its own. */
 const APPLE_EULA = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/";
 
-/* Short on purpose (Naol, 2026-10-19): the app's terms are Apple's standard licence agreement, which
-   the paywall already links, and this page only says so and explains the trial and plans as the app
-   sells them (MatterAccess.swift, Paywall.swift). No governing-law clause, and no person's name. */
+/* Short on purpose (Naol, 2026-10-19): the app's terms are Apple's standard licence agreement, and
+   this page says so. Matter is free (2026-10-23); say just that, nothing about plans. No
+   governing-law clause, and no person's name. */
 const link = "text-ink underline decoration-ink/25 underline-offset-[3px] transition-colors hover:decoration-ink";
 
 function Part({ title, children }: { title: string; children: React.ReactNode }) {
@@ -46,19 +46,8 @@ export default function TermsPage() {
                 . Those are the terms of use for the app.
               </p>
             </Part>
-            <Part title="The free trial and plans">
-              <p>
-                Matter is free to download and free to use for 14 days. After that it stays readable, but
-                you can’t add or change anything until you pick a plan: $3.99 a month, $29.99 a year, or
-                $149.99 once for lifetime access. Prices may differ by country and are shown in the app
-                before you buy. One purchase covers both Matter for Mac and Matter for iPhone.
-              </p>
-              <p>
-                You buy through your Apple Account, and Apple takes the payment. The monthly and yearly
-                plans renew on their own until you cancel. Subscriptions are managed in your Apple Account
-                settings, where you can cancel at any time; the plan stays active until the end of the
-                period you paid for. Refunds are handled by Apple.
-              </p>
+            <Part title="Price">
+              <p>Matter is free.</p>
             </Part>
             <Part title="Your data">
               <p>
