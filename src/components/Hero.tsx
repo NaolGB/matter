@@ -237,8 +237,15 @@ export function Hero() {
           the same 2h 10m free as the pill above (Screenshots/hero-2026-10-12, which can retake it).
           The window has its own rounded, transparent corners, so its shadow is a drop-shadow that
           follows them. On a phone it is shown larger and cut at the right, past the Today column,
-          so its words stay readable; the cut fades so it reads as more window, not text cut short. */}
+          so its words stay readable; the cut fades so it reads as more window, not text cut short.
+
+          The iPhone stands in front of the Mac's lower right corner on a thin ring of page white,
+          hanging a little below the window (Naol, 2026-10-24: option A). The Mac keeps its full
+          width. The capture is the 9:41 Today from Screenshots/for-affinity/iphone-2026-10-24; its
+          square screenshot corners are rounded here to the phone's. It sits outside the phone-width
+          fade, so the fade never touches it. */}
       <Wrap wide className="mt-[clamp(1.5rem,3.5vw,2.75rem)]">
+        <div className="relative pb-[9%] max-sm:pb-[14%]">
         <div className="max-sm:-mx-5 max-sm:overflow-hidden max-sm:px-5 max-sm:pb-10 max-sm:[mask-image:linear-gradient(to_right,#000_75%,transparent)]">
           <Image
             src="/shots/mac-tasks-light.webp"
@@ -249,6 +256,18 @@ export function Hero() {
             priority
             className="h-auto w-full max-w-none drop-shadow-[0_24px_40px_rgb(0_0_0/0.18)] max-sm:w-[175%] max-sm:drop-shadow-[0_10px_20px_rgb(0_0_0/0.14)]"
           />
+        </div>
+        <div className="absolute right-[2%] bottom-0 w-[30%] rounded-[clamp(14px,2.6vw,31px)] bg-base p-[clamp(3px,0.35vw,4px)] drop-shadow-[0_24px_40px_rgb(0_0_0/0.2)] sm:w-[17%] max-sm:drop-shadow-[0_10px_20px_rgb(0_0_0/0.16)]">
+          <Image
+            src="/shots/iphone-today-light.webp"
+            alt="Matter on the iPhone at 9:41: Loafy's room, Write the Mosaic pitch story running with 2h 10m free, and today's tasks under their tags."
+            width={600}
+            height={1304}
+            unoptimized
+            priority
+            className="h-auto w-full rounded-[clamp(11px,2.25vw,27px)] ring-1 ring-hairline"
+          />
+        </div>
         </div>
       </Wrap>
     </section>
