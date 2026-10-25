@@ -47,6 +47,19 @@ const features = [
   "Loafy, a little dough creature who lives in a house in the sidebar. She doesn't need anything from you (she is the best)",
 ];
 
+/* The iPhone set, shot 2026-10-24 on the 6.3-inch iPhone 17 Pro from the free 1.0 build, the same
+   demo Tuesday at 9:41 (Screenshots/for-affinity/iphone-2026-10-24). The running card's timer runs on
+   the real clock, so it reads 20:25 in every shot. The three action-menu shots are left out. */
+const phoneShots = [
+  { file: "iphone-01-today", label: "Today, with 2h 10m free" },
+  { file: "iphone-02-calendar", label: "Three days of the calendar" },
+  { file: "iphone-03-notes", label: "Notes" },
+  { file: "iphone-04-note", label: "A note" },
+  { file: "iphone-05-standup", label: "Standup" },
+  { file: "iphone-06-week-review", label: "The week review" },
+  { file: "iphone-07-loafy", label: "Loafy napping in the bowl" },
+];
+
 const shots = [
   { file: "01-today", label: "Today, with 2h 10m free", size: "2880 × 1800" },
   { file: "02-doesnt-fit", label: `A task that doesn't fit: "${lines.gate.text}"`, size: "1040 × 474" },
@@ -93,7 +106,7 @@ export default function PressPage() {
           className="mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-[15px] font-medium text-[var(--base)] transition-opacity hover:opacity-85"
         >
           Download everything
-          <span className="font-normal opacity-70">ZIP, 8 MB</span>
+          <span className="font-normal opacity-70">ZIP, 11 MB</span>
         </a>
 
         <Section id="factsheet" title="Factsheet">
@@ -138,10 +151,11 @@ export default function PressPage() {
 
         <Section id="images" title="Screenshots">
           <p className="max-w-[680px] text-[15px] leading-relaxed text-ink-muted">
-            Real captures of the Mac app at twice its size, in light mode, with sample data. Click one for
-            the full-size PNG.
+            Real captures of the Mac and iPhone apps in light mode, with sample data. Click one for the
+            full-size PNG.
           </p>
-          <ul className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2">
+          <h3 className="mt-10 text-[1.15rem] font-semibold tracking-tight">Mac</h3>
+          <ul className="mt-4 grid gap-x-6 gap-y-10 sm:grid-cols-2">
             {shots.map((shot) => (
               <li key={shot.file}>
                 <a href={`/press/matter-${shot.file}.png`} className="group block">
@@ -157,6 +171,27 @@ export default function PressPage() {
                   </div>
                   <p className="mt-3 text-[15px] font-medium">{shot.label}</p>
                   <p className="text-[13px] text-ink-muted">PNG, {shot.size}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <h3 className="mt-14 text-[1.15rem] font-semibold tracking-tight">iPhone</h3>
+          <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            {phoneShots.map((shot) => (
+              <li key={shot.file}>
+                <a href={`/press/matter-${shot.file}.png`} className="group block">
+                  <div className="overflow-hidden rounded-[20px] bg-track px-[12%] pt-[12%] pb-[12%]">
+                    <Image
+                      src={`/press/preview/${shot.file}.webp`}
+                      alt={`Matter on iPhone: ${shot.label}`}
+                      width={600}
+                      height={1304}
+                      unoptimized
+                      className="h-auto w-full rounded-[14px] drop-shadow-[0_8px_16px_rgb(0_0_0/0.14)] transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  <p className="mt-3 text-[15px] font-medium">{shot.label}</p>
+                  <p className="text-[13px] text-ink-muted">PNG, 1206 × 2622</p>
                 </a>
               </li>
             ))}
