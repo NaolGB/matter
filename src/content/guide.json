@@ -6,7 +6,7 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Matter is a planner for your Mac that knows how much a day holds. Everything you create lives on your Mac and in your own iCloud — there are no accounts to make, and nothing is uploaded to us."
+          "text": "Matter is a planner for your Mac and iPhone that knows how much a day holds. Everything you create lives on your Mac, your iPhone and your own iCloud — there are no accounts to make, and nothing is uploaded to us."
         },
         {
           "kind": "paragraph",
@@ -58,7 +58,7 @@
         },
         {
           "kind": "note",
-          "text": "Your data stays on your Mac and in your own iCloud. See the **Privacy Policy** for exactly what that means."
+          "text": "Your data stays on your Mac, your iPhone and your own iCloud. See the **Privacy Policy** for exactly what that means."
         }
       ]
     },

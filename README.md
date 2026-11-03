@@ -1,9 +1,8 @@
 # Matter
 
-The product website for Matter, a planner for the Mac. Matter is Mac only for now: the site
-offers no iPhone app, widget or iPhone capture. The app itself lives in `../workspace` (the Xcode
-project is still named Duka). Its look is set in `DESIGN.md`, `MAC.md` and `LOAFY.md` there,
-and the pictures here follow them.
+The product website for Matter, a day planner for Mac and iPhone. The app itself lives in
+`../workspace` (the Xcode project is still named Duka). Its look is set in `DESIGN.md`, `MAC.md`
+and `LOAFY.md` there, and the pictures here follow them.
 
 ## Running it
 
