@@ -15,7 +15,7 @@ export const site = {
    * The App Store listings, one per device. Each is empty until that app is live; its button is then
    * drawn but inert, and says the app is coming.
    */
-  appStore: { mac: "", iphone: "" },
+  appStore: { mac: "https://apps.apple.com/app/matter-tasks-notes-calendar/id6813031802?mt=12", iphone: "" },
   macRequirement: "macOS 26",
   /** The iPhone app's deployment target (IPHONEOS_DEPLOYMENT_TARGET in the Xcode project). */
   iphoneRequirement: "iOS 26.5",

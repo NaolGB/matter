@@ -44,8 +44,8 @@ function GetMatter({ className = "" }: { className?: string }) {
       </p>
       <Download primary className="mt-4 w-full !h-10 !px-4 !text-[14px]" />
       <Download device="iphone" className="mt-2 w-full !h-10 !px-4 !text-[14px]" />
-      {!site.appStore.mac && !site.appStore.iphone && (
-        <p className="mt-2 text-center text-[12px] text-ink-faint">Coming to the App Store</p>
+      {!site.appStore.iphone && (
+        <p className="mt-2 text-center text-[12px] text-ink-faint">iPhone coming to the App Store</p>
       )}
     </div>
   );

@@ -23,7 +23,12 @@ const facts: [string, React.ReactNode][] = [
     `Mac (${site.macRequirement} or later) and iPhone (${site.iphoneRequirement} or later). Each works on its own; together they share one plan through the user's own iCloud.`,
   ],
   ["Price", site.price],
-  ["Availability", "Coming to the App Store"],
+  [
+    "Availability",
+    <>
+      Mac: <a href={site.appStore.mac}>on the Mac App Store</a>. iPhone: coming to the App Store.
+    </>,
+  ],
   ["Website", <a key="w" href={site.url}>{site.url.replace("https://", "")}</a>],
   ["Press", <a key="p" href={`mailto:${site.pressEmail}`}>{site.pressEmail}</a>],
   ["Support", <a key="s" href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>],
