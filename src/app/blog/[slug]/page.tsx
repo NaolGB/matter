@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { CoverBox } from "@/components/blog";
 import { Download, Mark, Wrap } from "@/components/site";
-import { site } from "@/config";
 import { formatDate, getPost, getPosts, type Heading, type Post } from "@/content/blog";
 
 export async function generateStaticParams() {
@@ -44,9 +43,6 @@ function GetMatter({ className = "" }: { className?: string }) {
       </p>
       <Download primary className="mt-4 w-full !h-10 !px-4 !text-[14px]" />
       <Download device="iphone" className="mt-2 w-full !h-10 !px-4 !text-[14px]" />
-      {!site.appStore.iphone && (
-        <p className="mt-2 text-center text-[12px] text-ink-faint">iPhone coming to the App Store</p>
-      )}
     </div>
   );
 }

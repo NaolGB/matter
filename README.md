@@ -48,9 +48,8 @@ It expects the app at `../workspace/Duka`, and looks only in the Mac app and Duk
 `src/config.ts` holds the release facts. The support address is set (support@trymatter.app,
 shown on /support, in the Privacy Policy and in the footer). The site's address (`url`,
 used for the sitemap, robots.txt, the blog's feed and link previews) is https://trymatter.app.
-Still missing: the App Store link, and the `placeholder` words (the Notes card's heading), which
-stand in for a line the app no longer says. Until the App Store link is set, the download button
-says the app is coming to the App Store.
+The App Store links for the Mac and the iPhone are `appStore`. Still missing: the `placeholder`
+words (the Notes card's heading), which stand in for a line the app no longer says.
 
 ## Screenshots
 

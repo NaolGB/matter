@@ -26,7 +26,7 @@ const facts: [string, React.ReactNode][] = [
   [
     "Availability",
     <>
-      Mac: <a href={site.appStore.mac}>on the Mac App Store</a>. iPhone: coming to the App Store.
+      On the App Store for <a href={site.appStore.mac}>Mac</a> and <a href={site.appStore.iphone}>iPhone</a>.
     </>,
   ],
   ["Website", <a key="w" href={site.url}>{site.url.replace("https://", "")}</a>],
