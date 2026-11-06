@@ -1,4 +1,12 @@
 {
+  "countsTowardLoad": {
+    "text": "Counts toward load",
+    "find": "Toggle(\"Counts toward load\""
+  },
+  "reviewFills": {
+    "text": "Finish a task, or start a session from the work bucket, and this fills in.",
+    "find": "Finish a task, or start a session from the work bucket, and this fills in."
+  },
   "full": {
     "text": "Full",
     "find": "return \"Full\""

@@ -43,3 +43,23 @@ if (missing > 0) {
   process.exit(1);
 }
 console.log(`\nAll ${Object.keys(lines).length} lines are still in the app.`);
+
+// The site's other words are Naol's, from Scout's Positioning page. Each entry of
+// src/content/positioning-lines.json must still be there, word for word.
+const positioningPath = resolve(process.env.MATTER_POSITIONING ?? "../scout/content/positioning.md");
+if (!existsSync(positioningPath)) {
+  console.error(`The positioning page was not found at ${positioningPath}. Set MATTER_POSITIONING.`);
+  process.exit(2);
+}
+const positioning = readFileSync(positioningPath, "utf8");
+const quoted = JSON.parse(readFileSync(new URL("../src/content/positioning-lines.json", import.meta.url), "utf8"));
+const changed = Object.entries(quoted).filter(([key, text]) => {
+  const there = positioning.includes(text);
+  console.log(`${there ? "ok      " : "MISSING "} ${key}`);
+  return !there;
+});
+if (changed.length > 0) {
+  console.error(`\n${changed.length} line(s) the site quotes are no longer on the positioning page.`);
+  process.exit(1);
+}
+console.log(`\nAll ${Object.keys(quoted).length} lines are still on the positioning page.`);

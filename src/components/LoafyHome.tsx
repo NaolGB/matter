@@ -18,7 +18,17 @@ import { useEffect, useState } from "react";
 /** How close to the end of the page counts as the ladder's foot, in pixels. */
 const END = 4;
 
-export function LoafyHome({ alt }: { alt: string }) {
+/**
+ * `className` places the house: its width and what is round it. Left out, it stands alone in the
+ * middle of the page with room above and below, as it did when it had a section to itself.
+ */
+export function LoafyHome({
+  alt,
+  className = "mx-auto mt-12 w-full max-w-[min(440px,calc(100%-2.5rem))] pb-[clamp(3rem,7vw,5rem)]",
+}: {
+  alt: string;
+  className?: string;
+}) {
   const [home, setHome] = useState(true);
 
   useEffect(() => {
@@ -44,7 +54,7 @@ export function LoafyHome({ alt }: { alt: string }) {
   }, []);
 
   return (
-    <div className="mx-auto mt-12 w-full max-w-[min(440px,calc(100%-2.5rem))] pb-[clamp(3rem,7vw,5rem)]">
+    <div className={className}>
       <div className="relative">
         <Image
           src="/shots/loafy-house-out.webp"

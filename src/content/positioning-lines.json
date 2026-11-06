@@ -1,0 +1,17 @@
+{
+  "oneLine": "To-do list that fits life",
+  "whatItIs": "Matter is a to-do list that helps you plan for the time you actually have.",
+  "problemLead": "Your to-do list doesn't know how much time you have. It will happily let you plan 10 hours of work into a day when you only have 4 hours available.",
+  "problemKnows": "It doesn't know about the 10 tasks already on your plate at work, the meetings in your calendar, or the time you need for life (sleep, eat lunch, commute and take a break). It just keeps accepting more tasks.",
+  "problemEnd": "And when you inevitably don't get through everything, you end the day feeling like you've failed. You push work into the evening, work longer than you intended, and never quite feel like you've done enough.",
+  "problemTurn": "Matter changes that.",
+  "makeSense": "Matter doesn't ask you to do more. It helps you make sense of what you already have to do.",
+  "notJustTasks": "Matter isn't just about tasks.",
+  "together": "Together, they give you one place to plan your work, organise your thoughts and keep track of your days.",
+  "fitsLife": "Your workload should fit your life, not the other way around.",
+  "planAround": "Instead of just giving you a place to list everything you want to do, Matter helps you plan around the time you actually have and the work you already need to get done.",
+  "tasks": "As you add tasks to your list, Matter keeps track of what's on your plate. It accounts for recurring tasks and shows you how much time you have available today and in the coming days, so you can see what's coming up and plan accordingly.",
+  "calendars": "You can optionally make this even more accurate by connecting your calendars, so Matter knows about your existing commitments, and setting your working hours, so it knows when you're available to work.",
+  "notes": "Notes: gives you a Notion-like space for your thoughts, ideas and everything else you don't want to lose. And is fully offline.",
+  "daily": "Daily Journal: is your little daily check-in. It gives you a moment to look back at yesterday, think about what you want to do today, check in with how you're feeling and jot down anything worth remembering."
+}

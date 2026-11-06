@@ -60,6 +60,9 @@ export function Nav({ blog = false }: { blog?: boolean }) {
           <Download device="iphone" small />
         </div>
         <nav className="hidden items-center gap-6 justify-self-end text-[13px] text-ink-muted sm:flex">
+          <Link href="/features" className="transition-colors hover:text-ink">
+            Features
+          </Link>
           {blog && (
             <Link href="/blog" className="transition-colors hover:text-ink">
               Blog
@@ -96,6 +99,11 @@ export function Footer({ blog = false }: { blog?: boolean }) {
               </a>
             </li>
           )}
+          <li>
+            <Link href="/features" className="hover:text-ink">
+              Features
+            </Link>
+          </li>
           {blog && (
             <li>
               <Link href="/blog" className="hover:text-ink">

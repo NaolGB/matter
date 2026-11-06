@@ -77,6 +77,17 @@ function Block({ block }: { block: InfoBlock }) {
   }
 }
 
+/** A run of the guide's blocks on their own, for a page that quotes part of the guide. */
+export function InfoBlocks({ blocks }: { blocks: InfoBlock[] }) {
+  return (
+    <>
+      {blocks.map((block, index) => (
+        <Block key={index} block={block} />
+      ))}
+    </>
+  );
+}
+
 export function InfoDoc({ doc, page = false }: { doc: InfoDocument; page?: boolean }) {
   return (
     <article id={doc.id} className="scroll-mt-24">

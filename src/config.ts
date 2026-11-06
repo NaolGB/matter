@@ -22,11 +22,8 @@ export const site = {
 };
 
 /**
- * Words standing in until the real ones are chosen. Each was a line the app said, and the app no
- * longer says it, so for now the site says its own. Replace these, or point them back at a line
- * in app-lines.json once the app has one.
+ * What the home page says about Loafy, after the app's own line about where she is. The others'
+ * page says it too, so it lives here once.
  */
-export const placeholder = {
-  /** The Notes card. Was the phone's "Write, or type / for headings and lists". */
-  notes: "Type / for headings and lists",
-};
+export const loafyWords =
+  "Loafy lives in the sidebar of the Mac app, in a house with three floors. There is no clock in it, no score and no streak. You look in on her. That is all.";

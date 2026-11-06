@@ -354,7 +354,7 @@
         },
         {
           "kind": "bullet",
-          "text": "Switch between **Daily** and **Weekly** views. Days and hours form a grid, with events and scheduled tasks drawn as blocks."
+          "text": "Switch between **Day**, **3 days** and **Week** views. Days and hours form a grid, with events and scheduled tasks drawn as blocks."
         },
         {
           "kind": "bullet",
