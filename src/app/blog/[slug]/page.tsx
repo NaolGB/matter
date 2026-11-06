@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CoverBox } from "@/components/blog";
 import { Download, Mark, Wrap } from "@/components/site";
 import { formatDate, getPost, getPosts, type Heading, type Post } from "@/content/blog";
+import positioning from "@/content/positioning-lines.json";
 
 export async function generateStaticParams() {
   return (await getPosts()).map(({ slug }) => ({ slug }));
@@ -37,7 +38,7 @@ function GetMatter({ className = "" }: { className?: string }) {
         <Mark size={14} />
         Matter
       </p>
-      <p className="mt-2 text-[17px] font-semibold leading-snug tracking-[-0.01em]">Plan the day you actually have.</p>
+      <p className="mt-2 text-[17px] font-semibold leading-snug tracking-[-0.01em]">{positioning.oneLine}</p>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
         For the Mac and iPhone. It works offline, with no account.
       </p>

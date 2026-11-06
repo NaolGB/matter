@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import lines from "@/content/app-lines.json";
+import positioning from "@/content/positioning-lines.json";
 import { Wrap } from "@/components/site";
 import { site } from "@/config";
 
@@ -129,7 +130,7 @@ export default function PressPage() {
           <p className="max-w-[680px] text-[17px] leading-[1.6]">
             A to-do list accepts anything you type. A day has a fixed number of hours, and the list never
             mentions it. So you plan ten hours of work into four free hours, and at six o’clock the list
-            says you fell short. Matter plans the day you actually have. It reads your calendar, counts
+            says you fell short. {positioning.whatItIs} It reads your calendar, counts
             the hours that are already spoken for, shows how much time is left, and when something won’t
             fit it says so and offers a day where it will. It runs on your Mac and your iPhone, works
             offline, needs no account, and keeps your data in your own iCloud.

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Footer, Nav } from "@/components/site";
 import { site } from "@/config";
 import { getPosts } from "@/content/blog";
+import positioning from "@/content/positioning-lines.json";
 import "./globals.css";
 
 // Apple hardware gets SF from the system stack in globals.css. Inter is the
@@ -15,7 +16,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Matter: plan the day you actually have",
+    // Naol's one line, from the Positioning page (`npm run check:lines` checks it).
+    default: `Matter: ${positioning.oneLine}`,
     template: "%s · Matter",
   },
   description:
