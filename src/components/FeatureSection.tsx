@@ -1,65 +1,19 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { MacFrame, PhoneFrame } from "@/components/Device";
-import { Wrap } from "@/components/site";
 
-/* The parts of a long feature page: a section with a heading, its words and its pictures, and the
-   pictures: a whole screen on its device, part of a screen on a card. The pictures are the WebP
-   files in public/shots/v2, made by Screenshots/demo-2026-11-06/site.py from captures of the demo
-   world. */
-
-/**
- * One section of a feature page. `band` puts it on the grey ground, so neighbouring sections tell
- * apart.
- *
- * With `pictures`, the words sit in a reading column and the pictures run the width of the page
- * under them: for whole windows, which need the room. With `side`, the words take the left of a
- * wide screen and `side` the right, level with them: for something small enough to sit beside the
- * words, so the section has no empty half. On a narrow screen `side` goes under the words.
- */
-export function FeatureSection({
-  id,
-  heading,
-  children,
-  pictures,
-  side,
-  band = false,
-}: {
-  id: string;
-  heading: string;
-  children: ReactNode;
-  pictures?: ReactNode;
-  side?: ReactNode;
-  band?: boolean;
-}) {
-  const words = (
-    <>
-      <h2 className="max-w-[22ch] text-balance text-[clamp(1.75rem,3.6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
-        {heading}
-      </h2>
-      <div className="mt-6 max-w-[62ch] space-y-3 text-[17px] leading-[1.6] text-ink-muted">{children}</div>
-    </>
-  );
-  return (
-    <section id={id} className={`scroll-mt-16 py-[clamp(3.5rem,8vw,6.5rem)] ${band ? "bg-track" : ""}`}>
-      <Wrap wide>
-        {side ? (
-          <div className="grid items-center gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-            <div>{words}</div>
-            <div className="min-w-0">{side}</div>
-          </div>
-        ) : (
-          words
-        )}
-        {pictures && <div className="mt-[clamp(2rem,4vw,3.25rem)]">{pictures}</div>}
-      </Wrap>
-    </section>
-  );
-}
+/* The pictures on a feature page: a whole screen on its device, in the device's own shape, or part
+   of a screen on a card in one of three shapes (2:1, 4:3, 3:4). The pictures are the WebP files in
+   public/shots/v2, made by Screenshots/demo-2026-11-06/site.py from captures of the demo world, until
+   Naol's own shots replace them; the README lists the slots. */
 
 /** A small line under a picture saying which app it is. */
 function Caption({ children }: { children: ReactNode }) {
-  return <figcaption className="mt-3 text-center text-[12px] text-ink-muted">{children}</figcaption>;
+  return (
+    <figcaption className="mt-3 text-center text-[12px] text-ink-muted">
+      {children}
+    </figcaption>
+  );
 }
 
 /**
@@ -86,10 +40,21 @@ export function MacWindow({
       : "max-sm:[mask-image:linear-gradient(to_left,#000_78%,transparent)]";
   return (
     <figure className="min-w-0">
-      <div className={`max-sm:-mx-5 max-sm:overflow-hidden max-sm:px-5 max-sm:pb-8 ${fade}`}>
-        <div className={`max-sm:w-[165%] ${keep === "right" ? "max-sm:-ml-[65%]" : ""}`}>
+      <div
+        className={`max-sm:-mx-5 max-sm:overflow-hidden max-sm:px-5 max-sm:pb-8 ${fade}`}
+      >
+        <div
+          className={`max-sm:w-[165%] ${keep === "right" ? "max-sm:-ml-[65%]" : ""}`}
+        >
           <MacFrame>
-            <Image src={src} alt={alt} width={2000} height={1250} unoptimized className="h-auto w-full" />
+            <Image
+              src={src}
+              alt={alt}
+              width={2000}
+              height={1250}
+              unoptimized
+              className="h-auto w-full"
+            />
           </MacFrame>
         </div>
       </div>
@@ -99,43 +64,73 @@ export function MacWindow({
 }
 
 /** A whole iPhone screen, in a phone (see Device.tsx). */
-export function Phone({ src, alt, caption = "iPhone" }: { src: string; alt: string; caption?: string }) {
+export function Phone({
+  src,
+  alt,
+  caption = "iPhone",
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+}) {
   return (
     <figure className="min-w-0">
       <PhoneFrame>
-        <Image src={src} alt={alt} width={600} height={1304} unoptimized className="h-auto w-full" />
+        <Image
+          src={src}
+          alt={alt}
+          width={600}
+          height={1304}
+          unoptimized
+          className="h-auto w-full"
+        />
       </PhoneFrame>
       <Caption>{caption}</Caption>
     </figure>
   );
 }
 
-/** Part of a screen, on a card of its own. Pass the picture's own pixel size. */
+/** The three shapes a cut-out picture can have (Naol, 2026-11-07: the shots are made by hand). */
+export type Ratio = "2/1" | "4/3" | "3/4";
+const RATIO: Record<Ratio, string> = {
+  "2/1": "aspect-[2/1]",
+  "4/3": "aspect-[4/3]",
+  "3/4": "aspect-[3/4]",
+};
+
+/**
+ * Part of a screen, on a card of its own, in one of the three shapes; the picture fills it. `at` is
+ * the part kept when the picture is not the card's shape: the top left by default, so a window's
+ * words stay in view.
+ */
 export function Crop({
   src,
   alt,
-  width,
-  height,
+  ratio,
   caption,
+  at = "object-left-top",
   className = "",
 }: {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  ratio: Ratio;
   caption: string;
+  at?: string;
   className?: string;
 }) {
   return (
     <figure className={`min-w-0 ${className}`}>
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        unoptimized
-        className="h-auto w-full rounded-[14px] bg-base ring-1 ring-hairline"
-      />
+      <div
+        className={`relative overflow-hidden rounded-[14px] bg-base ring-1 ring-hairline ${RATIO[ratio]}`}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          unoptimized
+          className={`object-cover ${at}`}
+        />
+      </div>
       <Caption>{caption}</Caption>
     </figure>
   );
@@ -152,9 +147,4 @@ export function Pair({ mac, phone }: { mac: ReactNode; phone: ReactNode }) {
       <div className="w-[64%] shrink-0 sm:w-[17.5%]">{phone}</div>
     </div>
   );
-}
-
-/** Pictures side by side on a wide screen, stacked on a phone. `columns` is a Tailwind grid template. */
-export function Row({ children, columns }: { children: ReactNode; columns: string }) {
-  return <div className={`grid items-start gap-6 sm:gap-8 ${columns}`}>{children}</div>;
 }

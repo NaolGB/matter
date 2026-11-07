@@ -1,0 +1,87 @@
+export const meta = {
+  summary:
+    "Matter keeps your Mac and iPhone in step through your own private iCloud. There is no Matter account and no server of ours, and each device keeps its own copy of your work.",
+  related: ["offline", "sessions", "widgets", "add-a-feed", "getting-around"],
+};
+
+## What you need
+
+Sign in to the same iCloud account on your Mac and your iPhone, and install Matter on both. There is nothing to set up or turn on inside the app, and no switch for it in Settings.
+
+Matter doesn't check which account a device is using, and doesn't warn you if two devices are on different ones. They won't see each other's work.
+
+You don't need both devices. The iPhone app and the Mac app each work on their own.
+
+## What syncs
+
+- **Tasks**, including finished ones and what is in the Archive.
+- **Running work.** A session you start on one device shows as running on the other.
+- **Notes**, their folders and the [Pin board](/features/pin-board).
+- **The [Journal](/features/journal).**
+- **Templates and tags.**
+- **Calendar feeds** you have added, and their events. A feed added on the Mac appears on the iPhone, and the other way round.
+- **The day's settings:** when your day starts and ends, the focus cap, and whether to refuse work that doesn't fit.
+
+These stay on each device:
+
+- **Launch at login** on the Mac.
+- **Whether reminders are allowed.** You turn them on once on each device.
+- **Where you were**, such as the note you had open, the day you had open in the Journal, and what the Mac's side panel last held.
+
+Loafy doesn't need syncing. Her day comes from the clock and your day's hours, so both devices agree on where she is.
+
+## See how it is going
+
+Each device reports only on itself, so look on the one you are wondering about.
+
+### On the Mac
+
+Open Settings with **⌘,** and look under **App** on the **General** tab. The **iCloud** row says one of these:
+
+- **Not synced yet**, with a plain cloud. Nothing has synced on this device so far, which is normal on a new install.
+- **Syncing…**, with two arrows in a circle.
+- **Last synced 5 minutes ago**, with a tick on the cloud. It is working.
+- **Sync failed 2 hours ago**, with an orange cloud, and the reason under it.
+
+### On the iPhone
+
+On Tasks, open the circle beside the tab bar, then **More**, then **Settings**. The row is in the **General** section. It is labelled **iCloud**, and says one of these:
+
+- **Not synced yet**
+- **Syncing…**
+- **Failed 2 hours ago**, in orange, with the reason under it.
+
+When it is working, the row is labelled **Last synced** instead, and says how long ago, such as **5 minutes ago**.
+
+The **Last synced** line in **Settings ▸ Calendars** is something else. It is when Matter last fetched your calendar feeds, which have nothing to do with iCloud. See [Add a feed](/features/add-a-feed).
+
+## When changes arrive
+
+iCloud decides when changes move, so Matter can't promise how long they take.
+
+On a personal hotspot or another metered connection, uploads can be held back for a few minutes. That is a delay, and the status won't call it a failure.
+
+### Coming back to a device
+
+Matter does a few things by itself each time it comes forward: it adds today's template tasks, lays out what is left of today, and gives a time to any upcoming task without one. Before it does these, it waits for iCloud to bring down what you changed on your other device, so it works from your latest changes.
+
+It waits up to 5 seconds for a download to begin, and up to 10 minutes for one that has begun. After that it goes on with what it has. Only these automatic steps wait. Anything you do yourself happens straight away.
+
+## With no network
+
+Keep working. Everything you do is saved on the device, and iCloud catches up once there is a connection. Your other device can't see those changes until then. [Offline](/features/offline) covers the rest.
+
+## If it says sync failed
+
+What you have made stays on this device, and Matter goes on working.
+
+- **Read the reason.** The line under the failure is iCloud's own sentence about what went wrong. You can select it and copy it.
+- **It clears by itself.** There is no retry button. The failure stays until the same kind of sync next succeeds, then the line goes back to normal.
+- **Part of it may still be working.** Uploads and downloads can fail separately, so changes may keep arriving from your other device while this line says failed.
+- **If it stays, tell us.** Copy the reason and send it through **Support**, at the foot of **Settings ▸ General** on the Mac, or under **About** in Settings on the iPhone. On the Mac it is also in **Help ▸ Matter Support**.
+
+## What else follows iCloud
+
+- **[Sessions](/features/sessions).** A clock started on one device runs on the other once the change arrives.
+- **The [menu bar panel](/features/menu-bar-panel).** The title in the Mac's menu bar counts a session started on the iPhone as soon as the Mac has it.
+- **[Widgets](/features/widgets).** The iPhone redraws its widgets when a download finishes, but iOS decides when to wake the app for one, so they can lag behind the Mac.

@@ -1,4 +1,5 @@
 import lines from "@/content/app-lines.json";
+import { SFCalendar, SFWrenchAndScrewdriver } from "@/components/symbols";
 
 /* A note at the moment "/" is typed, drawn in the app's own look (from the capture in
    Screenshots/hero-2026-10-12/cards): the emoji and title, the tags as symbol and name, a heading,
@@ -9,11 +10,8 @@ import lines from "@/content/app-lines.json";
    colour. On a wide screen the card cuts the picture off part way down the menu. */
 
 const tags = [
-  {
-    label: "Studio ops",
-    symbol: "M10.5 2.5a3 3 0 0 0-2.8 4L2.8 11.4a1.2 1.2 0 0 0 1.8 1.8L9.5 8.3a3 3 0 0 0 4-2.8l-1.8 1.8-1.8-.5-.5-1.8z",
-  },
-  { label: "Q4 planning", symbol: "M2.5 4h11v9.5h-11zM2.5 6.8h11M5 2.5v3M11 2.5v3" },
+  { label: "Studio ops", symbol: SFWrenchAndScrewdriver },
+  { label: "Q4 planning", symbol: SFCalendar },
 ];
 
 const items = [
@@ -47,21 +45,26 @@ export function NoteSlash() {
         </p>
         <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
           {tags.map((tag) => (
-            <span key={tag.label} className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-muted">
-              <svg viewBox="0 0 16 16" className="size-[13px]" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d={tag.symbol} />
-              </svg>
+            <span
+              key={tag.label}
+              className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink-muted"
+            >
+              <tag.symbol className="size-[13px]" />
               {tag.label}
             </span>
           ))}
         </p>
 
         <div className="pl-3.5">
-          <p className="mt-5 text-[22px] font-bold leading-tight tracking-[-0.02em]">Q4, three things</p>
+          <p className="mt-5 text-[22px] font-bold leading-tight tracking-[-0.02em]">
+            Q4, three things
+          </p>
           <ol className="mt-2 space-y-1 text-[14.5px] leading-[1.5]">
             {items.map((item, index) => (
               <li key={item} className="flex gap-2.5">
-                <span className="tabular-nums text-ink-muted">{index + 1}.</span>
+                <span className="tabular-nums text-ink-muted">
+                  {index + 1}.
+                </span>
                 {item}
               </li>
             ))}

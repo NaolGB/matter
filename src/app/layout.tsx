@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   // The bar and the footer link to the blog only once it has a post to show.
   const blog = (await getPosts()).length > 0;
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col">
         <Nav blog={blog} />
         {children}

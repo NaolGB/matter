@@ -2,8 +2,13 @@
 
 import { useRef, useState } from "react";
 import lines from "@/content/app-lines.json";
+import {
+  SFArrowTurnDownRight,
+  SFChevronDown,
+  SFTimer,
+} from "@/components/symbols";
 
-/* The day you can try on the page, used by the hero and by /features/planning. It starts with the
+/* The day you can try on the page, used by the hero and by /features/avoid-overplanning. It starts with the
    app's own capacity chip at 2h 10m free. Type a task, give it an estimate, and it goes on the day
    the way the app's editor would put it there. One that fits takes its minutes off the figure. One
    that does not is refused, with the next day offered instead. Every string the app would say
@@ -24,7 +29,11 @@ function minutes(value: number) {
 function tomorrow() {
   const day = new Date();
   day.setDate(day.getDate() + 1);
-  return new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric" }).format(day);
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  }).format(day);
 }
 
 type Note =
@@ -38,7 +47,16 @@ export function useTryDay() {
   const [title, setTitle] = useState("");
   const [estimate, setEstimate] = useState(30);
   const [note, setNote] = useState<Note | null>(null);
-  return { free, setFree, title, setTitle, estimate, setEstimate, note, setNote };
+  return {
+    free,
+    setFree,
+    title,
+    setTitle,
+    estimate,
+    setEstimate,
+    note,
+    setNote,
+  };
 }
 
 export type TryDayState = ReturnType<typeof useTryDay>;
@@ -49,7 +67,13 @@ export type TryDayState = ReturnType<typeof useTryDay>;
  * choice for the page (Naol's, 2026-10-12). Its text is a deeper green than the tint so it reads.
  * A full day turns it grey. Its size comes from the text around it: `className` sets that.
  */
-export function TimeChip({ free, className = "" }: { free: number; className?: string }) {
+export function TimeChip({
+  free,
+  className = "",
+}: {
+  free: number;
+  className?: string;
+}) {
   const full = free === 0;
   return (
     <span
@@ -58,25 +82,32 @@ export function TimeChip({ free, className = "" }: { free: number; className?: s
         full ? "bg-wash text-ink-muted" : "bg-free-tint text-free-ink"
       } ${className}`}
     >
-      <svg
+      <SFTimer
         aria-hidden
-        viewBox="0 0 16 16"
         className="mr-[0.3em] inline-block size-[0.95em] align-[-0.16em]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M8 14.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM8 6v3l2 1.2M6.3 1.5h3.4" />
-      </svg>
+      />
       {full ? lines.full.text : `${minutes(free)} free`}
     </span>
   );
 }
 
-export function TryDayForm({ day, className = "" }: { day: TryDayState; className?: string }) {
-  const { free, setFree, title, setTitle, estimate, setEstimate, note, setNote } = day;
+export function TryDayForm({
+  day,
+  className = "",
+}: {
+  day: TryDayState;
+  className?: string;
+}) {
+  const {
+    free,
+    setFree,
+    title,
+    setTitle,
+    estimate,
+    setEstimate,
+    note,
+    setNote,
+  } = day;
   const input = useRef<HTMLInputElement>(null);
 
   /** Put the typed task on today if it fits; otherwise refuse it the way the app's editor does. */
@@ -119,9 +150,6 @@ export function TryDayForm({ day, className = "" }: { day: TryDayState; classNam
       }}
       className={`w-full max-w-[520px] ${className}`}
     >
-      {/* Two words, so the field reads as something to try and not as a form that keeps
-          what is typed into it. */}
-      <p className="mb-2.5 text-[13px] text-ink-muted">Try it</p>
       <div className="flex items-center gap-1 rounded-full bg-track p-1.5 pl-4 ring-1 max-[359px]:pl-3 max-[359px]:gap-0.5 ring-transparent transition-shadow focus-within:ring-ink-faint sm:pl-5">
         <input
           ref={input}
@@ -144,18 +172,10 @@ export function TryDayForm({ day, className = "" }: { day: TryDayState; classNam
               </option>
             ))}
           </select>
-          <svg
+          <SFChevronDown
             aria-hidden
-            viewBox="0 0 12 12"
             className="pointer-events-none absolute right-2 top-1/2 size-3 -translate-y-1/2 text-ink-faint max-[359px]:right-1 sm:right-2.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M3 4.5 6 7.5l3-3" />
-          </svg>
+          />
         </label>
         <button
           type="submit"
@@ -164,8 +184,16 @@ export function TryDayForm({ day, className = "" }: { day: TryDayState; classNam
           {lines.addTask.text}
         </button>
       </div>
+      {/* An invitation under the field that says what happens, not a form's label: nothing typed
+          here is kept (Naol, 2026-11-07: "Try it" above the field was not inviting enough). */}
+      <p className="mt-2.5 text-[13px] text-ink-muted">
+        Add a task and see if it fits
+      </p>
 
-      <div aria-live="polite" className="mt-3 min-h-[3.25rem] text-[14px] leading-relaxed">
+      <div
+        aria-live="polite"
+        className="mt-2 min-h-[3.25rem] text-[14px] leading-relaxed"
+      >
         {note?.kind === "added" && (
           <p className="text-ink-muted">
             {lines.added.text} “{note.title}”
@@ -176,25 +204,15 @@ export function TryDayForm({ day, className = "" }: { day: TryDayState; classNam
         {note?.kind === "refused" && (
           <div>
             <p className="text-attention">
-              {lines.gate.text} — only {minutes(free)} {lines.headroom.text} {lines.gateRest.text}
+              {lines.gate.text} — only {minutes(free)} {lines.headroom.text}{" "}
+              {lines.gateRest.text}
             </p>
             <button
               type="button"
               onClick={move}
               className="mt-1 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[13px] font-medium transition-colors hover:bg-wash"
             >
-              <svg
-                aria-hidden
-                viewBox="0 0 16 16"
-                className="size-3.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 3v5.5h9.5M9.5 5.5l3 3-3 3" />
-              </svg>
+              <SFArrowTurnDownRight aria-hidden className="size-3.5" />
               {lines.moveTo.text} {note.day}
             </button>
           </div>

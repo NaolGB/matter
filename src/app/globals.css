@@ -61,8 +61,8 @@ body {
   background: var(--base);
   color: var(--ink);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* No font-smoothing override: "antialiased" thins text on a Mac, and the site should read as
+     the app does, in the system's own rendering (Naol, 2026-11-07: the text looked thin). */
 }
 
 /* A statement arrives a word at a time, out of a blur, as it scrolls into view. Driven by

@@ -3,111 +3,124 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import lines from "@/content/app-lines.json";
 import positioning from "@/content/positioning-lines.json";
-import { CalendarFeeds } from "@/components/CalendarFeeds";
-import { NoteSlash } from "@/components/NoteSlash";
+import { getFeaturePage } from "@/content/feature-pages";
+import { FeedRows } from "@/components/FeedRows";
+import { InlineFormats } from "@/components/InlineFormats";
+import { InlineTokens } from "@/components/InlineTokens";
+import { SlashLines } from "@/components/SlashLines";
+import { TodayMix } from "@/components/TodayMix";
+import { NewTaskSheet } from "@/components/NewTaskSheet";
+import { RepeatPicker } from "@/components/RepeatPicker";
+import { SessionCard } from "@/components/SessionCard";
+import { UpcomingDays } from "@/components/UpcomingDays";
 import { CardArrow } from "@/components/site";
+import { SFChevronRight } from "@/components/symbols";
 
 /* The features, as Naol laid them out on 2026-11-06: three containers, Tasks across the top and
-   Notes and Calendar under it, each holding several features, and then the others in a grid of
-   their own. The home page and /features both show this. Every picture opens its part of the
-   feature's page (/features/tasks, /notes, /calendar, /others).
+   Notes and Calendar under it, two to one in width (Naol, 2026-11-07), each holding several features, and then the others in a grid of
+   their own, four bare tiles in one row and a fifth, More, that opens the list of everything
+   (Naol, 2026-11-07: Templates dropped from them, no card round each), on the home page under
+   #features, as a highlight; the bar's Features link opens
+   /features, which lists everything. Every picture opens that feature's page, and a container's
+   name opens its group on /features. The focus is tasks (Naol,
+   2026-11-07), and the five in that container are Naol's list of that day: add task, capacity
+   limit, recurring, upcoming capacity, sessions. Add task and Avoid overplanning are drawn
+   (NewTaskSheet, plain and refused) and so are Recurring (RepeatPicker, the days being chosen)
+   Upcoming capacity (UpcomingDays, the coming days with their room) and Sessions (SessionCard, the
+   running task in the bucket), as a try, until they are shot.
 
    The words. Each container's sentence is Naol's, word for word from Scout's Positioning page
    (`npm run check:lines` checks them). The names on the pictures are Naol's names for the features
-   from the same day, except the two that are lines the app says (app-lines.json). The app calls some
-   of them something else: the pin opens the notebook, analysis is the Week review, the journal is
-   Standup, and it has no button called reshuffle (it is the app placing tasks by itself). Naming
-   them is Naol's to settle. Do not write new sentences here.
+   from those days (Blocks, Mentions and Formatting since 2026-11-07 evening), except the two that
+   are lines the app says (app-lines.json). The app calls some
+   of them something else: the pin opens the notebook, analysis is the Week review and the journal
+   is Standup. Naming them is Naol's to settle. Do not write new sentences here.
 
-   The pictures are parts of real captures of both apps on the demo world, held at Tuesday
-   10 November 2026, 9:41 (Screenshots/demo-2026-11-06, whose site.py cuts them). The slash menu and
-   the feeds list are drawn, for the reasons their own files give. */
+   The pictures. Every shot slot holds one of three shapes, 2:1, 4:3 or 3:4, at every width, and the
+   shot fills it edge to edge (Naol, 2026-11-07: the shots will be made by hand, so a small set of
+   shapes). The README lists the slots and the sizes to make. For now the slots hold parts of the
+   2026-11-06 captures (Screenshots/demo-2026-11-06, whose site.py cuts them), cropped to the shape.
+   The slash menu (SlashLines), the tokens (InlineTokens), the formats (InlineFormats), the feeds
+   (FeedRows), Today with a meeting in it (TodayMix) and the New task sheet are drawn, for the
+   reasons their own files give. */
 
-const shots = "/shots/v2";
+/** The three shapes a slot can have. */
+type Ratio = "2/1" | "4/3" | "3/4";
+const RATIO: Record<Ratio, string> = {
+  "2/1": "aspect-[2/1]",
+  "4/3": "aspect-[4/3]",
+  "3/4": "aspect-[3/4]",
+};
 
 /**
- * Part of a capture, on the grey ground of its tile. `show` is the width it is drawn at, in
- * pixels: the size it has in the app, so its words stay readable, or a little under.
- *
- * `left` stands it in the top left corner and lets it run off the right and the foot: for a part
- * wider than its tile. `center` stands it in the middle and lets it run off the foot only. `whole`
- * shows all of it, in the middle of the tile: for a part small enough to fit. On a phone that would
- * shrink a wide part until its words can't be read, so with `run` it keeps its size there and runs
- * off the right instead.
+ * A shot filling its slot. `at` is the part kept when the picture is not the slot's shape: the top
+ * left by default, so a window's words stay in view.
  */
-function Cut({
+function Fill({
   src,
-  width,
-  height,
-  show,
   alt,
-  place = "left",
-  run = false,
+  at = "object-left-top",
 }: {
   src: string;
-  width: number;
-  height: number;
-  show: number;
   alt: string;
-  place?: "left" | "center" | "whole";
-  run?: boolean;
+  at?: string;
 }) {
-  const corners = {
-    left: "max-w-none rounded-tl-[12px]",
-    center: "max-w-full rounded-t-[12px]",
-    whole: run ? "rounded-[12px] max-sm:max-w-none max-sm:rounded-r-none sm:max-w-full" : "max-w-full rounded-[12px]",
-  };
-  const image = (
+  return (
     <Image
-      src={`${shots}/${src}.webp`}
+      src={src}
       alt={alt}
-      width={width}
-      height={height}
+      fill
       unoptimized
-      style={{ width: show }}
-      className={`h-auto bg-base ring-1 ring-hairline ${corners[place]}`}
+      className={`object-cover ${at}`}
     />
   );
-  if (place === "left") return <div className="pl-5 pt-5">{image}</div>;
-  if (place === "center") return <div className="flex justify-center px-5 pt-5">{image}</div>;
+}
+
+/** A tile that says its feature in words rather than a picture: the first sentence of its page. */
+function Words({ children }: { children: string }) {
   return (
-    <div className={`flex h-full items-center p-5 ${run ? "max-sm:pr-0 sm:justify-center" : "justify-center"}`}>{image}</div>
+    <p className="flex h-full items-start p-5 text-[15px] leading-[1.45] text-ink">
+      {children}
+    </p>
   );
+}
+
+/** The first sentence of a summary, up to its full stop. */
+function firstSentence(text: string) {
+  const end = text.search(/[.!?](\s|$)/);
+  return end === -1 ? text : text.slice(0, end + 1);
 }
 
 type Tile = {
   name: string;
   href: string;
   picture: ReactNode;
-  /** The room the picture gets: a height, or a least height where the tile stretches. */
-  room: string;
+  ratio: Ratio;
   /** Its share of the container's grid. */
   span?: string;
+  /** A drawn picture may take more room than its shape when the grid gives it; a shot never does. */
+  stretch?: boolean;
+  /** The picture's ground: grey in a white container, plain white on the grey band. */
+  ground?: string;
 };
 
 function TileLink({ tile }: { tile: Tile }) {
   return (
-    <Link href={tile.href} className={`group/tile flex min-w-0 flex-col ${tile.span ?? ""}`}>
-      {/* The picture is out of the flow, so a tile is as tall as its room says and a tall capture
-          cannot stretch the container. `grow`, not `flex-1`: with a basis of nothing the room's own
-          height is ignored and the picture's box closes up on a phone. */}
-      <div className={`relative shrink-0 grow overflow-hidden rounded-[18px] bg-track ${tile.room}`}>
+    <Link
+      href={tile.href}
+      className={`group/tile flex min-w-0 flex-col ${tile.span ?? ""}`}
+    >
+      <div
+        className={`relative overflow-hidden rounded-[18px] ${tile.ground ?? "bg-track"} ${RATIO[tile.ratio]} ${tile.stretch ? "grow" : ""}`}
+      >
         <div className="absolute inset-0">{tile.picture}</div>
       </div>
       <p className="mt-3 flex items-center gap-1.5 text-[15px] font-medium leading-snug">
         {tile.name}
-        <svg
+        <SFChevronRight
           aria-hidden
-          viewBox="0 0 16 16"
           className="size-3.5 shrink-0 text-ink-muted transition-transform group-hover/tile:translate-x-0.5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 3.5 10.5 8 6 12.5" />
-        </svg>
+        />
       </p>
     </Link>
   );
@@ -131,12 +144,21 @@ function Group({
   tiles: Tile[];
 }) {
   return (
-    <div className={`rise flex flex-col rounded-[28px] bg-base p-6 sm:p-8 ${span}`}>
-      <Link href={href} className="group flex items-start justify-between gap-4">
-        <h3 className="text-[clamp(1.5rem,2.6vw,1.9rem)] font-semibold leading-[1.1] tracking-[-0.03em]">{name}</h3>
+    <div
+      className={`rise flex flex-col rounded-[28px] bg-base p-6 sm:p-8 ${span}`}
+    >
+      <Link
+        href={href}
+        className="group flex items-start justify-between gap-4"
+      >
+        <h3 className="text-[clamp(1.5rem,2.6vw,1.9rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+          {name}
+        </h3>
         <CardArrow />
       </Link>
-      <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-ink-muted">{body}</p>
+      <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-ink-muted">
+        {body}
+      </p>
       <div className={`mt-7 grid flex-1 gap-x-4 gap-y-6 ${grid}`}>
         {tiles.map((tile) => (
           <TileLink key={tile.name} tile={tile} />
@@ -148,128 +170,102 @@ function Group({
 
 const tasks: Tile[] = [
   {
-    name: lines.gate.text,
-    href: "/features/tasks#doesnt-fit-today",
+    name: lines.addTask.text,
+    href: "/features/add-task",
     span: "sm:col-span-3",
-    room: "h-[230px] sm:h-[262px]",
+    ratio: "2/1",
+    // Drawn rather than shot, as a try (Naol, 2026-11-07): the sheet is short when the task fits,
+    // so it stands in the middle of its slot.
     picture: (
-      <Cut
-        place="whole"
-        run
-        src="mac-new-task-refused"
-        width={1040}
-        height={474}
-        show={520}
-        alt="The Mac's New task sheet with a three hour task. In orange: Doesn't fit today, only 2h 10m of headroom left. Move it, or shorten it."
-      />
+      <div className="flex h-full items-center justify-center p-4">
+        <NewTaskSheet />
+      </div>
     ),
   },
   {
-    name: "Reshuffle",
-    href: "/features/tasks#reshuffle",
+    name: "Avoid overplanning",
+    href: "/features/avoid-overplanning",
     span: "sm:col-span-3",
-    room: "h-[230px] sm:h-[262px]",
+    ratio: "2/1",
+    // The same drawn sheet at the moment it refuses (Naol, 2026-11-07).
     picture: (
-      <Cut
-        src="tile-placed"
-        width={1360}
-        height={936}
-        show={680}
-        alt="A day on the Mac's Calendar: a meeting at 10:00 in its calendar's colour, and the day's tasks each placed in the time left after it."
-      />
+      <div className="flex h-full items-center justify-center p-4">
+        <NewTaskSheet refused />
+      </div>
     ),
   },
   {
     name: "Recurring",
-    href: "/features/tasks#recurring",
+    href: "/features/recurring",
     span: "sm:col-span-2",
-    room: "h-[220px]",
+    ratio: "4/3",
+    // Drawn (Naol, 2026-11-07): the days of the week being chosen, which no capture holds well.
     picture: (
-      <Cut
-        src="tile-recurring"
-        width={700}
-        height={680}
-        show={350}
-        alt="Tomorrow on the Mac: a meeting, then the routines that will arrive that day, drawn faintly: Morning pages, Check the Larkspur channel, Triage the research inbox."
-      />
+      <div className="flex h-full justify-center overflow-hidden px-5 pt-5">
+        <RepeatPicker />
+      </div>
     ),
   },
   {
-    name: "Capacity and time blocking",
-    href: "/features/tasks#capacity-and-time-blocking",
+    name: "Upcoming capacity",
+    href: "/features/upcoming-capacity",
     span: "sm:col-span-2",
-    room: "h-[220px]",
+    ratio: "4/3",
+    // Drawn (Naol, 2026-11-07): the coming days folded to their room, as the iPhone lists them.
     picture: (
-      <Cut
-        place="center"
-        src="tile-capacity"
-        width={1035}
-        height={950}
-        show={345}
-        alt="The coming days on the iPhone, each with the time planned and what is left: tomorrow 15 minutes free, Thursday 10 minutes over, Saturday 4h 10m free."
-      />
+      <div className="flex h-full justify-center overflow-hidden px-5 pt-5">
+        <UpcomingDays />
+      </div>
     ),
   },
   {
     name: "Sessions",
-    href: "/features/tasks#sessions",
+    href: "/features/sessions",
     span: "sm:col-span-2",
-    room: "h-[220px]",
+    ratio: "4/3",
+    // Drawn (Naol, 2026-11-07): the running task in the sidebar's bucket.
     picture: (
-      <Cut
-        place="whole"
-        src="tile-session"
-        width={576}
-        height={284}
-        show={320}
-        alt="The foot of the Mac's sidebar: 2h 10m free, and Write the Mosaic pitch story running, with its clock, when it started, its estimate, Pause and Complete."
-      />
+      <div className="flex h-full justify-center overflow-hidden px-5 pt-5">
+        <SessionCard />
+      </div>
     ),
   },
 ];
 
 const notes: Tile[] = [
   {
-    name: "Block types",
-    href: "/features/notes#block-types",
+    name: "Blocks",
+    href: "/features/blocks",
     span: "sm:row-span-2",
-    room: "min-h-[320px]",
+    ratio: "3/4",
+    stretch: true,
+    // Drawn close up (Naol, 2026-11-07): two lines, then the slash and the menu it opens.
     picture: (
-      // The menu is the point, so the note stands on the tile's foot and loses its top instead,
-      // which fades out so no line of it is cut in half.
-      <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_56px)]">
-        <div className="absolute inset-x-5 bottom-0">
-          <NoteSlash />
-        </div>
+      <div className="flex h-full overflow-hidden pl-5 pt-5">
+        <SlashLines />
       </div>
     ),
   },
   {
-    name: "Tokens",
-    href: "/features/notes#tokens",
-    room: "min-h-[170px]",
+    name: "Mentions",
+    href: "/features/mentions",
+    ratio: "4/3",
+    // Drawn close up (Naol, 2026-11-07): a date chip and a note link in one sentence.
     picture: (
-      <Cut
-        src="tile-tokens"
-        width={1158}
-        height={410}
-        show={350}
-        alt="A note on the iPhone with a date set into its sentence as a chip, Thursday, and a link to another note, Recruiting tracker."
-      />
+      <div className="flex h-full overflow-hidden pl-5 pt-5">
+        <InlineTokens />
+      </div>
     ),
   },
   {
-    name: "Inline formatting",
-    href: "/features/notes#inline-formatting",
-    room: "min-h-[170px]",
+    name: "Formatting",
+    href: "/features/formatting",
+    ratio: "4/3",
+    // Drawn close up (Naol, 2026-11-07): one line for each way a run of words can be set.
     picture: (
-      <Cut
-        src="tile-formatting"
-        width={1040}
-        height={310}
-        show={520}
-        alt="Lines of a note on the Mac: one highlighted in yellow, one with a phrase struck through, and a link to another note."
-      />
+      <div className="flex h-full overflow-hidden pl-5 pt-5">
+        <InlineFormats />
+      </div>
     ),
   },
 ];
@@ -277,185 +273,97 @@ const notes: Tile[] = [
 const calendar: Tile[] = [
   {
     name: lines.calendar.text,
-    href: "/features/calendar#add-a-feed",
-    room: "min-h-[150px]",
+    href: "/features/add-a-feed",
+    ratio: "2/1",
+    stretch: true,
+    // Drawn close up (Naol, 2026-11-07): the feeds and the checkbox that counts one toward the day.
     picture: (
-      <div className="flex h-full items-center justify-center px-2 py-4">
-        <CalendarFeeds />
+      <div className="flex h-full overflow-hidden pl-5 pt-5">
+        <FeedRows />
       </div>
     ),
   },
   {
     name: "Task list with calendars",
-    href: "/features/calendar#tasks-with-calendars",
-    room: "min-h-[230px]",
+    href: "/features/tasks-with-calendars",
+    ratio: "2/1",
+    // Drawn close up (Naol, 2026-11-07): a meeting among the tasks under its tag.
     picture: (
-      <Cut
-        src="tile-calendar"
-        width={1556}
-        height={910}
-        show={620}
-        alt="Three days on the Mac's Calendar: meetings as tinted blocks in their calendar's colour, tasks as outlined blocks placed around them, and a red line at the present minute."
-      />
+      <div className="flex h-full overflow-hidden pl-5 pt-5">
+        <TodayMix />
+      </div>
     ),
   },
 ];
 
-type Other = {
-  name: string;
-  href: string;
-  body?: string;
-  picture: ReactNode;
-  span: string;
-};
+const ON_BAND = "bg-base";
 
 /**
- * A capture standing on the foot of one of the others' cards and running off it. `whole` is for a
- * part too short to reach the foot: it is shown entire, in the middle of the room.
+ * The others: bare tiles on the band, three in words (the first sentence of each one's page, so
+ * the tile and the page say the same thing; Naol, 2026-11-07), Loafy as her picture, and a fifth
+ * that opens the list of everything.
  */
-function Stand({
-  src,
-  width,
-  height,
-  show,
-  alt,
-  whole = false,
-  run = false,
-}: {
-  src: string;
-  width: number;
-  height: number;
-  show: number;
-  alt: string;
-  whole?: boolean;
-  /** On a phone, keep its size and run off the right, so its words stay readable. */
-  run?: boolean;
-}) {
-  const image = (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      unoptimized
-      style={{ width: show }}
-      className={`mx-auto h-auto ring-1 ring-hairline ${run ? "max-sm:max-w-none sm:max-w-full" : "max-w-full"} ${
-        whole ? "rounded-[14px]" : "rounded-t-[14px]"
-      } ${run ? "max-sm:rounded-r-none" : ""}`}
-    />
-  );
-  // A pixel of room all round, so the hairline is not cut by the card's edge.
-  return <div className={`p-px ${whole ? "flex h-full items-center" : ""} ${run ? "max-sm:pr-0" : ""}`}>{image}</div>;
-}
-
-const others: Other[] = [
-  {
-    name: "Pin",
-    href: "/features/others#pin",
-    span: "md:col-span-2",
-    picture: (
-      <Stand
-        whole
-        run
-        src={`${shots}/tile-notebook.webp`}
-        width={920}
-        height={280}
-        show={460}
-        alt="The notebook on the Mac, opened beside the page from the pin: three loose lines and a to-do."
-      />
-    ),
-  },
-  {
-    name: "Analysis",
-    href: "/features/others#analysis",
-    span: "md:col-span-2",
-    picture: (
-      <Stand
-        src={`${shots}/tile-week.webp`}
-        width={1146}
-        height={918}
-        show={382}
-        alt="The Week review on the iPhone: 7h 24m of a 12 hour focus budget, and where the time went, day by day."
-      />
-    ),
-  },
-  {
-    name: "Loafy",
-    href: "/features/others#loafy",
-    span: "md:col-span-2",
-    picture: (
-      <Image
-        src="/shots/loafy-house-light.webp"
-        alt={`${lines.loafyHome.text}: a bedroom in the roof and a kitchen under it, with Loafy napping in the mixing bowl on the counter.`}
-        width={1024}
-        height={1536}
-        unoptimized
-        className="mx-auto h-auto w-[210px] max-w-full rounded-t-[18px]"
-      />
-    ),
-  },
-  {
-    name: "Journal",
-    href: "/features/others#journal",
-    body: positioning.daily,
-    span: "md:col-span-3",
-    picture: (
-      <Stand
-        run
-        src={`${shots}/tile-journal.webp`}
-        width={1126}
-        height={704}
-        show={563}
-        alt="A day's page on the Mac, Friday 6 November, under four prompts: what happened, to do today, how I am, and something I noticed."
-      />
-    ),
-  },
-  {
-    name: "Templates",
-    href: "/features/others#templates",
-    span: "md:col-span-3",
-    picture: (
-      <Stand
-        run
-        src={`${shots}/tile-templates.webp`}
-        width={1284}
-        height={1260}
-        show={563}
-        alt="The Mac's Templates panel: weekly templates, each with its estimate, its days and its tag, and a row of squares for the days of this week it has filled."
-      />
-    ),
-  },
-];
-
-function OtherCard({ other }: { other: Other }) {
-  return (
-    <Link href={other.href} className={`group rise flex flex-col overflow-hidden rounded-[28px] bg-base ${other.span}`}>
-      <div className="flex items-start justify-between gap-4 p-6 pb-0 sm:p-8 sm:pb-0">
-        <div>
-          <h4 className="text-[clamp(1.25rem,2vw,1.45rem)] font-semibold leading-[1.15] tracking-[-0.025em]">
-            {other.name}
-          </h4>
-          {other.body && <p className="mt-3 max-w-[52ch] text-[1rem] leading-relaxed text-ink-muted">{other.body}</p>}
-        </div>
-        <CardArrow />
-      </div>
-      {/* The picture takes whatever room the words leave, so cards in one row end level. */}
-      <div className="relative mx-6 mt-7 min-h-[220px] shrink-0 grow overflow-hidden sm:mx-8">
-        <div className="absolute inset-0">{other.picture}</div>
-      </div>
-    </Link>
-  );
+function others(summary: Record<string, string>): Tile[] {
+  return [
+    {
+      name: "Pin board",
+      href: "/features/pin-board",
+      ratio: "4/3",
+      ground: ON_BAND,
+      picture: <Words>{summary["pin-board"]}</Words>,
+    },
+    {
+      name: "Analysis",
+      href: "/features/analysis",
+      ratio: "4/3",
+      ground: ON_BAND,
+      picture: <Words>{summary.analysis}</Words>,
+    },
+    {
+      name: "Loafy",
+      href: "/features/loafy",
+      ratio: "4/3",
+      ground: ON_BAND,
+      picture: (
+        <Fill
+          src="/shots/loafy-house-light.webp"
+          at="object-center"
+          alt={`${lines.loafyHome.text}: the kitchen floor of her house, with Loafy napping in the mixing bowl on the counter.`}
+        />
+      ),
+    },
+    {
+      name: "Journal",
+      href: "/features/journal",
+      ratio: "4/3",
+      ground: ON_BAND,
+      picture: <Words>{summary.journal}</Words>,
+    },
+    {
+      name: "More",
+      href: "/features",
+      ratio: "4/3",
+      ground: ON_BAND,
+      picture: <Words>All features</Words>,
+    },
+  ];
 }
 
 /** The three containers and the others' grid, for the grey band of the home page and /features. */
-export function FeatureGroups() {
+export async function FeatureGroups() {
+  const pages = await Promise.all(
+    ["pin-board", "analysis", "journal"].map(getFeaturePage),
+  );
+  const summary = Object.fromEntries(
+    pages.map((page) => [page.slug, firstSentence(page.meta.summary)]),
+  );
   return (
     <>
       <div className="grid gap-4 lg:grid-cols-12">
         <Group
           name="Tasks"
-          body={positioning.tasks}
-          href="/features/tasks"
+          body={positioning.tasksFull}
+          href="/features#tasks"
           span="lg:col-span-12"
           grid="sm:grid-cols-6"
           tiles={tasks}
@@ -463,29 +371,34 @@ export function FeatureGroups() {
         <Group
           name="Notes"
           body={positioning.notes}
-          href="/features/notes"
-          span="lg:col-span-7"
+          href="/features#notes"
+          span="lg:col-span-8"
           grid="sm:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] sm:grid-rows-2"
           tiles={notes}
         />
         <Group
           name="Calendar"
           body={positioning.calendars}
-          href="/features/calendar"
-          span="lg:col-span-5"
-          grid="sm:grid-rows-[auto_minmax(0,1fr)]"
+          href="/features#calendar"
+          span="lg:col-span-4"
+          grid="sm:grid-rows-[minmax(0,1fr)_auto]"
           tiles={calendar}
         />
       </div>
 
       <div className="mt-[clamp(2.5rem,5vw,4rem)]">
-        <Link href="/features/others" className="group mb-5 inline-flex items-center gap-3">
-          <h3 className="text-[clamp(1.5rem,2.6vw,1.9rem)] font-semibold leading-[1.1] tracking-[-0.03em]">Others</h3>
+        <Link
+          href="/features#others"
+          className="group mb-5 inline-flex items-center gap-3"
+        >
+          <h3 className="text-[clamp(1.5rem,2.6vw,1.9rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+            Others
+          </h3>
           <CardArrow />
         </Link>
-        <div className="grid gap-4 md:grid-cols-6">
-          {others.map((other) => (
-            <OtherCard key={other.name} other={other} />
+        <div className="grid gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-5">
+          {others(summary).map((tile) => (
+            <TileLink key={tile.name} tile={tile} />
           ))}
         </div>
       </div>

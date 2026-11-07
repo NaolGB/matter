@@ -11,7 +11,8 @@
   "fitsLife": "Your workload should fit your life, not the other way around.",
   "planAround": "Instead of just giving you a place to list everything you want to do, Matter helps you plan around the time you actually have and the work you already need to get done.",
   "tasks": "As you add tasks to your list, Matter keeps track of what's on your plate. It accounts for recurring tasks and shows you how much time you have available today and in the coming days, so you can see what's coming up and plan accordingly.",
-  "calendars": "You can optionally make this even more accurate by connecting your calendars, so Matter knows about your existing commitments, and setting your working hours, so it knows when you're available to work.",
-  "notes": "Notes: gives you a Notion-like space for your thoughts, ideas and everything else you don't want to lose. And is fully offline.",
+  "tasksFull": "As you add tasks to your list, Matter keeps track of what's on your plate and helps you avoid adding more than you have capacity for. It brings all your calendars, existing tasks, and recurring tasks in one place and shows you how much time you have available today and in the coming days.",
+  "calendars": "Connect your calendars and set your working hours, so Matter can take your existing commitments into account. Understand how much work you actually have against the time available to do it.",
+  "notes": "A fully offline Notion-like space to capture ideas, organise information, keep project notes and think things through",
   "daily": "Daily Journal: is your little daily check-in. It gives you a moment to look back at yesterday, think about what you want to do today, check in with how you're feeling and jot down anything worth remembering."
 }

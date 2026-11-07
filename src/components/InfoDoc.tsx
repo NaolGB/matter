@@ -16,7 +16,10 @@ export function Inline({ text }: { text: string }) {
         }
         if (part.startsWith("`")) {
           return (
-            <code key={index} className="rounded-[4px] bg-wash px-1 py-0.5 font-mono text-[0.9em]">
+            <code
+              key={index}
+              className="rounded-[4px] bg-wash px-1 py-0.5 font-mono text-[0.9em]"
+            >
               {part.slice(1, -1)}
             </code>
           );
@@ -62,7 +65,9 @@ function Block({ block }: { block: InfoBlock }) {
     case "step":
       return (
         <div className="flex gap-3">
-          <span className="w-4 shrink-0 text-right tabular-nums text-ink-faint">{block.n}.</span>
+          <span className="w-4 shrink-0 text-right tabular-nums text-ink-faint">
+            {block.n}.
+          </span>
           <p>
             <Inline text={block.text} />
           </p>
@@ -77,18 +82,13 @@ function Block({ block }: { block: InfoBlock }) {
   }
 }
 
-/** A run of the guide's blocks on their own, for a page that quotes part of the guide. */
-export function InfoBlocks({ blocks }: { blocks: InfoBlock[] }) {
-  return (
-    <>
-      {blocks.map((block, index) => (
-        <Block key={index} block={block} />
-      ))}
-    </>
-  );
-}
-
-export function InfoDoc({ doc, page = false }: { doc: InfoDocument; page?: boolean }) {
+export function InfoDoc({
+  doc,
+  page = false,
+}: {
+  doc: InfoDocument;
+  page?: boolean;
+}) {
   return (
     <article id={doc.id} className="scroll-mt-24">
       {page ? (
@@ -96,9 +96,13 @@ export function InfoDoc({ doc, page = false }: { doc: InfoDocument; page?: boole
           {doc.title}
         </h1>
       ) : (
-        <h2 className="text-[1.4rem] font-semibold tracking-[-0.02em]">{doc.title}</h2>
+        <h2 className="text-[1.4rem] font-semibold tracking-[-0.02em]">
+          {doc.title}
+        </h2>
       )}
-      <div className={`${page ? "mt-8" : "mt-4"} space-y-3 text-[16px] leading-[1.6] text-ink-muted`}>
+      <div
+        className={`${page ? "mt-8" : "mt-4"} space-y-3 text-[16px] leading-[1.6] text-ink-muted`}
+      >
         {doc.blocks.map((block, index) => (
           <Block key={index} block={block} />
         ))}

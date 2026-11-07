@@ -1,0 +1,50 @@
+export const meta = {
+  summary:
+    "Matter works with no connection, because everything you make is stored on your device. Only iCloud and your calendar feeds use the network.",
+  related: ["icloud-sync", "add-a-feed", "reminders", "sessions"],
+};
+
+## What works with no connection
+
+All of this works as usual on both apps:
+
+- **Tasks:** adding, editing, completing and pushing them, with the day's capacity and layout.
+- **[Sessions](/features/sessions)** and their clocks.
+- **Notes, the [Pin board](/features/pin-board) and the [Journal](/features/journal).**
+- **[Templates](/features/templates), [tags](/features/tags), the Archive and [Analysis](/features/analysis).**
+- **Calendar events you have already fetched.** You can open them, time them and complete them.
+- **[Reminders](/features/reminders)** for those events. The iPhone schedules them a week ahead, so they arrive whether or not Matter is open. The Mac's come while Matter is open.
+- **The [menu bar panel](/features/menu-bar-panel) and the [widgets](/features/widgets).**
+
+## What needs the network
+
+- **iCloud**, to keep your devices in step.
+- **Calendar feeds**, to fetch new and changed events.
+- **Web links**, which open in your browser: links in a note, and **Support**, **Privacy** and **Website** in Settings.
+
+Matter makes no other network requests.
+
+## iCloud with no network
+
+Everything you do is saved on the device. Your other device won't see it until there is a connection again.
+
+When you open Matter, it normally waits for iCloud before it adds today's template tasks and lays out the day. With no network it waits about 5 seconds, then goes on with what it has, so those can appear a moment after the app opens.
+
+## Calendar feeds with no network
+
+Events you have fetched stay exactly as they were. A fetch that can't get through changes nothing, so no events disappear.
+
+- **Automatic fetches stay quiet.** Matter tries for about twenty seconds and then gives up until the next time, without showing an error.
+- **Refresh tells you.** If you press Refresh with no connection, the feed shows **Couldn't load** in **Settings ▸ Calendars**. On the Mac a banner on Calendar says to check your connection and the feed's address. On the iPhone a line under the date on Calendar says **Couldn't load 1 feed**. Neither means the feed is broken, and both go on the next automatic try.
+- **A new feed has to wait.** If you add a feed with no network, it is saved, shows **Couldn't load**, and has no events until a fetch gets through.
+- **There is a limit to how far ahead you can see.** Each fetch brings about a month back and a month ahead. After a long time offline, days past that have no events from the feed yet.
+- **The time stays put.** The "synced" time on Calendar only changes when a fetch reaches a feed. If Matter has just opened with no network, there is no time to show yet, and on the Mac, **Settings ▸ Calendars** says **Not synced yet**.
+
+## Back online
+
+Feeds catch up by themselves:
+
+- **On the Mac**, Matter fetches every 10 minutes while it runs and when you come back to its window.
+- **On the iPhone**, it fetches each time you open Matter or Calendar, when you pull down on Calendar, and from time to time while it is closed, when iOS allows.
+
+If **Couldn't load** is still there once you are back online, the feed itself is the problem. Check its address in **Settings ▸ Calendars**.

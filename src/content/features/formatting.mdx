@@ -1,0 +1,108 @@
+export const meta = {
+  summary:
+    "Format the words inside a line with bold, italic, underline, strikethrough and highlight, and link them to the web. Copying and pasting carries this formatting between notes and to other apps.",
+  related: ["blocks", "mentions", "folders-and-search"],
+};
+
+<Figure>
+  <Crop
+    className="max-w-[560px]"
+    src="/shots/v2/tile-formatting.webp"
+    ratio="2/1"
+    caption="Mac"
+    alt="Lines of a note on the Mac: two highlighted in yellow, one with a phrase struck through, and a link to another note."
+  />
+</Figure>
+
+## Format words
+
+Select the words, then apply the format. With nothing selected, it applies to what you type next. Apply it again to take it off.
+
+### On the Mac
+
+- **⌘B** bold
+- **⌘I** italic
+- **⌘U** underline
+- **⇧⌘X** strikethrough
+- **⇧⌘H** highlight, also in the **Format** menu as **Highlight**
+
+These work on [words selected across lines](/features/blocks#select-lines) too. There, a format comes off only if every selected word already has it. Otherwise it goes on everywhere.
+
+### On the iPhone
+
+Tap **Format** in the bar above the keyboard. The bar changes to bold, italic, underline, strikethrough, highlight, link and redo, and a format that is on sits in a grey circle. The arrow at the start of the bar goes back.
+
+A selection on the iPhone stays inside one line, so format one line at a time. With a keyboard connected, **⇧⌘H** highlights.
+
+### Titles
+
+On the Mac a note's title takes ⌘B, ⌘I, ⌘U and ⇧⌘X. On the iPhone a title is plain text, so renaming a note there drops the formatting in its title.
+
+## Web links
+
+A link shows in grey with an underline. Typing straight after one doesn't make it longer.
+
+### Make a link
+
+- **On the Mac**, select the words and press **⌘K**, which is **Add link…** in the **Edit** menu. Paste or type the address in the field under the words, and press **Done**. With nothing selected, the address becomes the words.
+- **On the iPhone**, select the words, tap **Format**, then the link button. Enter the address and tap **Done**. With nothing selected, what you enter becomes the words.
+
+The field takes a full address, a bare domain such as `example.com`, or an email address. If it can't read what you entered, the Mac says **That isn't a link**, and the iPhone changes nothing.
+
+### Let Matter make one
+
+- **Typing:** an address followed by a space becomes a link. It has to start with `http://`, `https://`, `mailto:` or `www.`, so words like `node.js` stay words. A full stop or bracket at the end stays out of the link.
+- **Pasting:** an address pasted on its own becomes a link, with the address as its words. Pasted over selected words, it makes those words a link.
+
+### Open or change a link
+
+- **On the Mac**, a click shows a card with the address, **Open**, **Copy**, **Edit** and **Remove**. **⌘-click** opens it straight away. **⌘K** with the caret on a link opens the field, with **Remove** beside **Done**.
+- **On the iPhone**, a tap shows **Open**, **Copy**, **Edit** and **Remove**. **Edit** asks for the address again, with **Remove link**.
+
+**Remove** leaves the words in place. Links to other notes are [mentions](/features/mentions) and work differently.
+
+## Copy and paste
+
+### Copy
+
+Copy words from a line, or [select whole lines](/features/blocks#select-lines) and copy those.
+
+- **Inside Matter**, a paste keeps everything: line types, nesting, formatting, links and mentions.
+- **In apps that read rich text**, formatting, lists and web links come across.
+- **In apps that take plain text**, you get Markdown, with lists as `- ` and `1. `, to-dos as `- [ ] `, and two spaces for each level of nesting. Underline and highlight have no Markdown form, so those words arrive plain.
+
+### Paste
+
+Matter reads the richest form on the clipboard. If another app's rich text says no more than its plain text, Matter reads the plain text, so Markdown from an editor still works.
+
+In plain text, each line becomes a line, and these markers set its type:
+
+- `# `, `## `, `### ` for headings
+- `- `, `* `, `+ ` for bulleted lists
+- Any number followed by `. ` or `) ` for numbered lists
+- `[ ] `, `[] `, `- [ ] ` for open to-dos, and `[x] `, `- [x] ` for ticked ones
+
+A tab or two spaces at the start of a line counts as one level of nesting. Blank lines stay.
+
+### Where pasted lines land
+
+- **One line of plain words** goes in at the caret, and the line keeps its type.
+- **Several lines at a caret:** the first joins the line you are in, the rest follow as their own lines, and anything after the caret moves to the end of the last one.
+- **Into an empty line,** the pasted lines keep their own types. That includes a single heading or list item.
+- **Depth:** the lines land at the depth of the line you paste into, and keep their nesting among themselves.
+- **Over selected words,** the paste replaces them. On the Mac it also replaces selected lines.
+
+### Cut
+
+Cut works like copy, and removes what it took. On the Mac, cutting everything in a line removes the line and puts the caret at the end of the line above. The first line of a note stays, blank.
+
+## Typing help on the Mac
+
+The Mac finishes some of what you type. The iPhone doesn't do this.
+
+- **Pairs:** `(`, `[`, `{`, `<`, `"` and `'` bring their closing half, unless the caret is right before a word. Quotes also need a space or the start of a line before them, so `don't` is left alone. Typing the closing half steps over it.
+- **Getting out of a pair:** a space straight after the opener removes the closing half, so `x < y` comes out as you typed it. Backspace between an empty pair removes both.
+- **Wrapping:** typing an opener with words selected wraps them and keeps them selected.
+- **Symbols:** `--` becomes a long dash, `->` becomes →, `<-` becomes ←, `=>` becomes ⇒, `>=` becomes ≥ and `<=` becomes ≤.
+
+Spelling mistakes get an underline on the Mac, and nothing is corrected for you.

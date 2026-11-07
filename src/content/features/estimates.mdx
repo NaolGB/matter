@@ -1,0 +1,44 @@
+export const meta = {
+  summary:
+    "Every task has an estimate of how long it will take. It decides whether the task fits and how much of the day it needs, and Matter can suggest a better number from your tracked time.",
+  related: ["avoid-overplanning", "auto-placement", "sessions", "tags", "analysis"],
+};
+
+<Figure panel>
+  <div className="flex justify-center">
+    <NewTaskSheet />
+  </div>
+</Figure>
+
+## Set an estimate
+
+Every task has one. It starts at 15m, on both apps. In the task's [editor](/features/add-task), open the estimate and pick **15m**, **30m**, **45m**, **1h** or **2h**.
+
+For anything else, use **Other**. Its **−** and **+** step through 5m, 10m, 15m, 20m, 30m, 45m, 1h, 1h 30m, 2h, then each hour up to 8h. You can't type your own number.
+
+## What an estimate does
+
+- **Whether the task fits.** Its estimate is what gets checked against the room [today has left](/features/avoid-overplanning).
+- **How full a day reads.** A task counts its estimate toward its [day](/features/upcoming-capacity), less any time you have tracked on it.
+- **How much of the day it takes.** [Placement](/features/auto-placement) finds a stretch for what is left of it.
+- **The session's clock.** A [session](/features/sessions) counts down from it.
+- **Analysis.** A finished task nobody timed counts its estimate in [Analysis](/features/analysis), drawn differently from tracked time.
+
+Tracked time doesn't change the estimate itself. A 60 minute task with 20 minutes tracked still says 1h, and counts as 40 minutes still planned.
+
+## Suggestions from your own work
+
+Once a tag has enough finished work behind it, the editor can tell you something about your number, with a button that uses a better one. Nothing changes unless you press it.
+
+Matter needs at least eight finished tasks with that tag and tracked time on them, and it reads the most recent 20. A task you ticked off without timing teaches it nothing. A task with no tags gets no suggestions.
+
+It says one of two things:
+
+- **These usually take 45m**, with **Use 45m**. Tasks with this tag usually run longer or shorter than you estimate them, so your number is scaled to match. It only appears when that would change your number by at least 30%.
+- **40% of these run past double**, with the worst one so far, and **Use 1h**. It can appear when at least one in ten of these tasks ran to double its estimate. In that case a usual length means little, so Matter tells you how often it happens and offers a longer number that leaves room for the bad ones.
+
+If a task has several tags, the tag with the most finished work behind it is the one that speaks.
+
+Only numbers you chose count toward how well you estimate. When you use a suggestion, Matter keeps the number you had, so later suggestions are still based on your own estimates.
+
+The Mac's [menu bar panel](/features/menu-bar-panel) has a simpler version. It offers **These usually take** with the typical length of the tag's tasks, when that differs from your number by at least 30%, and never gives the warning about running past double.

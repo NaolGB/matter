@@ -1,0 +1,105 @@
+export const meta = {
+  summary:
+    "A feed brings a calendar into Matter from an iCal link. Matter only reads the link, so nothing you do in Matter changes your calendar.",
+  related: ["events-that-count", "tasks-with-calendars", "calendar-views", "reminders", "icloud-sync"],
+};
+
+<Figure>
+  <CalendarFeeds />
+</Figure>
+
+## Add a feed
+
+You need a read-only iCal link to the calendar. Google Calendar, iCloud, Fastmail and Outlook all give these out. It has to be the feed itself: a link to a calendar's web page gives no events and no warning.
+
+### On the Mac
+
+1. Open **Settings ▸ Calendars** and click **Add a feed…**.
+2. Type a **Name**, and paste the link into **iCal URL**.
+3. Click **Add**, or press Return in the link field. Esc cancels.
+
+Use a link that starts with `https://`. If yours starts with `webcal://`, change that part to `https://`, because the Mac keeps the link as you typed it and a `webcal://` one will say **Couldn't load**.
+
+### On the iPhone
+
+1. On Calendar, tap the circle beside the tab bar, then **Add a calendar**. You can also get there from **Settings ▸ Calendars**.
+2. Fill in **Name** and **Feed URL**.
+3. Tap **Add feed**.
+
+A `webcal://` link works here. Matter changes it to `https://` for you. Anything that can't be a link is refused with **That does not look like a calendar URL.**
+
+### On both
+
+- Matter fetches the new feed straight away.
+- A feed you leave unnamed is called **Calendar**.
+- A new feed has **Treat as tasks** on. [Events that count](/features/events-that-count) says what that does.
+- A link you have already added is refused, and Matter tells you the name it is under.
+- Feeds sync through iCloud, so a feed added on one device arrives on the other. Each device then fetches the feed itself.
+
+## Change a feed
+
+- **Colour.** Events are a light tint of this colour on the Calendar page, and on the Mac's Tasks page their calendar symbol takes it. On the Mac, click the swatch at the start of the row. On the iPhone, pick from the swatches under the feed.
+- **Name and link.** On the Mac, double-click the row, or right-click it and choose **Edit**. Return or clicking away saves, and Esc leaves it as it was. On the iPhone, type in the fields under the feed. After changing a link, refresh to fetch it straight away.
+- **Treat as tasks.** A checkbox on the Mac and a switch on the iPhone.
+
+## Pause a feed
+
+On the Mac, click the eye on the row. On the iPhone, turn off **Active**.
+
+Matter then stops fetching that feed. Its events stay where they are, and they count as they did before, but changes in your calendar no longer reach Matter. They leave once they are more than 30 days old.
+
+## Delete a feed
+
+On the Mac, hover over the row and click the trash, or right-click it and choose **Delete feed**. On the iPhone, tap **Remove feed**. Both ask first, and say how many events go with it.
+
+The events leave Matter with any notes, tags and done marks you added. Time you tracked on them stays in [Analysis](/features/analysis), under **Untracked** instead of the event's name. Your calendar is not touched.
+
+## When feeds refresh
+
+**On the Mac:**
+
+- About every ten minutes while Matter is running.
+- When you come back to Matter, if the last sync was over a minute ago.
+- When you click **Refresh all** in **Settings ▸ Calendars**, or Refresh on the Calendar page (**⌘R**).
+
+**On the iPhone:**
+
+- When you open Matter, and when you open Calendar.
+- When you pull down on Calendar or on **Settings ▸ Calendars**, tap **Refresh now** there, or tap Refresh in Calendar's circle.
+- From time to time while Matter is closed, when iOS allows it.
+
+An automatic refresh may reuse what Matter fetched in the last ten minutes. A refresh you ask for always goes to your calendar's server.
+
+**Settings ▸ Calendars** shows when the feeds last synced on that device. So does the title of the Mac's Calendar page, and the range menu on the iPhone's.
+
+## If a feed says Couldn't load
+
+The feed answered with an error, such as not found or not allowed, or its address leads nowhere, or what came back couldn't be read. A Refresh that couldn't get through says it too.
+
+- **On the Mac**, it shows under the feed's name, and in a line at the top of the Calendar page.
+- **On the iPhone**, it shows beside the feed's name in **Settings ▸ Calendars**, and under the range at the top of Calendar.
+
+The feed's events stay as they were, and the next sync tries again. Check the link first. Each device reports for itself, so a feed can load on one and not on the other.
+
+Losing your network doesn't count against a feed. An automatic sync keeps trying for about twenty seconds, then says nothing and waits for the next one. The same goes for trouble on the calendar's own server.
+
+## What comes in
+
+Matter keeps events from the last 30 days and the next 30 days. Later events arrive as the days pass.
+
+**What Matter reads** is each event's title, place, times and repeats. It doesn't read whether an event is marked free, tentative or cancelled, so a cancelled event your calendar still lists shows up as a normal one.
+
+**Repeating events** become a separate event for each time they fall:
+
+- A note, tag or done mark goes on that one occurrence, and the others don't get it.
+- Daily, weekly, monthly and yearly repeats all work, including ones like the third Tuesday or the last weekday of the month.
+- A monthly event on the 31st only lands in months with a 31st.
+- A single occurrence you moved or edited in your calendar shows as you changed it, and one you removed stays out.
+
+**What you add** in Matter stays there. Your notes, tags and done mark survive every refresh, with three exceptions, and in each your tracked time stays in Analysis:
+
+- An event moved to another day in your calendar counts as a new event, so they don't move with it. A new time on the same day keeps them.
+- An event removed from your calendar leaves Matter with them.
+- An event more than 30 days old leaves Matter with them.
+
+To change an event's title or time, change it in your calendar. The next refresh brings it in.

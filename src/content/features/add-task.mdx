@@ -1,0 +1,69 @@
+export const meta = {
+  summary:
+    "A task is a title, a day, an optional time, an estimate and any tags you want. When you save it, Matter gives it a place in the day.",
+  related: ["avoid-overplanning", "estimates", "auto-placement", "tags", "menu-bar-panel"],
+};
+
+<Figure panel>
+  <div className="flex justify-center">
+    <NewTaskSheet />
+  </div>
+</Figure>
+
+## Make a task
+
+### On the Mac
+
+- Click **New task** at the top of Tasks.
+- Press **⌘N** on Tasks or Calendar.
+- On any page, rest the pointer on the pin at the top of the sidebar. A **+** slides out beside it.
+
+### On the iPhone
+
+Tap the circle beside the tab bar, then **New task**. It is there on every page.
+
+## Fill it in
+
+The Mac shows the day, time, estimate and tags as one line of words under the title. The iPhone shows them as four rows. Each one opens a small menu.
+
+- **Title.** The only thing the editor asks you to fill in. A long title wraps.
+- **Day.** Today unless you change it. The menu has **Today**, **Tomorrow** and **Next week**, then a calendar for any other day. **Next week** means seven days from today, so the same weekday. A task always has a day, and a day already gone shows in red.
+- **Time.** Empty unless you pick one, which leaves the task for Matter to place. Pick a quarter hour to pin it there. **No time** takes the pin off. See [Auto-placement](/features/auto-placement).
+- **Estimate.** 15m unless you change it. Pick 15m, 30m, 45m, 1h or 2h, or use **Other** to step from 5m up to 8h. See [Estimates](/features/estimates).
+- **Tags.** Optional, and as many as you like. The menu stays open while you pick. Type to find a tag, or to make a new one. See [Tags](/features/tags).
+
+## Save or leave
+
+Nothing is written until you save, so you can change your mind about anything.
+
+- **On the Mac**, press **Done**. **Cancel** or **⎋** leaves everything as it was, and a new task is gone.
+- **On the iPhone**, tap **Save**. **Cancel** does the same as on the Mac, and **Save** stays grey until there is a title.
+
+**Done** and **Save** also stay grey when a full day refuses the task. See [Avoid overplanning](/features/avoid-overplanning).
+
+## Change a task
+
+Click a task on the Mac, or tap it on the iPhone, on Tasks or Calendar. The same editor opens as **Edit task**.
+
+The Time field only shows a time you pinned. A task Matter placed shows a time on the board but none in the editor, and saving it doesn't pin it there.
+
+Changing a title or tags doesn't rearrange your day. A longer estimate moves only the tasks that no longer fit where they were.
+
+## What the editor tells you
+
+As you type and choose, the editor can say three things.
+
+- **Already on the board.** Your title is checked against your open tasks. You see **Already on the board:** for the same title and **Might already be on the board:** for a close one, with up to three matches and where each one sits. It never stops you adding a second one.
+- **Doesn't fit today.** The task's estimate is more than today has left. See [Avoid overplanning](/features/avoid-overplanning).
+- **These usually take 45m.** Finished tasks with the same tag took a different length of time from your estimate. See [Estimates](/features/estimates).
+
+## Add from the Mac's menu bar
+
+The [menu bar panel](/features/menu-bar-panel) has a quick add, so you can add a task without opening the main window. It has the same title, day, time, estimate and tags. Press **Return** or click **Add task**, and the form clears for the next one.
+
+The panel adds the task even when it doesn't fit today, then tells you so and offers a day that has room.
+
+### Mac keyboard shortcuts
+
+- **⌘N** makes a new task on Tasks and Calendar.
+- **⎋** cancels the editor.

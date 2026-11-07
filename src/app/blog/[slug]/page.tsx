@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { CoverBox } from "@/components/blog";
-import { Download, Mark, Wrap } from "@/components/site";
-import { formatDate, getPost, getPosts, type Heading, type Post } from "@/content/blog";
-import positioning from "@/content/positioning-lines.json";
+import { Contents, CoverBox, GetMatter } from "@/components/blog";
+import { Wrap } from "@/components/site";
+import { formatDate, getPost, getPosts, type Post } from "@/content/blog";
 
 export async function generateStaticParams() {
   return (await getPosts()).map(({ slug }) => ({ slug }));
@@ -28,43 +27,6 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
       images: [{ url: meta.image ?? "/opengraph-image.jpg", width: 1200, height: 630 }],
     },
   };
-}
-
-/** The way to get the app, kept in view beside a long read. Ramp's sign-up card, made ours. */
-function GetMatter({ className = "" }: { className?: string }) {
-  return (
-    <div className={`rounded-[20px] bg-track p-5 ${className}`}>
-      <p className="flex items-center gap-1.5 text-[13px] font-semibold">
-        <Mark size={14} />
-        Matter
-      </p>
-      <p className="mt-2 text-[17px] font-semibold leading-snug tracking-[-0.01em]">{positioning.oneLine}</p>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
-        For the Mac and iPhone. It works offline, with no account.
-      </p>
-      <Download primary className="mt-4 w-full !h-10 !px-4 !text-[14px]" />
-      <Download device="iphone" className="mt-2 w-full !h-10 !px-4 !text-[14px]" />
-    </div>
-  );
-}
-
-/** The post's sections, when it has enough of them to be worth a list. */
-function Contents({ headings }: { headings: Heading[] }) {
-  if (headings.length < 2) return null;
-  return (
-    <nav aria-label="In this post">
-      <p className="text-[13px] font-semibold">In this post</p>
-      <ul className="mt-3 space-y-2 text-[13px] leading-snug text-ink-muted">
-        {headings.map((heading) => (
-          <li key={heading.id}>
-            <a href={`#${heading.id}`} className="transition-colors hover:text-ink">
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
 }
 
 /** The way to the posts on either side. The list runs newest first, so the previous post is the older one. */

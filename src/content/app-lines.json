@@ -1,7 +1,7 @@
 {
-  "countsTowardLoad": {
-    "text": "Counts toward load",
-    "find": "Toggle(\"Counts toward load\""
+  "treatAsTasks": {
+    "text": "Treat as tasks",
+    "find": "Toggle(\"Treat as tasks\""
   },
   "reviewFills": {
     "text": "Finish a task, or start a session from the work bucket, and this fills in.",
@@ -114,5 +114,85 @@
   "open": {
     "text": "Open",
     "find": "Button(\"Open\", systemImage: \"gearshape\""
+  },
+  "usuallyTake": {
+    "text": "These usually take",
+    "find": "offer(\"These usually take \\("
+  },
+  "useMinutes": {
+    "text": "Use",
+    "find": "DukaChip(title: \"Use \\("
+  },
+  "widgetToday": {
+    "text": "Today",
+    "find": ".configurationDisplayName(\"Today\")"
+  },
+  "widgetTodayAbout": {
+    "text": "How your day stands and what is running, as at the top of Tasks.",
+    "find": "How your day stands and what is running, as at the top of Tasks."
+  },
+  "widgetHome": {
+    "text": "Today, with Loafy",
+    "find": ".configurationDisplayName(\"Today, with Loafy\")"
+  },
+  "widgetHomeAbout": {
+    "text": "How your day stands and what is running, beside Loafy's room.",
+    "find": "How your day stands and what is running, beside Loafy's room."
+  },
+  "widgetLoafy": {
+    "text": "Loafy",
+    "find": ".configurationDisplayName(\"Loafy\")"
+  },
+  "widgetLoafyAbout": {
+    "text": "Look in on Loafy, whatever she is doing.",
+    "find": "Look in on Loafy, whatever she is doing."
+  },
+  "everyDay": {
+    "text": "Every day",
+    "find": "PropertyMenuRow(title: \"Every day\""
+  },
+  "weekdays": {
+    "text": "Weekdays",
+    "find": "PropertyMenuRow(title: \"Weekdays\""
+  },
+  "monthly": {
+    "text": "Monthly",
+    "find": "PropertyMenuRow(title: \"Monthly\""
+  },
+  "lastDay": {
+    "text": "Last day",
+    "find": "square(Text(\"Last day\")"
+  },
+  "upcoming": {
+    "text": "Upcoming",
+    "find": "title: \"Upcoming\""
+  },
+  "tomorrow": {
+    "text": "Tomorrow",
+    "find": "case 1: \"Tomorrow\""
+  },
+  "free": {
+    "text": "free",
+    "find": "headroomMinutes == 0 ? nil : \"free\""
+  },
+  "over": {
+    "text": "over",
+    "find": "if isOverPlanned { return \"over\" }"
+  },
+  "pause": {
+    "text": "Pause",
+    "find": "Label(\"Pause\", systemImage: \"pause.fill\")"
+  },
+  "complete": {
+    "text": "Complete",
+    "find": "Label(\"Complete\", systemImage: \"checkmark\")"
+  },
+  "started": {
+    "text": "Started",
+    "find": "[\"Started \\("
+  },
+  "est": {
+    "text": "est.",
+    "find": "m est.\""
   }
 }

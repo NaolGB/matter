@@ -56,8 +56,10 @@ export function LoafyLadder() {
 
     const show = (side: Side) => {
       shown = side;
-      if (front.current) front.current.style.display = side === "front" ? "" : "none";
-      if (back.current) back.current.style.display = side === "back" ? "" : "none";
+      if (front.current)
+        front.current.style.display = side === "front" ? "" : "none";
+      if (back.current)
+        back.current.style.display = side === "back" ? "" : "none";
     };
 
     /** Turn round: narrow to nothing, swap sides, widen again. A turn asked for midway is taken
@@ -80,7 +82,8 @@ export function LoafyLadder() {
     /** Where the page is, in rungs from the top. */
     const wanted = () => {
       const room = document.documentElement.scrollHeight - window.innerHeight;
-      const through = room > 0 ? Math.min(1, Math.max(0, window.scrollY / room)) : 0;
+      const through =
+        room > 0 ? Math.min(1, Math.max(0, window.scrollY / room)) : 0;
       return through * (rungs - 1);
     };
 
@@ -90,7 +93,10 @@ export function LoafyLadder() {
       const part = at - whole;
       const eased = part * part * (3 - 2 * part);
       const hop = still.matches ? 0 : Math.sin(Math.PI * part);
-      const y = FIRST + (whole + (still.matches ? Math.round(part) : eased)) * RUNG + UNIT;
+      const y =
+        FIRST +
+        (whole + (still.matches ? Math.round(part) : eased)) * RUNG +
+        UNIT;
       const lean = hop * 5 * (whole % 2 === 0 ? -1 : 1);
       cob.style.transform = `translate(-50%, calc(${y}px - 100%)) rotate(${lean}deg) scaleY(${1 + 0.05 * hop})`;
     };
@@ -132,7 +138,10 @@ export function LoafyLadder() {
     };
 
     const measure = () => {
-      rungs = Math.max(1, Math.floor((track.clientHeight - FIRST - FOOT) / RUNG) + 1);
+      rungs = Math.max(
+        1,
+        Math.floor((track.clientHeight - FIRST - FOOT) / RUNG) + 1,
+      );
       at = Math.round(wanted());
       draw();
     };
@@ -177,7 +186,12 @@ export function LoafyLadder() {
           style={{ width: SIZE, height: SIZE, transitionDuration: `${TURN}ms` }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- a small sprite, shown as it is */}
-          <img ref={front} src="/loafy/standing.webp" alt="" className="absolute bottom-0 left-0 w-full" />
+          <img
+            ref={front}
+            src="/loafy/standing.webp"
+            alt=""
+            className="absolute bottom-0 left-0 w-full"
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={back}

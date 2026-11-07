@@ -11,7 +11,7 @@ import { site } from "@/config";
    words of the app's own capacity chip. The field under it changes that figure (see TryDay). */
 
 /** The plain facts, in one line under the sentence that says what it is. */
-const FACTS = [site.price, "Works offline", "No account", "Kept in your own iCloud"];
+const FACTS = [site.price, "Works offline", "No account", "Mac and iPhone"];
 
 export function Hero() {
   const day = useTryDay();
@@ -48,12 +48,12 @@ export function Hero() {
       {/* The two apps themselves, each on its device (Naol, 2026-11-06; see Device.tsx): captures of
           the demo world at 9:41, both reading the same 2h 10m free as the pill above
           (Screenshots/demo-2026-11-06, which can retake them). The iPhone stands in front of the
-          laptop's lower right corner and hangs a little below it (Naol, 2026-10-24: option A), and
+          laptop's lower right corner and hangs a little below it (Naol, 2026-10-24: option A; raised on 2026-11-07, it hung too low), and
           the laptop keeps the full width. On a phone the laptop is shown larger and runs off the
           right, past the Today column, so its words stay readable; the cut fades. The iPhone sits
           outside that fade, so the fade never touches it. */}
       <Wrap wide className="mt-[clamp(1.5rem,3.5vw,2.75rem)]">
-        <div className="relative pb-[7%] max-sm:pb-[14%]">
+        <div className="relative pb-[1.5%] max-sm:pb-[6%]">
           <div className="max-sm:-mx-5 max-sm:overflow-hidden max-sm:px-5 max-sm:pb-10 max-sm:[mask-image:linear-gradient(to_right,#000_78%,transparent)]">
             <div className="max-sm:w-[165%]">
               <MacFrame>

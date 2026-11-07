@@ -1,0 +1,48 @@
+export const meta = {
+  summary:
+    "Matter reminds you 30, 5 and 2 minutes before a calendar event that has a time. Tasks don't get reminders.",
+  related: ["add-a-feed", "events-that-count", "tasks-with-calendars"],
+};
+
+## What you get
+
+A reminder is a notification with a sound. It has the event's title and how soon it starts, then the start time and the place if the event has one.
+
+- **Events with a time** from any of your calendars get them, whether or not the calendar is set to [Treat as tasks](/features/events-that-count).
+- **All-day events** don't.
+- **Events you have marked done** don't.
+- **Tasks** don't, even a task pinned to a time.
+
+## Turn them on
+
+### On the Mac
+
+Open **Settings ▸ General** and find **Reminders** in the **App** group. It says **On**, or **Off** with a **Turn on** button.
+
+macOS only asks once. If you said no before, **Turn on** opens System Settings, where you can allow notifications for Matter.
+
+### On the iPhone
+
+Matter asks the first time there is an event to remind you about. You can also tap the circle beside the tab bar, then **More** and **Settings**, and tap **Turn on reminders** under **General**.
+
+If you said no, the row says **Off**, with **Open iOS Settings** under it.
+
+Neither app has its own switch to turn reminders off once they are on. Use the system's notification settings.
+
+## When they arrive
+
+### On the Mac
+
+Reminders only come while Matter is open. Matter checks each minute for anything due, and sends a reminder only within a minute of its mark. If you open Matter 20 minutes before an event, you get the 5 and 2 minute reminders, and not a late 30 minute one.
+
+### On the iPhone
+
+Reminders come whether or not Matter is open, because they are handed to iOS up to a week ahead. Matter updates them when it opens, when it comes back, and after each calendar refresh, including refreshes iOS allows in the background.
+
+iOS holds only 64 waiting notifications per app, so Matter hands over the soonest 64. On a busy calendar that can cover only the next few days, and the later events are added as those go by.
+
+An event changed in your calendar reaches the iPhone's reminders at its next refresh.
+
+## With both apps
+
+The Mac and the iPhone each remind you on their own. With Matter open on your Mac and reminders on for your iPhone, you get both.

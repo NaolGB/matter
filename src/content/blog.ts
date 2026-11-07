@@ -38,10 +38,11 @@ function slugs() {
 }
 
 /**
- * The post's `##` sections, read from its source for the list beside the text. The ids match the
- * ones the h2 in mdx-components.tsx gives itself. Lines inside code blocks are skipped.
+ * The `##` sections of a post or feature page, read from its source for the list beside the text.
+ * The ids match the ones the h2 in mdx-components.tsx gives itself. Lines inside code blocks are
+ * skipped.
  */
-function headings(source: string): Heading[] {
+export function headings(source: string): Heading[] {
   const found: Heading[] = [];
   let code = false;
   for (const line of source.split("\n")) {

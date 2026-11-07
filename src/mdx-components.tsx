@@ -3,10 +3,18 @@ import Link from "next/link";
 import type { MDXComponents } from "mdx/types";
 import { CalendarDays } from "@/components/CalendarDays";
 import { EditorRefusal } from "@/components/EditorRefusal";
+import { CalendarFeeds } from "@/components/CalendarFeeds";
+import { Crop, MacWindow, Pair, Phone } from "@/components/FeatureSection";
 import { NoteSlash } from "@/components/NoteSlash";
+import { NewTaskSheet } from "@/components/NewTaskSheet";
 import { SessionDrop } from "@/components/SessionDrop";
 import { Shot } from "@/components/site";
+import { TryDay } from "@/components/TryDay";
+import { answers, type AnswerId } from "@/content/answers";
 import { slugify } from "@/content/slug";
+
+const BULLETS = "mt-5 list-disc space-y-2 pl-6 marker:text-ink-faint";
+const STEPS = "mt-5 list-decimal space-y-2 pl-6 marker:text-ink-faint";
 
 /** The words in a heading, whatever markup is inside it, for its anchor. */
 function textOf(node: ReactNode): string {
@@ -35,6 +43,16 @@ function Note({ children }: { children: ReactNode }) {
   return <aside className="mt-6 rounded-[14px] bg-wash px-5 py-4 text-[16px] [&>p]:mt-0">{children}</aside>;
 }
 
+/** One of the short answers on /support, with its question. */
+function Answer({ id }: { id: AnswerId }) {
+  return (
+    <>
+      <h3 className="mt-10 text-[1.2rem] font-semibold tracking-tight">{answers[id].question}</h3>
+      <p className="mt-3">{answers[id].answer}</p>
+    </>
+  );
+}
+
 /** Links inside the site go through next/link; the rest open where they are. */
 function A({ href = "", ...props }: ComponentPropsWithoutRef<"a">) {
   const className = "text-ink underline decoration-ink/25 underline-offset-[3px] transition-colors hover:decoration-ink";
@@ -52,8 +70,8 @@ const components = {
   p: (props) => <p className="mt-5" {...props} />,
   a: A,
   strong: (props) => <strong className="font-semibold" {...props} />,
-  ul: (props) => <ul className="mt-5 list-disc space-y-2 pl-6 marker:text-ink-faint" {...props} />,
-  ol: (props) => <ol className="mt-5 list-decimal space-y-2 pl-6 marker:text-ink-faint" {...props} />,
+  ul: (props) => <ul className={BULLETS} {...props} />,
+  ol: (props) => <ol className={STEPS} {...props} />,
   blockquote: (props) => (
     <blockquote
       className="mt-8 mb-10 border-l-2 border-hairline pl-5 text-[1.3rem] leading-snug tracking-[-0.015em] [&>p]:mt-0"
@@ -73,8 +91,16 @@ const components = {
   // eslint-disable-next-line @next/next/no-img-element
   img: ({ alt = "", ...props }) => <img alt={alt} className="mt-8 h-auto w-full rounded-[14px]" {...props} />,
   Figure,
+  Answer,
   Note,
   Shot,
+  Crop,
+  MacWindow,
+  Pair,
+  Phone,
+  CalendarFeeds,
+  NewTaskSheet,
+  TryDay,
   CalendarDays,
   EditorRefusal,
   NoteSlash,

@@ -33,7 +33,8 @@ export function LoafyHome({
 
   useEffect(() => {
     const ladder = document.querySelector<HTMLElement>("[data-ladder]");
-    const ladderShown = () => ladder !== null && getComputedStyle(ladder).display !== "none";
+    const ladderShown = () =>
+      ladder !== null && getComputedStyle(ladder).display !== "none";
 
     const update = () => {
       const room = document.documentElement.scrollHeight - window.innerHeight;

@@ -1,0 +1,98 @@
+export const meta = {
+  summary:
+    "On the Mac, Matter's icon in the menu bar shows what is running. Its panel lets you check the day, pause or finish work and add a task without opening the main window.",
+  related: ["sessions", "add-task", "avoid-overplanning", "auto-placement", "widgets"],
+};
+
+The menu bar panel is on the Mac only. On the iPhone, the same card is at the top of Tasks, and the [widgets](/features/widgets) put it on your Home Screen.
+
+## The title in the menu bar
+
+Beside Matter's mark, the title shows what is running:
+
+- **0** when nothing is.
+- **2 · 24:59** when something is: how many sessions are running, then the clock of the one furthest along.
+
+The clock follows the same rules as a [session](/features/sessions) anywhere else. It counts down from the estimate, and past that it counts up with a plus sign, such as **+4:12**.
+
+The title's clock can belong to a different session from the card at the front of the panel. The title shows the one with the most time on it, and the panel puts the one started last in front.
+
+The icon stays in the menu bar for as long as Matter runs, and closing the main window doesn't quit Matter.
+
+Click the icon to open the panel. Click it again, or click anywhere else, to close it. There is no keyboard shortcut to open it.
+
+## The card
+
+The top of the panel is one card, with a slim slice of Loafy's room at its left edge. She notices when you open the panel and blinks while it is open. Nothing in her room does anything.
+
+### With nothing running
+
+Beside the room is **Today**:
+
+- **What is planned**, as a large figure behind a dot, such as **5h planned**. The dot is orange when the day is over-planned.
+- **How much is left**, such as **2h free**, **Full** or **1h 30m over**.
+- **Next up**, the first open work in Today, with its time. The time is red if the work has carried over from an earlier day. When the column is done it says **Nothing left today**.
+
+### With work running
+
+Beside the room is the running work. The card in front shows:
+
+- The title, with a calendar symbol if it is an event.
+- The clock.
+- When it started and its estimate, such as **Started 9:21 · 90m est.** For an event, its location takes the estimate's place.
+- How much of the day is free or over.
+- **Pause**, which stops the clock and puts the work back on the board.
+- **Complete**, which stops the clock and marks the work done.
+
+Up to three other sessions sit above it as strips, the oldest at the top. Click a strip to bring that session to the front.
+
+To start a session, or to follow up on another day, use the main window.
+
+## Add a task
+
+The panel opens with the cursor in **What needs doing?**, so you can start typing straight away. Press Return or click **Add task**. **Added** and the task's title show for a moment, and the form clears for the next one.
+
+Under the title is a line of choices. Click one to change it:
+
+- **The day**, which starts on **Today**. Pick **Today**, **Tomorrow**, **Next week** or a day in the calendar.
+- **Add time.** A time pins the task, so Matter won't move it. With **No time**, Matter [places it for you](/features/auto-placement).
+- **The estimate**, which starts at **15m**. Pick a length, or use **−** and **+** beside **Other**.
+- **Add tag.** Type to find a tag, and click to add it. You can add more than one. If nothing matches, you can create the tag in one of your tag types, and Return creates it in the first one offered.
+
+A form you haven't touched goes back to today each time you open the panel. A title you started typing is still there when you come back.
+
+Once you have picked a tag, the panel may offer **These usually take 45m**, with **Use 45m** beside it. It is only an offer, and your number stays until you click it.
+
+## If it doesn't fit today
+
+For a task on today, Matter checks its estimate against what is left of the day. The panel always adds the task, so you never lose what you typed. If it doesn't fit, the panel says so in orange and says how much of today is left.
+
+- **Move to Wed, Nov 11**, or whichever day it names, moves the task to the soonest day it fits.
+- Leave it there and it stays on today, over capacity.
+
+This is also true with **Refuse work that doesn't fit** turned on in **Settings ▸ General**, which would stop you in the main window. With that setting on, the task is added to today without being placed in the day.
+
+The message stays until you move the task or add another that fits. For a task on any other day, there is no check.
+
+More in [Avoid overplanning](/features/avoid-overplanning).
+
+## Duplicates
+
+From the fourth character you type, Matter compares the title with your open tasks and shows up to three that look the same.
+
+- **Already on the board** means the same title, ignoring capitals, accents, punctuation and spacing.
+- **Might already be on the board** means something close: the same words apart from small ones such as "the", or what looks like a typo.
+
+Each match shows its title and where it sits, such as **today**, **tomorrow**, **overdue** or a date, and **in progress** or **from a template** where that is true.
+
+This is only a note. **Add task** still works, because you may well mean a second one.
+
+## Open Matter
+
+**Open Matter** closes the panel and brings the main window forward. If no window is open, it opens one.
+
+## Launch at login
+
+To have Matter running after you restart your Mac, turn on **Launch at login** in **Settings ▸ General**, under **App**.
+
+If macOS wants your approval, the row says **Waiting for approval in System Settings**, and **Open Login Items** takes you there.

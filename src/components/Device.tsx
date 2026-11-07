@@ -6,23 +6,35 @@ import type { ReactNode } from "react";
 
    Every measure is a share of the device's own width, so a frame keeps its proportions at any
    size. A corner radius is given as two shares, of the width and of the height, so the corner
-   stays round on a box that is not square. */
+   stays round on a box that is not square. Such a radius on some corners only has to be written
+   as the shorthand with zeros (`rounded-[0_0_16%_16%/0_0_62%_62%]`): `rounded-b-[16%/62%]` makes
+   a longhand with a slash, which the browser throws away. */
 
 /**
- * A laptop: a dark lid around a pale desktop, with the window standing on it, and the base under
- * the lid, a little wider than it. The window is a capture with its own rounded, transparent
- * corners, so the desktop shows at them, and its shadow follows them.
+ * A laptop, after the shape of a current MacBook (Naol's reference, 2026-11-07): a dark lid with
+ * well-rounded corners and an even bezel, the display's own rounded corners inside it and the
+ * camera's notch at the top; under it a thin base, wider than the lid, with the lip for opening
+ * it cut into its top edge and two feet beneath. The window stands on the desktop, a capture with
+ * its own rounded, transparent corners, so the desktop shows at them and its shadow follows them.
+ * The desktop is a picture Naol gave for it (2026-11-07), public/devices/mac-desktop.webp, a soft
+ * blue-to-pink gradient; the flat colour under it is its middle, for the moment before it loads.
  */
 export function MacFrame({ children }: { children: ReactNode }) {
   return (
     <div className="drop-shadow-[0_22px_30px_rgb(0_0_0/0.16)] max-sm:drop-shadow-[0_10px_14px_rgb(0_0_0/0.14)]">
-      <div className="mx-[5.5%] rounded-[1.9%/2.9%] bg-[#1d1d1f] p-[1.3%]">
-        <div className="overflow-hidden rounded-[0.8%/1.2%] bg-[#e8e8ed] p-[2.4%] [&_img]:drop-shadow-[0_6px_14px_rgb(0_0_0/0.14)]">
+      <div className="mx-[5.5%] rounded-[2.4%/3.6%] bg-[#1d1d1f] p-[1.2%]">
+        <div className="relative overflow-hidden rounded-[1.4%/2.1%] bg-[#e4dff3] bg-[url('/devices/mac-desktop.webp')] bg-cover bg-center p-[2.4%] [&_img]:drop-shadow-[0_6px_14px_rgb(0_0_0/0.14)]">
           {children}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-0 aspect-[100/26] w-[6%] -translate-x-1/2 rounded-[0_0_16%_16%/0_0_62%_62%] bg-[#1d1d1f]"
+          />
         </div>
       </div>
-      <div className="relative aspect-[100/1.7] rounded-b-[1.6%/100%] bg-[#d2d2d7]">
-        <div className="absolute left-1/2 top-0 h-[42%] w-[13%] -translate-x-1/2 rounded-b-full bg-[#b4b4bb]" />
+      <div className="relative aspect-[100/2.4] rounded-[1.2%/50%] bg-gradient-to-b from-[#dfdfe4] to-[#c6c6cc]">
+        <div className="absolute left-1/2 top-0 h-[48%] w-[15%] -translate-x-1/2 rounded-[0_0_8%_8%/0_0_100%_100%] bg-gradient-to-b from-[#9d9da4] to-[#b6b6bd]" />
+        <div className="absolute bottom-0 left-[4.5%] h-[24%] w-[5.5%] translate-y-full rounded-full bg-[#3a3a3e]" />
+        <div className="absolute bottom-0 right-[4.5%] h-[24%] w-[5.5%] translate-y-full rounded-full bg-[#3a3a3e]" />
       </div>
     </div>
   );

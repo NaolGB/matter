@@ -1,4 +1,3 @@
-import Link from "next/link";
 import lines from "@/content/app-lines.json";
 import positioning from "@/content/positioning-lines.json";
 import { FeatureGroups } from "@/components/FeatureGroups";
@@ -21,15 +20,11 @@ export default function Home() {
 
       {/* The features, labeled as such (Naol, 2026-11-06): three containers, Tasks across the top
           and Notes and Calendar under it, and the others in a grid (see FeatureGroups). Each
-          picture opens its part of the feature's page. */}
+          picture opens its part of the feature's page. This section is a highlight, not the whole
+          list: the bar's Features link opens /features, which lists everything (Naol, 2026-11-07). */}
       <section id="features" className="scroll-mt-12 bg-track py-[clamp(4rem,9vw,7rem)]">
         <Wrap wide>
-          <div className="mb-[clamp(1.75rem,3.5vw,2.75rem)] flex items-end justify-between gap-6">
-            <Statement>Features</Statement>
-            <Link href="/features" className="shrink-0 pb-1.5 text-[15px] text-ink-muted transition-colors hover:text-ink">
-              All features
-            </Link>
-          </div>
+          <Statement className="mb-[clamp(1.75rem,3.5vw,2.75rem)]">Features</Statement>
           <FeatureGroups />
         </Wrap>
       </section>

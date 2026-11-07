@@ -1,0 +1,61 @@
+import lines from "@/content/app-lines.json";
+
+export const meta = {
+  summary:
+    "The iPhone has three Home Screen widgets: two that show how your day stands and what is running, and one that is only Loafy's room.",
+  related: ["sessions", "loafy", "upcoming-capacity", "icloud-sync", "menu-bar-panel"],
+};
+
+Widgets are on the iPhone only, in the sizes below. There are none for the Lock Screen.
+
+To add one, touch and hold the Home Screen, tap **Edit**, tap **Add Widget** and choose Matter.
+
+## Today
+
+<p className="mt-5"><strong className="font-semibold">{lines.widgetToday.text}.</strong> {lines.widgetTodayAbout.text}</p>
+
+It comes in the small size.
+
+- **With nothing running**, it shows **Today**, what is planned as a figure behind a dot, how much is free or over, and **Next up** with its time. The dot is orange when the day is over-planned. When the day's work is done it says **Nothing left today**.
+- **With work running**, it shows the session in front: its title, its clock, how much of the day is free or over, and **Pause** and **Complete**. If others are running too, **+2 more** sits beside the clock.
+
+## Today, with Loafy
+
+<p className="mt-5"><strong className="font-semibold">{lines.widgetHome.text}.</strong> {lines.widgetHomeAbout.text}</p>
+
+It comes in the medium size, with her room as a slice at the left.
+
+- **With nothing running**, the side beside the room shows the same day as Today.
+- **With work running**, it shows the session in front with its start time and estimate, and **Pause** and **Complete**. Up to three others sit above it as strips.
+
+The strips only show what else is running. Unlike the card in the app, tapping one doesn't bring it forward.
+
+## Loafy
+
+<p className="mt-5"><strong className="font-semibold">{lines.widgetLoafy.text}.</strong> {lines.widgetLoafyAbout.text}</p>
+
+It comes in the small size. It is only the room she is in, with no words or numbers.
+
+She moves from room to room through the day, and the widget shows the same room the app does, because her day comes from the clock and your day's hours. It is a still picture, so she doesn't blink or look up as she does in the app. Her room keeps its colours on a tinted Home Screen.
+
+## Which session is in front
+
+On a widget, the session in front is always the one you started last. If you brought a different one forward in the app, the widget doesn't follow.
+
+## Pause and Complete
+
+**Pause** and **Complete** work without opening Matter. They act on the session in front.
+
+- **Pause** stops the clock and puts the work back on the board.
+- **Complete** stops the clock and marks the task or event done.
+
+If that session has already stopped since the widget was last drawn, the button does nothing and the widget redraws. Tap anywhere else on a widget to open Matter.
+
+## How they stay up to date
+
+- **The clock** runs by itself. It counts down from the estimate, then counts up in orange, as described in [Sessions](/features/sessions).
+- **The day's figures** update every few minutes, because free time shrinks as the day goes even if nothing changes.
+
+Matter also redraws the widgets when something changes while the app is open, when you leave the app, and when a change arrives through iCloud. While the app is closed, iOS can wake it to refresh them.
+
+iOS limits how often widgets redraw and decides when to wake the app. So a session you stopped on the Mac can stay on the Home Screen for a while. Opening Matter on the iPhone puts it right.

@@ -1,0 +1,64 @@
+export const meta = {
+  summary:
+    "Matter compares what you have planned with the time you have. When a task won't fit today, it says so before you save and offers the next day with room.",
+  related: ["day-shape", "upcoming-capacity", "estimates", "events-that-count"],
+};
+
+## When a task doesn't fit today
+
+A task fits when its estimate is no more than what today has free. How much is free comes from your [day's shape](/features/day-shape) and what is already planned.
+
+When it is more, the editor says **Doesn't fit today** under the day, with how much is left. Nothing else on the day moves to make room. You have three ways out:
+
+- **Move it.** The **Move to** button names the soonest day with room, such as **Move to Sat, Nov 14**. It changes the day in the editor, and you still press **Done** or **Save**.
+- **Shorten it.** Pick a smaller estimate. The note goes as soon as the task fits.
+- **Pick another day.** Any day other than today is fine.
+
+<Figure>
+  <Crop
+    className="max-w-[680px]"
+    src="/shots/v2/mac-new-task-refused.webp"
+    ratio="2/1"
+    caption="A three hour task on a day with 2h 10m left"
+    alt="The Mac's New task sheet with a three hour task. In orange: Doesn't fit today, only 2h 10m of headroom left. Move it, or shorten it. Under it, a button to move it to Saturday, and a line saying these rules are in Settings, General, with an Open button. Done is greyed out."
+  />
+</Figure>
+
+## Refuse or only warn
+
+**Refuse work that doesn't fit** is on unless you turn it off. It is in the same place as your [day's hours](/features/day-shape), and it applies on both apps.
+
+- **On**, **Done** or **Save** stays grey until the task fits.
+- **Off**, you see the same note and the same **Move to**, but you can still save. The day goes over, and its reading says by how much, in orange.
+
+Turn it off if you would rather record what a task will really take, even when the day can't hold it.
+
+## What is never refused
+
+The refusal only applies to saving a task on today that asks for more than today has.
+
+- **Any other day.** A coming day never refuses, even one already over. [Upcoming](/features/upcoming-capacity) shows how it stands.
+- **An edit that doesn't ask for more.** On a full day you can still rename a task that is already on today, shorten it, or change its tags. You see the note, and you can save.
+- **A finished task.** Editing one is never refused.
+- **Template tasks.** A [recurring](/features/recurring) task always lands on its day, full or not.
+- **Calendar events.** They arrive whatever the day holds. Events from a feed set to [Treat as tasks](/features/events-that-count) then count toward the day.
+- **Reopening or restoring a task.** It comes back to its day even if that puts the day over.
+- **The Mac's menu bar panel.** Its quick add never throws away what you typed. The task is added, the panel says **Added, but it doesn't fit today**, and it offers **Move to**.
+
+## Cases you may run into
+
+- **Late in the day.** Today's room is measured from now, so it shrinks as the day goes on. Once **End of day** has passed there is no room left, and with refusing on, a new task can't go on today. **Move to** takes it to the next day with room.
+- **A task longer than your focus cap.** An 8h task with a 6h cap fits no day. **Move to** offers tomorrow, which takes it because coming days never refuse. That day then reads as over.
+- **No room for 60 days.** Matter looks 60 days ahead. If none of them has room, **Move to** offers tomorrow.
+- **Work carried over.** Open tasks from earlier days count toward today, so they use up today's room. Finishing or pushing them gives it back.
+- **Time already tracked.** Tracked time comes off what a task still needs, so a session in progress leaves more room. See [Sessions](/features/sessions).
+
+## Try it
+
+Nothing you type here is kept.
+
+<Figure>
+  <div className="sm:rounded-[28px] sm:bg-base sm:p-10 sm:ring-1 sm:ring-hairline">
+    <TryDay />
+  </div>
+</Figure>
